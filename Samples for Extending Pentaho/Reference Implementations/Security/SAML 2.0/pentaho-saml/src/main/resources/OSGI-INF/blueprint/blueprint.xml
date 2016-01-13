@@ -1,0 +1,679 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:security="http://www.springframework.org/schema/security"
+           xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+           xsi:schemaLocation="
+                http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+                http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+                http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0 http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.1.0.xsd"
+           default-timeout="20000"
+           default-activation="lazy">
+
+  <!-- ================================================================================================== -->
+  <!-- CONFIG SETTINGS                                                                                    -->
+  <!-- ================================================================================================== -->
+
+  <cm:property-placeholder persistent-id="pentaho.saml" update-strategy="reload">
+    <cm:default-properties>
+      <cm:property name="saml.id" value="saml" /> <!-- used in security.properties -->
+
+      <!--
+        IMPORTANT NOTE: we are *not* enabling IDP discovery, as that would add an extra layer of complexity to an
+        already complex POC of having SMAL auth served via osgi bridge into a spring security 2 environment
+       -->
+      <cm:property name="saml.discovery.idp.enabled" value="false" />
+      <cm:property name="saml.idp.selection.jsp" value="N/A" /> <!-- idp-discovery jsp not implemented -->
+
+      <!-- END IMPORTANT NOTE -->
+
+      <cm:property name="saml.valid.response.interval.in.secs" value="86400" /> <!-- 1 day in secs -->
+
+      <!-- ========================== -->
+      <!-- metadata providers         -->
+      <!-- ========================== -->
+
+      <!-- 3rd party identification provider metadata -->
+      <cm:property name="saml.idp.url" value="http://idp.ssocircle.com" /> <!-- we are defaulting directly to this idp url -->
+
+      <!-- Best practice is to have only one of the following 3 enabled; -->
+      <!-- if none is set (also possible), then we will fallback to a default metadata bundled in the jar file -->
+      <!-- if more than 1 is set, the first one holding a *valid* metadata resource path will be the one that will get used -->
+      <cm:property name="saml.idp.metadata.url" value="" />
+      <cm:property name="saml.idp.metadata.filesystem" value="" />
+      <cm:property name="saml.idp.metadata.classpath" value="" />
+
+      <!-- fallback initialization with default classpath bundled sp metadata -->
+      <cm:property name="saml.idp.metadata.classpath.fallback" value="/metadata/idp/ssocircle-idp-metadata.xml" />
+
+      <cm:property name="saml.idp.metadata.url.timeout.loading.in.ms" value="20000" />
+
+      <!-- service provider metadata -->
+      <!-- PLEASE NOTE: entityId is case-sensitive -->
+      <cm:property name="saml.sp.metadata.entityId" value="pentaho" />
+
+      <!-- Best practice is to have only one of the following 3 enabled; -->
+      <!-- if none is set (also possible), then we will fallback to a default metadata bundled in the jar file -->
+      <!-- if more than 1 is set, the first one holding a *valid* metadata resource path will be the one that will get used -->
+      <cm:property name="saml.sp.metadata.url" value="" />
+      <cm:property name="saml.sp.metadata.filesystem" value="" />
+      <cm:property name="saml.sp.metadata.classpath" value="" />
+
+      <!-- fallback initialization with default classpath bundled sp metadata -->
+      <cm:property name="saml.sp.metadata.classpath.fallback" value="/metadata/sp/pentaho-ssocircle-dev-sp.xml" />
+
+      <!-- =================================== -->
+      <!-- user attributes mapped to roles     -->
+      <!-- =================================== -->
+
+      <!-- SAML Credentials include a user, but it can also include a list of attributes for that user; -->
+      <!-- One such attribute can hold within it a list of values which we can correlate to Pentaho Roles -->
+      <cm:property name="saml.role.related.user.attribute.name" value="Pentaho Role" />
+
+      <!-- (optional) some attribute values may come with a prefix that allows those to be identified between separate contexts -->
+      <!-- Examples: 'Pentaho:Report Author', 'Zendesk:CTools Support', 'Office365:Contributor C1', 'Pentaho:Authenticated', ... -->
+      <cm:property name="saml.role.related.user.attribute.prefix" value="Pentaho:" />
+
+      <!-- ========================== -->
+      <!-- certificates keystore      -->
+      <!-- ========================== -->
+
+      <!-- Best practice is to have only one of the following 3 enabled; -->
+      <!-- if none is set (also possible), then we will fallback to a default keystore bundled in the jar file -->
+      <!-- if more than 1 is set, the first one holding a *valid* keystore resource path will be the one that will get used -->
+      <cm:property name="saml.keystore.url" value="" />
+      <cm:property name="saml.keystore.filesystem" value="" />
+      <cm:property name="saml.keystore.classpath" value="" />
+      <cm:property name="saml.keystore.classpath.fallback" value="/security/keystore.jks" />
+
+      <!-- password to access the keystore, or empty for no password -->
+      <cm:property name="saml.keystore.password" value="nalle123" />  <!-- default -->
+
+      <!-- comma-separated list of 'username<saml.username.password.delimiter.char>password' used to access private keys -->
+      <cm:property name="saml.keystore.private.username.passwords" value="apollo:nalle123" /> <!-- default -->
+
+      <!-- delimiter char to be used in the comma-separated list of 'username<saml.username.password.delimiter.char>password' -->
+      <cm:property name="saml.username.password.delimiter.char" value=":" /> <!-- default -->
+
+      <!-- default key -->
+      <cm:property name="saml.keystore.default.key" value="apollo" /> <!-- default -->
+
+      <!-- ========================== -->
+      <!-- logout settings            -->
+      <!-- ========================== -->
+
+      <cm:property name="logout.redirect.url" value="/platform/logout" />
+
+      <!-- SAML best practices advise that all incoming/outgoing logout requests should be signed.
+           ( SSOCircle.com, however, does not sign Single Logout requests ) -->
+      <cm:property name="ensure.incoming.logout.request.signed" value="false" />
+      <cm:property name="ensure.outgoing.logout.request.signed" value="true" />
+      <cm:property name="ensure.outgoing.logout.response.signed" value="true" />
+
+      <!-- one-of: true | false -->
+      <!-- Local Logout: terminates only the local session and doesn't affect neither session at IDP, nor sessions at
+          other SPs where user logged in using single sign-on. -->
+      <!-- Global Logout (a.k.a. Single Logout): terminates both session at the current SP, the IDP session and sessions
+           at other SPs connected to the same IDP session. Global logout (a.k.a. Single Logout) can be initialized from
+           any of the participating SPs or from the IdP itself. -->
+      <!-- Important Note: not all IdPs support Global Logout (a.k.a. Single Logout)! Please check with your chosen IdP
+           if this is a supported feature. -->
+      <!-- Examples: SSOCircle.com supports Single Logout; Okta.com does not (http://developer.okta.com/docs/guides/oan_guidance.html) -->
+      <cm:property name="use.global.logout.strategy" value="true" />
+
+      <!-- one-of: saml | jdbc | memory -->
+      <!-- for authorization.providers other than 'saml', we'll look for published
+          UserDetailsService/IUserRoleListService ones ( even if these are non-osgi ones )  -->
+      <cm:property name="authorization.provider" value="saml" />
+    </cm:default-properties>
+  </cm:property-placeholder>
+
+
+
+  <!-- ================================================================================================== -->
+  <!-- SPRING 4 PROXY WRAPPING REQUESTS                                                                   -->
+  <!-- ================================================================================================== -->
+
+  <service auto-export="interfaces">
+    <bean class="org.pentaho.platform.proxy.impl.ProxyRequestRegistration">
+      <argument value="org.springframework.security.core.GrantedAuthority" />
+    </bean>
+  </service>
+
+  <service auto-export="interfaces">
+    <bean class="org.pentaho.platform.proxy.impl.ProxyRequestRegistration">
+      <argument value="org.springframework.security.core.userdetails.UserDetailsService" />
+    </bean>
+  </service>
+
+  <service auto-export="interfaces">
+    <bean class="org.pentaho.platform.proxy.impl.ProxyRequestRegistration">
+      <argument value="org.springframework.security.authentication.AuthenticationProvider" />
+    </bean>
+  </service>
+
+  <service auto-export="interfaces">
+    <bean class="org.pentaho.platform.proxy.impl.ProxyRequestRegistration">
+      <argument value="javax.servlet.Filter" />
+    </bean>
+  </service>
+
+  <service auto-export="all-classes">
+    <bean class="org.pentaho.platform.proxy.impl.ProxyRequestRegistration">
+      <argument value="org.springframework.security.web.AuthenticationEntryPoint" />
+    </bean>
+  </service>
+
+  <!-- ================================================================================================== -->
+  <!-- SPRING 4 PROXY GENERAL INTERFACE EXPORTS                                                           -->
+  <!-- ================================================================================================== -->
+
+  <service ref="samlEntryPoint" interface="org.springframework.security.web.AuthenticationEntryPoint">
+    <service-properties><entry key="providerName" value="${saml.id}.authentication.entry.point" /></service-properties>
+  </service>
+
+  <service ref="samlEntryPoint" interface="javax.servlet.Filter">
+    <service-properties><entry key="providerName" value="${saml.id}.filter.entry.point" /></service-properties>
+  </service>
+
+  <service ref="samlDiscovery" interface="javax.servlet.Filter">
+    <service-properties><entry key="providerName" value="${saml.id}.filter.idp.discovery" /></service-properties>
+  </service>
+
+  <service ref="samlMetadataGeneratorFilter" interface="javax.servlet.Filter">
+    <service-properties><entry key="providerName" value="${saml.id}.filter.metadata.generator" /></service-properties>
+  </service>
+
+  <service ref="metadataDisplayFilter" interface="javax.servlet.Filter">
+    <service-properties><entry key="providerName" value="${saml.id}.filter.metadata.display" /></service-properties>
+  </service>
+
+  <service ref="samlWebSSOProcessingFilter" interface="javax.servlet.Filter">
+    <service-properties><entry key="providerName" value="${saml.id}.filter.websso.processing" /></service-properties>
+  </service>
+
+  <service ref="samlWebSSOHoKProcessingFilter" interface="javax.servlet.Filter">
+    <service-properties><entry key="providerName" value="${saml.id}.filter.websso.hok.processing" /></service-properties>
+  </service>
+
+  <service ref="samlLogoutFilter" interface="javax.servlet.Filter">
+    <service-properties><entry key="providerName" value="${saml.id}.filter.logout" /></service-properties>
+  </service>
+
+  <service ref="samlSingleLogoutFilter" interface="javax.servlet.Filter">
+    <service-properties><entry key="providerName" value="${saml.id}.filter.single.logout" /></service-properties>
+  </service>
+
+
+  <!-- ================================== -->
+  <!-- AUTHENTICATION INTERFACE EXPORTS   -->
+  <!-- ================================== -->
+
+  <service ref="samlAuthenticationProvider" interface="org.springframework.security.authentication.AuthenticationProvider">
+    <service-properties><entry key="providerName" value="${saml.id}" /></service-properties>
+  </service>
+
+  <service ref="samlUserDetailsService" interface="org.springframework.security.core.userdetails.UserDetailsService">
+    <service-properties><entry key="providerName" value="${saml.id}" /></service-properties>
+  </service>
+
+  <service ref="samlUserRoleListService" interface="org.pentaho.platform.api.engine.IUserRoleListService">
+    <service-properties><entry key="providerName" value="${saml.id}" /></service-properties>
+  </service>
+
+  <!-- ==================================================================== -->
+  <!-- SAML AUTHORIZATION                                                   -->
+  <!-- ==================================================================== -->
+
+  <bean id="samlUserDetailsService" class="org.pentaho.platform.spring.security.saml.groups.PentahoSamlUserGroupsDetailsService" activation="eager">
+    <property name="roleRelatedUserAttributeName" value="${saml.role.related.user.attribute.name}" />
+    <property name="roleRelatedAttributePrefix" value="${saml.role.related.user.attribute.prefix}" />
+    <property name="tenantedPrincipleNameResolver">
+      <bean class="org.pentaho.platform.security.userroledao.DefaultTenantedPrincipleNameResolver"/>
+    </property>
+  </bean>
+
+  <bean id="samlUserRoleListService" class="org.pentaho.platform.spring.security.saml.groups.PentahoSamlUserGroupUserRoleDetailsService" activation="eager">
+    <argument ref="samlUserDetailsService" />
+  </bean>
+
+  <service auto-export="interfaces">
+    <service-properties><entry key="name" value="${saml.id}.user.map" /></service-properties>
+    <bean class="java.util.HashMap" />
+  </service>
+
+  <!-- ================================================================================================== -->
+  <!-- PENTAHO-SPRING-SECURITY-SAML AUTHENTICATION / AUTHORIZATION                                        -->
+  <!-- ================================================================================================== -->
+
+  <!-- AuthenticationManager defined in applicationContext-spring-security-saml.xml -->
+  <bean id="samlAuthenticationManager" class="org.pentaho.platform.spring.security.saml.PentahoAuthenticationManagerDelegate" activation="eager">
+    <argument value="true" />
+  </bean>
+
+  <!-- SAML Authentication Provider responsible for validating received SAML messages -->
+  <bean id="samlAuthenticationProvider" class="org.pentaho.platform.spring.security.saml.PentahoSamlAuthenticationProvider"
+        init-method="afterPropertiesSet" depends-on="pentahoSamlBootstrap" activation="eager">
+    <property name="userDetails"  ref="userDetails" />
+    <property name="samlLogger"   ref="samlLogger" />
+    <property name="consumer"     ref="webSSOprofileConsumer" />
+    <property name="hokConsumer"  ref="hokWebSSOprofileConsumer" />
+  </bean>
+
+  <bean id="userDetails" class="org.pentaho.platform.spring.security.saml.PentahoSamlUserDetailsService" activation="eager">
+    <argument value="${authorization.provider}" /> <!-- use the UserDetailsService published with this providerName -->
+    <property name="samlUserDetailsService" ref="samlUserDetailsService" />
+    <property name="samlId" value="${saml.id}" />
+  </bean>
+
+  <bean id="userRoleList" class="org.pentaho.platform.spring.security.saml.PentahoSamlUserRoleDetailsService" activation="eager">
+    <argument value="${authorization.provider}" /> <!-- use the UserRoleListService published with this providerName -->
+  </bean>
+
+  <!-- ================================================================================================== -->
+  <!-- SAML INIT / CONTEXT PROVIDER                                                                       -->
+  <!-- ================================================================================================== -->
+
+
+  <!-- Initialization of of OpenSAML library via SAMLBootstrap, with a ESAPI sys-prop initializer  -->
+  <bean id="pentahoSamlBootstrap" class="org.pentaho.platform.spring.security.saml.PentahoSamlBootstrap" init-method="bootstrap" />
+
+  <!-- Provider of default SAML Context -->
+  <bean id="contextProvider" class="org.springframework.security.saml.context.SAMLContextProviderImpl" init-method="afterPropertiesSet">
+    <property name="metadata"    ref="metadata" />
+    <property name="keyManager"  ref="keyManager" />
+  </bean>
+
+
+  <!-- ================================================================================================== -->
+  <!-- SPRING-SECURITY-SAML FILTERS / HANDLERS                                                            -->
+  <!-- ================================================================================================== -->
+
+
+  <!-- Entry point to initialize authentication, default values taken from properties file -->
+  <bean id="samlEntryPoint" class="org.springframework.security.saml.SAMLEntryPoint"
+        depends-on="pentahoSamlBootstrap" init-method="afterPropertiesSet">
+    <property name="defaultProfileOptions">
+      <bean class="org.springframework.security.saml.websso.WebSSOProfileOptions">
+        <property name="includeScoping" value="false"/>
+      </bean>
+    </property>
+    <property name="webSSOprofile" ref="webSSOprofile" />
+    <property name="webSSOprofileECP" ref="ecpprofile" />
+    <property name="samlLogger" ref="samlLogger" />
+    <property name="samlDiscovery" ref="samlDiscovery" />
+    <property name="contextProvider" ref="contextProvider" />
+    <property name="metadata" ref="metadata" />
+    <!-- the platform's filterChainProxy applies CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON -->
+    <!--<property name="filterProcessesUrl" value="/saml/login" />-->
+    <property name="filterProcessesUrl" value="/Login" />
+  </bean>
+
+  <!-- Processing filter for WebSSO profile messages -->
+  <bean id="samlWebSSOProcessingFilter" class="org.springframework.security.saml.SAMLProcessingFilter" init-method="afterPropertiesSet">
+    <property name="authenticationManager" ref="samlAuthenticationManager"/>
+    <property name="authenticationSuccessHandler" ref="successRedirectHandler"/>
+    <property name="authenticationFailureHandler" ref="failureRedirectHandler"/>
+    <property name="SAMLProcessor" ref="processor" />
+    <property name="contextProvider" ref="contextProvider" />
+    <!-- the platform's filterChainProxy applies CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON -->
+    <property name="filterProcessesUrl" value="/saml/SSO" />
+  </bean>
+
+  <!-- Processing filter for WebSSO Holder-of-Key profile -->
+  <bean id="samlWebSSOHoKProcessingFilter" class="org.springframework.security.saml.SAMLWebSSOHoKProcessingFilter" init-method="afterPropertiesSet">
+    <property name="authenticationManager" ref="samlAuthenticationManager"/>
+    <property name="authenticationSuccessHandler" ref="successRedirectHandler"/>
+    <property name="authenticationFailureHandler" ref="failureRedirectHandler"/>
+    <property name="SAMLProcessor" ref="processor" />
+    <property name="contextProvider" ref="contextProvider" />
+    <!-- the platform's filterChainProxy applies CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON -->
+    <property name="filterProcessesUrl" value="/saml/SSOHoK" />
+  </bean>
+
+  <!-- Override default logout processing filter with the one processing SAML messages -->
+  <bean id="samlLogoutFilter" class="org.pentaho.platform.spring.security.saml.logout.PentahoSamlLogoutFilter" init-method="afterPropertiesSet">
+    <argument ref="successLogoutHandler"/>
+    <argument>
+      <list value-type="org.springframework.security.web.authentication.logout.LogoutHandler">
+        <ref component-id="logoutHandler" />
+      </list>
+    </argument>
+    <argument>
+      <list value-type="org.springframework.security.web.authentication.logout.LogoutHandler">
+        <ref component-id="logoutHandler" />
+      </list>
+    </argument>
+    <property name="useGlobalLogoutStrategy" value="${use.global.logout.strategy}" />
+    <property name="samlLogger" ref="samlLogger" />
+    <property name="profile" ref="logoutprofile" />
+    <property name="contextProvider" ref="contextProvider" />
+    <property name="filterProcessesUrl" value="/Logout" />
+  </bean>
+
+  <!-- Filter processing incoming logout messages -->
+  <!-- First argument determines URL user will be redirected to after successful global logout -->
+  <bean id="samlSingleLogoutFilter" class="org.pentaho.platform.spring.security.saml.logout.PentahoSamlLogoutProcessingFilter" init-method="afterPropertiesSet">
+    <argument ref="successLogoutHandler"/>
+    <argument>
+      <list value-type="org.springframework.security.web.authentication.logout.LogoutHandler">
+        <ref component-id="pentahoSingleLogoutHandler" />
+        <ref component-id="singleLogoutHandler" />
+      </list>
+    </argument>
+    <property name="samlLogger" ref="samlLogger" />
+    <property name="SAMLProcessor" ref="processor" />
+    <property name="logoutProfile" ref="logoutprofile" />
+    <property name="contextProvider" ref="contextProvider" />
+    <property name="filterProcessesUrl" value="/saml/SingleLogout" />
+  </bean>
+
+  <!-- IDP Discovery Service -->
+  <bean id="samlDiscovery" class="org.springframework.security.saml.SAMLDiscovery" init-method="afterPropertiesSet" depends-on="pentahoSamlBootstrap">
+    <property name="idpSelectionPath" value="${saml.idp.selection.jsp}"/>
+    <property name="contextProvider" ref="contextProvider" />
+    <property name="samlEntryPoint" ref="samlEntryPoint" />
+    <property name="metadata" ref="metadata" />
+  </bean>
+
+  <!-- Filter automatically generates default SP metadata -->
+  <bean id="samlMetadataGeneratorFilter" class="org.springframework.security.saml.metadata.MetadataGeneratorFilter" init-method="afterPropertiesSet">
+    <argument ref="metadataGenerator" />
+    <property name="manager" ref="metadata" />
+    <property name="displayFilter" ref="metadataDisplayFilter" />
+  </bean>
+
+  <!-- The filter is waiting for connections on URL suffixed with filterSuffix and presents SP metadata there -->
+  <bean id="metadataDisplayFilter" class="org.springframework.security.saml.metadata.MetadataDisplayFilter" init-method="afterPropertiesSet">
+    <property name="manager" ref="metadata" />
+    <property name="contextProvider" ref="contextProvider" />
+    <property name="keyManager" ref="keyManager" />
+  </bean>
+
+
+  <!-- ================================= -->
+  <!-- SPRING-SECURITY-SAML HANDLERS     -->
+  <!-- ================================= -->
+
+
+  <!-- Handler deciding where to redirect user after successful login -->
+  <bean id="successRedirectHandler" class="org.pentaho.platform.spring.security.saml.PentahoSamlAuthenticationSuccessHandler">
+    <property name="defaultTargetUrl" value="/index.jsp"/>
+  </bean>
+
+  <!-- Handler deciding where to redirect user after failed login -->
+  <bean id="failureRedirectHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+    <property name="useForward" value="true"/>
+    <property name="defaultFailureUrl" value="/error.jsp"/>
+  </bean>
+
+  <!-- Handler for successful logout -->
+  <bean id="successLogoutHandler" class="org.pentaho.platform.spring.security.saml.logout.PentahoSamlSuccessLogoutHandler">
+    <property name="defaultTargetUrl" value="${logout.redirect.url}"/>
+  </bean>
+
+  <!-- Logout handler terminating local session -->
+  <bean id="logoutHandler" class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler">
+    <property name="invalidateHttpSession" value="false"/>
+  </bean>
+
+  <!-- Logout handler terminating global session -->
+  <bean id="singleLogoutHandler" class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler">
+    <property name="invalidateHttpSession" value="true"/>
+  </bean>
+
+  <!-- Logout handler terminating global session -->
+  <bean id="pentahoSingleLogoutHandler" class="org.pentaho.platform.spring.security.saml.logout.PentahoSamlSingleLogoutHandler" />
+
+
+  <!-- ================================================================================================== -->
+  <!-- SPRING-SECURITY-SAML KEY MANAGER                                                                   -->
+  <!-- ================================================================================================== -->
+
+  <bean id="keystoreResourceFactory" class="org.pentaho.platform.spring.security.saml.resources.KeystoreResourceFactory">
+    <argument>
+      <map key-type="java.lang.String" value-type="java.lang.String">
+        <entry key="org.springframework.core.io.UrlResource" value="${saml.keystore.url}" />
+        <entry key="org.springframework.core.io.FileSystemResource" value="${saml.keystore.filesystem}" />
+        <entry key="org.springframework.core.io.ClassPathResource" value="${saml.keystore.classpath}" />
+      </map>
+    </argument>
+    <argument value="${saml.keystore.classpath.fallback}" />
+  </bean>
+
+  <!-- Central storage of cryptographic keys -->
+  <bean id="keyManager" class="org.springframework.security.saml.key.JKSKeyManager">
+    <argument type="org.springframework.core.io.Resource">
+      <bean factory-ref="keystoreResourceFactory" factory-method="factoryResource" />
+    </argument>
+    <argument type="java.lang.String" value="${saml.keystore.password}"/>
+    <argument>
+      <bean factory-ref="privateUsernamePasswordMap" factory-method="toResourceMap" />
+    </argument>
+    <argument type="java.lang.String" value="${saml.keystore.default.key}"/>
+  </bean>
+
+  <bean id="privateUsernamePasswordMap" class="org.pentaho.platform.spring.security.saml.resources.CommaSeparatedStringResources">
+    <argument value="${saml.keystore.private.username.passwords}" />
+    <property name="inResourceDelimiterChar" value="${saml.username.password.delimiter.char}" />
+  </bean>
+
+  <bean id="pentahoSamlBootstrapClass" factory-ref="pentahoSamlBootstrap" factory-method="getClass" />
+
+
+
+  <!-- ================================================================================================== -->
+  <!-- SPRING-SECURITY-SAML METADATA GENERATOR / PROCESSOR                                                -->
+  <!-- ================================================================================================== -->
+
+
+  <bean id="metadataGenerator" class="org.springframework.security.saml.metadata.MetadataGenerator">
+    <property name="entityId" value="${saml.sp.metadata.entityId}"/>
+    <property name="extendedMetadata">
+      <bean class="org.springframework.security.saml.metadata.ExtendedMetadata">
+        <property name="idpDiscoveryEnabled" value="${saml.discovery.idp.enabled}"/>
+        <property name="requireLogoutRequestSigned" value="${ensure.incoming.logout.request.signed}"/>
+      </bean>
+    </property>
+    <property name="keyManager" ref="keyManager" />
+    <property name="samlEntryPoint" ref="samlEntryPoint" />
+    <property name="samlWebSSOFilter" ref="samlWebSSOProcessingFilter" />
+    <property name="samlWebSSOHoKFilter" ref="samlWebSSOHoKProcessingFilter" />
+    <property name="samlLogoutProcessingFilter" ref="samlSingleLogoutFilter" />
+  </bean>
+
+
+  <bean id="spResourceFactory" class="org.pentaho.platform.spring.security.saml.resources.MetadataResourceFactory">
+    <argument>
+      <map key-type="java.lang.String" value-type="java.lang.String">
+        <entry key="org.opensaml.util.resource.HttpResource" value="${saml.sp.metadata.url}" />
+        <entry key="org.opensaml.util.resource.FilesystemResource" value="${saml.sp.metadata.filesystem}" />
+        <entry key="org.opensaml.util.resource.ClasspathResource" value="${saml.sp.metadata.classpath}" />
+      </map>
+    </argument>
+    <argument value="${saml.sp.metadata.classpath.fallback}" />
+  </bean>
+
+  <bean id="idpResourceFactory" class="org.pentaho.platform.spring.security.saml.resources.MetadataResourceFactory">
+    <argument>
+      <map key-type="java.lang.String" value-type="java.lang.String">
+        <entry key="org.opensaml.util.resource.HttpResource" value="${saml.idp.metadata.url}" />
+        <entry key="org.opensaml.util.resource.FilesystemResource" value="${saml.idp.metadata.filesystem}" />
+        <entry key="org.opensaml.util.resource.ClasspathResource" value="${saml.idp.metadata.classpath}" />
+      </map>
+    </argument>
+    <argument value="${saml.idp.metadata.classpath.fallback}" />
+  </bean>
+
+  <!-- MetadataManager configuration - paths to metadata of IDPs and SP's  -->
+  <bean id="metadata" class="org.springframework.security.saml.metadata.CachingMetadataManager" depends-on="pentahoSamlBootstrap">
+    <argument>
+      <list>
+        <!-- sp metadata with extended metadata -->
+        <bean class="org.springframework.security.saml.metadata.ExtendedMetadataDelegate">
+          <argument>
+            <bean class="org.opensaml.saml2.metadata.provider.ResourceBackedMetadataProvider">
+              <argument>
+                <bean class="java.util.Timer"/>
+              </argument>
+              <argument>
+                <bean factory-ref="spResourceFactory" factory-method="factoryResource" />
+              </argument>
+              <property name="parserPool" ref="parserPool"/>
+            </bean>
+          </argument>
+          <argument>
+            <bean class="org.springframework.security.saml.metadata.ExtendedMetadata">
+              <property name="idpDiscoveryEnabled" value="${saml.discovery.idp.enabled}"/>
+              <property name="requireLogoutRequestSigned" value="${ensure.incoming.logout.request.signed}"/>
+            </bean>
+          </argument>
+        </bean>
+
+        <!-- idp metadata -->
+        <bean class="org.springframework.security.saml.metadata.ExtendedMetadataDelegate">
+          <argument>
+            <bean class="org.opensaml.saml2.metadata.provider.ResourceBackedMetadataProvider">
+              <argument>
+                <bean class="java.util.Timer"/>
+              </argument>
+              <argument>
+                <bean factory-ref="idpResourceFactory" factory-method="factoryResource" />
+              </argument>
+              <property name="parserPool" ref="parserPool"/>
+            </bean>
+          </argument>
+          <argument>
+            <bean class="org.springframework.security.saml.metadata.ExtendedMetadata">
+              <property name="idpDiscoveryEnabled" value="${saml.discovery.idp.enabled}"/>
+              <property name="requireLogoutRequestSigned" value="${ensure.outgoing.logout.request.signed}"/>
+              <property name="requireLogoutResponseSigned" value="${ensure.outgoing.logout.response.signed}"/>
+            </bean>
+          </argument>
+        </bean>
+
+      </list>
+    </argument>
+    <property name="keyManager" ref="keyManager" />
+    <property name="defaultIDP" value="${saml.idp.url}" />
+  </bean>
+
+
+  <!-- ================================================================================================== -->
+  <!--  SPRING-SECURITY-SAML PROCESSORS, CONSUMERS, ENCODERS AND DECODERS                                 -->
+  <!-- ================================================================================================== -->
+
+
+  <!-- Class loading incoming SAML messages from httpRequest stream -->
+  <bean id="processor" class="org.springframework.security.saml.processor.SAMLProcessorImpl">
+    <argument>
+      <list>
+        <ref component-id="redirectBinding"/>
+        <ref component-id="postBinding"/>
+        <ref component-id="artifactBinding"/>
+        <ref component-id="soapBinding"/>
+        <ref component-id="paosBinding"/>
+      </list>
+    </argument>
+  </bean>
+
+  <!-- SAML 2.0 WebSSO Assertion Consumer -->
+  <bean id="webSSOprofileConsumer" class="org.springframework.security.saml.websso.WebSSOProfileConsumerImpl">
+    <property name="responseSkew" value="${saml.valid.response.interval.in.secs}" />
+    <property name="metadata" ref="metadata" />
+    <property name="processor" ref="processor" />
+  </bean>
+
+  <!-- SAML 2.0 Holder-of-Key WebSSO Assertion Consumer -->
+  <bean id="hokWebSSOprofileConsumer" class="org.springframework.security.saml.websso.WebSSOProfileConsumerHoKImpl">
+    <property name="responseSkew" value="${saml.valid.response.interval.in.secs}" />
+    <property name="metadata" ref="metadata" />
+    <property name="processor" ref="processor" />
+  </bean>
+
+  <!-- SAML 2.0 Web SSO profile -->
+  <bean id="webSSOprofile" class="org.springframework.security.saml.websso.WebSSOProfileImpl">
+    <property name="responseSkew" value="${saml.valid.response.interval.in.secs}" />
+    <property name="metadata" ref="metadata" />
+    <property name="processor" ref="processor" />
+  </bean>
+
+  <!-- SAML 2.0 Holder-of-Key Web SSO profile -->
+  <bean id="hokWebSSOProfile" class="org.springframework.security.saml.websso.WebSSOProfileConsumerHoKImpl">
+    <property name="responseSkew" value="${saml.valid.response.interval.in.secs}" />
+    <property name="metadata" ref="metadata" />
+    <property name="processor" ref="processor" />
+  </bean>
+
+  <!-- SAML 2.0 ECP profile -->
+  <bean id="ecpprofile" class="org.springframework.security.saml.websso.WebSSOProfileECPImpl">
+    <property name="responseSkew" value="${saml.valid.response.interval.in.secs}" />
+    <property name="metadata" ref="metadata" />
+    <property name="processor" ref="processor" />
+  </bean>
+
+  <!-- SAML 2.0 Logout Profile -->
+  <bean id="logoutprofile" class="org.springframework.security.saml.websso.SingleLogoutProfileImpl">
+    <property name="responseSkew" value="${saml.valid.response.interval.in.secs}" />
+    <property name="metadata" ref="metadata" />
+    <property name="processor" ref="processor" />
+  </bean>
+
+  <!-- Bindings, encoders and decoders used for creating and parsing messages -->
+  <bean id="postBinding" class="org.springframework.security.saml.processor.HTTPPostBinding">
+    <argument ref="parserPool"/>
+    <argument ref="velocityEngine"/>
+  </bean>
+
+  <bean id="redirectBinding" class="org.springframework.security.saml.processor.HTTPRedirectDeflateBinding">
+    <argument ref="parserPool"/>
+  </bean>
+
+  <bean id="artifactBinding" class="org.springframework.security.saml.processor.HTTPArtifactBinding">
+    <argument ref="parserPool"/>
+    <argument ref="velocityEngine"/>
+    <argument>
+      <bean class="org.springframework.security.saml.websso.ArtifactResolutionProfileImpl">
+        <argument>
+          <bean class="org.apache.commons.httpclient.HttpClient">
+            <argument>
+              <bean class="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager"/>
+            </argument>
+          </bean>
+        </argument>
+        <property name="processor">
+          <bean class="org.springframework.security.saml.processor.SAMLProcessorImpl">
+            <argument ref="soapBinding"/>
+          </bean>
+        </property>
+      </bean>
+    </argument>
+  </bean>
+
+  <bean id="soapBinding" class="org.springframework.security.saml.processor.HTTPSOAP11Binding">
+    <argument ref="parserPool"/>
+  </bean>
+
+  <bean id="paosBinding" class="org.springframework.security.saml.processor.HTTPPAOS11Binding">
+    <argument ref="parserPool"/>
+  </bean>
+
+  <!-- Initialization of the velocity engine -->
+  <bean id="velocityEngine" class="org.springframework.security.saml.util.VelocityFactory" factory-method="getEngine"/>
+
+  <!-- XML parser pool needed for OpenSAML parsing -->
+  <bean id="parserPool" class="org.opensaml.xml.parse.StaticBasicParserPool" init-method="initialize">
+    <property name="builderFeatures">
+      <map>
+        <entry key="http://apache.org/xml/features/dom/defer-node-expansion" value="false"/>
+      </map>
+    </property>
+  </bean>
+
+  <bean id="parserPoolHolder" class="org.springframework.security.saml.parser.ParserPoolHolder">
+    <property name="parserPool" ref="parserPool" />
+  </bean>
+
+  <bean id="samlLogger" class="org.springframework.security.saml.log.SAMLDefaultLogger" />
+
+</blueprint>

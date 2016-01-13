@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>pentaho</groupId>
+  <artifactId>pentaho-saml</artifactId>
+  <version>6.1-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <localCopy>true</localCopy>
+    </snapshot>
+    <lastUpdated>20151029114806</lastUpdated>
+    <snapshotVersions>
+      <snapshotVersion>
+        <classifier>pentaho-saml-config</classifier>
+        <extension>cfg</extension>
+        <value>6.1-SNAPSHOT</value>
+        <updated>20151029114806</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+</metadata>

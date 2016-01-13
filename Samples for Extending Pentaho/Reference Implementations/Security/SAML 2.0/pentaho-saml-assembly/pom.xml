@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" 
+    xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+   
+  <parent>
+    <groupId>pentaho</groupId>
+    <artifactId>pentaho-authentication-provider-samples</artifactId>
+    <version>6.1-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+
+  <artifactId>pentaho-saml-sample</artifactId>
+  <version>6.1-SNAPSHOT</version>
+  <packaging>kar</packaging>
+
+  <name>Pentaho SAML Authentication Provider .kar</name>
+  <description>Pentaho SAML Authentication provider OGSi Plugin</description>
+  <url>http://www.pentaho.com/</url>
+
+
+  <build>
+
+    <finalName>${project.artifactId}-${project.version}</finalName>
+      
+    <plugins>
+
+      <plugin>
+        <groupId>org.apache.karaf.tooling</groupId>
+        <artifactId>karaf-maven-plugin</artifactId>
+        <version>${dependency.karaf.version}</version>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.6</version>
+        <executions>
+          <execution>
+            <id>package-assembly-zip</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <descriptors>
+                <descriptor>src/assembly/assembly.xml</descriptor>
+              </descriptors>
+              <appendAssemblyId>false</appendAssemblyId>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+    </plugins>
+
+  </build>
+
+</project>

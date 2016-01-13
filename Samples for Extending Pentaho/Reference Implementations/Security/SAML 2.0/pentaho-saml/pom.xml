@@ -1,0 +1,359 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>pentaho</groupId>
+    <artifactId>pentaho-authentication-provider-samples</artifactId>
+    <version>6.1-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+
+  <artifactId>pentaho-saml</artifactId>
+  <packaging>bundle</packaging>
+
+  <name>Pentaho SAML Authentication provider</name>
+  <description>Pentaho SAML Authentication provider</description>
+  <url>http://www.pentaho.com/</url>
+
+  <properties>
+
+    <dependency.opensaml.version>2.6.1</dependency.opensaml.version>  
+    <dependency.opensaml.openws.version>1.5.1</dependency.opensaml.openws.version>    
+    <dependency.opensaml.xmltooling.version>1.4.1</dependency.opensaml.xmltooling.version>
+    <dependency.org.spring.security.extensions.saml.version>1.0.1.RELEASE</dependency.org.spring.security.extensions.saml.version>
+
+  </properties>
+
+  <dependencies>
+
+    <!-- https://github.com/spring-projects/spring-security-saml/blob/1.0.1.RELEASE/core/pom.xml -->
+
+    <dependency>
+      <groupId>org.springframework.security.extensions</groupId>
+      <artifactId>spring-security-saml2-core</artifactId>
+      <version>${dependency.org.spring.security.extensions.saml.version}</version>
+      <exclusions>
+
+        <!--  spring-saml requires spring.security 3.1.2 by default; we'll use the platform's 3.1.4 -->
+        <exclusion>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-config</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-core</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-web</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>xerces</groupId>
+          <artifactId>xercesImpl</artifactId>
+        </exclusion>
+        <exclusion>
+          <!-- http://stackoverflow.com/questions/11677572/dealing-with-xerces-hell-in-java-maven -->
+          <groupId>xml-apis</groupId>
+          <artifactId>xml-apis</artifactId>
+        </exclusion>
+
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.opensaml</groupId>
+      <artifactId>opensaml</artifactId>
+      <version>${dependency.opensaml.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.velocity</groupId>
+      <artifactId>velocity</artifactId>
+      <version>${dependency.org.apache.velocity.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.beanshell</groupId>
+      <artifactId>bsh</artifactId>
+      <version>${dependency.bsh.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jdom</groupId>
+      <artifactId>jdom</artifactId>
+      <version>${dependency.jdom.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+      <version>${dependency.commons.fileupload.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>${dependency.spring.framework.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-beans</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-context</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-core</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-tx</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <!-- platform-provided dependencies -->
+
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-core</artifactId>
+      <version>${dependency.spring.security.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-web</artifactId>
+      <version>${dependency.spring.security.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>pentaho</groupId>
+      <artifactId>pentaho-platform-api</artifactId>
+      <version>${dependency.pentaho.platform.version}</version>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>dom4j</groupId>
+          <artifactId>dom4j</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>pentaho</groupId>
+          <artifactId>pentaho-actionsequence-dom</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>pentaho</groupId>
+          <artifactId>pentaho-xul-core</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>pentaho</groupId>
+      <artifactId>pentaho-platform-core</artifactId>
+      <version>${dependency.pentaho.platform.version}</version>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>pentaho</groupId>
+          <artifactId>pentaho-metadata</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>pentaho</groupId>
+          <artifactId>pentaho-cwm</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.xmlgraphics</groupId>
+          <artifactId>batik-dom</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.xmlgraphics</groupId>
+          <artifactId>batik-svggen</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>jaxen</groupId>
+          <artifactId>jaxen</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>dom4j</groupId>
+          <artifactId>dom4j</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>pentaho</groupId>
+      <artifactId>pentaho-platform-repository</artifactId>
+      <version>${dependency.pentaho.platform.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>pentaho</groupId>
+      <artifactId>pentaho-proxy-factory</artifactId>
+      <version>${dependency.pentaho.platform.version}</version>
+      <scope>compile</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>${dependency.javax.servlet.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+     <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${dependency.slf4j.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- test dependencies -->
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${dependency.junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
+      <version>${dependency.mockito.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>${dependency.slf4j-log4j12.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <finalName>${project.artifactId}-${project.version}</finalName> 
+    <plugins>
+
+      <plugin>
+        <!-- This plugin takes care of packaging the artifact as an OSGi Bundle -->
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <configuration>
+          <instructions>
+            <Bundle-SymbolicName>
+              ${project.artifactId}
+            </Bundle-SymbolicName>
+            <Export-Package>
+              org.springframework.security.providers.*;version="${project.version}",
+              org.springframework.security.saml.*;version="${project.version}",
+              org.pentaho.platform.spring.security.saml.*;version="${project.version}",
+              org.springframework.jdbc.*;version="${dependency.spring.framework.version}"
+            </Export-Package>
+            <Import-Package>
+              !javax.swing.*,
+              !com.ibm.uvm.tools.*,
+              !com.sun.crypto.provider.*,
+              !com.sun.jdmk.comm.*,
+              !com.sun.net.ssl.*,
+              !com.werken.xpath.*,
+              !org.springframework.security,
+              javax.crypto.*,
+              javax.net.*,
+              javax.security.auth.*,
+              javax.servlet.*,
+              javax.sql.*,
+              javax.xml.*,
+              org.apache.xerces.*;version="${dependency.xercesImpl.version}",
+              org.apache.xml.security.*;version="${dependency.xmlsec.version}",
+              org.pentaho.platform.api.engine.*,
+              org.pentaho.platform.api.mt.*,
+              org.pentaho.platform.api.repository2.unified.*,
+              org.pentaho.platform.engine.core.system.*,
+              org.pentaho.platform.engine.security.*,
+              org.pentaho.platform.proxy.*,
+              org.pentaho.platform.repository2.unified.jcr.*,
+              org.pentaho.platform.security.userroledao.*,
+              org.pentaho.proxy.spring4.security.*,
+              org.slf4j.*;version="${dependency.slf4j.version}",
+              org.springframework.beans.*;version="${dependency.spring.framework.version}",
+              org.springframework.core.*;version="${dependency.spring.framework.version}",
+              org.springframework.context.*;version="${dependency.spring.framework.version}",
+              org.springframework.dao.*;version="${dependency.spring.framework.version}",
+              org.springframework.security.*;version="${dependency.spring.security.version}",
+              org.springframework.transaction.*;version="${dependency.spring.security.version}",
+              org.springframework.util.*;version="${dependency.spring.framework.version}",
+              org.springframework.web.*;version="${dependency.spring.framework.version}",
+              org.xml.sax.*,
+              org.w3c.dom.*
+            </Import-Package>
+            <Private-Package>
+              schema,
+              templates,
+              bsh.*,
+              java_cup.runtime.*,
+              javax.xml.*,
+              org.apache.*,
+              org.bouncycastle.*,
+              org.jdom.*,
+              org.joda.*,
+              org.opensaml.*;-split-package:=merge-first,
+              org.owasp.*
+            </Private-Package>
+            <Include-Resource>
+              {maven-resources},
+              @spring-security-saml2-core-${dependency.org.spring.security.extensions.saml.version}.jar!/*.xml,
+              @spring-security-saml2-core-${dependency.org.spring.security.extensions.saml.version}.jar!/schema/*.xsd,
+              @opensaml-${dependency.opensaml.version}.jar!/*.xml,
+              @opensaml-${dependency.opensaml.version}.jar!/schema/*.xsd,
+              @opensaml-${dependency.opensaml.version}.jar!/schema/*.dtd,
+              @opensaml-${dependency.opensaml.version}.jar!/templates/*.vm,
+              @openws-${dependency.opensaml.openws.version}.jar!/*.xml,
+              @openws-${dependency.opensaml.openws.version}.jar!/schema/*.xsd,
+              @xmltooling-${dependency.opensaml.xmltooling.version}.jar!/*.xml,
+              @xmltooling-${dependency.opensaml.xmltooling.version}.jar!/*.properties,
+              @xmltooling-${dependency.opensaml.xmltooling.version}.jar!/schema/*.xsd,
+              @xmltooling-${dependency.opensaml.xmltooling.version}.jar!/schema/*.dtd
+            </Include-Resource>
+          </instructions>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-artifacts</id>
+            <phase>package</phase>
+            <goals>
+              <goal>attach-artifact</goal>
+            </goals>
+            <configuration>
+              <artifacts>
+                <artifact>
+                  <file>src/main/resources/cfg/pentaho.saml.cfg</file>
+                  <type>cfg</type>
+                  <classifier>pentaho-saml-config</classifier>
+                </artifact>
+              </artifacts>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+    </plugins>
+  </build>
+
+</project>
