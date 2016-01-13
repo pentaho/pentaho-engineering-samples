@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<saml2:Assertion
+    xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" ID="id131885166541164551925601144" IssueInstant="2015-10-21T09:48:27.341Z" Version="2.0">
+    <saml2:Issuer Format="urn:oasis:names:tc:SAML:2.0:nameid-format:entity">http://www.okta.com/Issuer</saml2:Issuer>
+    <saml2:Subject>
+        <saml2:NameID Format="urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress">userName</saml2:NameID>
+        <saml2:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
+            <saml2:SubjectConfirmationData NotOnOrAfter="2015-10-21T09:53:27.341Z" Recipient="http://localhost:8080/pentaho/saml/SSO"/>
+        </saml2:SubjectConfirmation>
+    </saml2:Subject>
+    <saml2:Conditions NotBefore="2015-10-21T09:43:27.341Z" NotOnOrAfter="2015-10-21T09:53:27.341Z">
+        <saml2:AudienceRestriction>
+            <saml2:Audience>pentaho</saml2:Audience>
+        </saml2:AudienceRestriction>
+    </saml2:Conditions>
+    <saml2:AuthnStatement AuthnInstant="2015-10-21T09:48:27.341Z">
+        <saml2:AuthnContext>
+            <saml2:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport</saml2:AuthnContextClassRef>
+        </saml2:AuthnContext>
+    </saml2:AuthnStatement>
+    <saml2:AttributeStatement>
+        <saml2:Attribute Name="First Name" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified">
+            <saml2:AttributeValue
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">user.firstName
+            </saml2:AttributeValue>
+        </saml2:Attribute>
+        <saml2:Attribute Name="Last Name" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified">
+            <saml2:AttributeValue
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">user.lastName
+            </saml2:AttributeValue>
+        </saml2:Attribute>
+        <saml2:Attribute Name="Email" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified">
+            <saml2:AttributeValue
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">user.email
+            </saml2:AttributeValue>
+        </saml2:Attribute>
+        <saml2:Attribute Name="Pentaho Role" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified">
+            <saml2:AttributeValue
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">GroupName Match Starts with "Pentaho:" (ignores case)
+            </saml2:AttributeValue>
+        </saml2:Attribute>
+    </saml2:AttributeStatement>
+</saml2:Assertion>

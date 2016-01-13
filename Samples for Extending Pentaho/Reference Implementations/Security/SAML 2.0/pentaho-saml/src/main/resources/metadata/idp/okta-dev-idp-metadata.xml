@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" entityID="http://www.okta.com/exk58mn1xrPYSE1lA0h7"><md:IDPSSODescriptor WantAuthnRequestsSigned="true" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol"><md:KeyDescriptor use="signing"><ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><ds:X509Data><ds:X509Certificate>MIIDpDCCAoygAwIBAgIGAVBxDNDBMA0GCSqGSIb3DQEBBQUAMIGSMQswCQYDVQQGEwJVUzETMBEG
+A1UECAwKQ2FsaWZvcm5pYTEWMBQGA1UEBwwNU2FuIEZyYW5jaXNjbzENMAsGA1UECgwET2t0YTEU
+MBIGA1UECwwLU1NPUHJvdmlkZXIxEzARBgNVBAMMCmRldi0xMjg0OTQxHDAaBgkqhkiG9w0BCQEW
+DWluZm9Ab2t0YS5jb20wHhcNMTUxMDE2MTQyNjU2WhcNMjUxMDE2MTQyNzU2WjCBkjELMAkGA1UE
+BhMCVVMxEzARBgNVBAgMCkNhbGlmb3JuaWExFjAUBgNVBAcMDVNhbiBGcmFuY2lzY28xDTALBgNV
+BAoMBE9rdGExFDASBgNVBAsMC1NTT1Byb3ZpZGVyMRMwEQYDVQQDDApkZXYtMTI4NDk0MRwwGgYJ
+KoZIhvcNAQkBFg1pbmZvQG9rdGEuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
+zrLma7kk9iXRhZroWYGuJGbR2/MpVaYQkezspAax2QtTYh6gjo2rwI4Mxo52yXECjVE9SwpVm/DD
+nfmD35YxNwEbTEYel3lDeGsAmVIh4XOCUNqk9QR+p6UXAo4aVcGrD/S3sM2MBDR8SCCnCRQ/MX8t
+RoSiu1FNm5wxNfsYAbNrwFY9ST2KYdM0Odp5L10MQ21hZNdjDkPp/3P9vsBsV7B7UkGDZ2Appxxo
+rE8naevFItJKt0lleNn1nJfAlq7L3/LTYAsWAufJD1i68raehoO5NtAcye94UGJEs/U2zp14rApy
+iV8T40dIpulBaWmEaAe6F9nq5hPMuT6QOyPJzQIDAQABMA0GCSqGSIb3DQEBBQUAA4IBAQAXnS+/
+d2r4NXFVnYqo2cMeuy59Tinf0YQqgFibziYG18hnUtU68l0YT07s4XNBhCCNZb/8mghm2jl0vuJS
+YNN2a8aVpz+eKitNrX8/YUKd1jG/ORBVF0zkY1OR9MJAmQTw4Hk092hrzbIJRHXnYtap9cQlCsSB
+k/tYwhTp2LIUQoNg+DFLSy/y8F0pJe7WphKREi8l4sv1uA/HiVtfr6mremDVnaobMF7Pm4iTLtRW
+UGGp3+7gM+a0qgX7hL3IvU2U/P3qF38OhlgPuos8KAa5PGNJmuKbwGXjVqude/M7pXDbfwdudXUQ
+NIjf0VKC2KYsA3/UTNZGxX4N3Ci+2IFi</ds:X509Certificate></ds:X509Data></ds:KeyInfo></md:KeyDescriptor><md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</md:NameIDFormat><md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</md:NameIDFormat><md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://dev-128494.oktapreview.com/app/nadev128494_pentaho_1/exk58mn1xrPYSE1lA0h7/sso/saml"/><md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://dev-128494.oktapreview.com/app/nadev128494_pentaho_1/exk58mn1xrPYSE1lA0h7/sso/saml"/></md:IDPSSODescriptor></md:EntityDescriptor>

@@ -1,0 +1,92 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+   
+  <parent>
+    <groupId>org.pentaho</groupId>
+    <artifactId>pentaho-ce-jar-parent-pom</artifactId>
+    <version>1.1.6</version>
+  </parent>
+
+  <groupId>pentaho</groupId>
+  <artifactId>pentaho-authentication-provider-samples</artifactId>
+  <version>6.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <name>Pentaho Authentication Provider Samples Base</name>
+  <description>Pentaho Authentication Provider Samples Base</description>
+  <url>http://www.pentaho.com/</url>
+
+  <properties>
+    
+    <dependency.pentaho.platform.version>${project.version}</dependency.pentaho.platform.version>
+    <dependency.karaf.version>3.0.3</dependency.karaf.version>
+
+    <!-- external dependencies -->
+
+    <dependency.batik.version>1.7</dependency.batik.version>
+    <dependency.bsh.version>2.0b4</dependency.bsh.version>
+    <dependency.commons.beanutils.version>1.7.0</dependency.commons.beanutils.version>
+    <dependency.commons.fileupload.version>1.3.1</dependency.commons.fileupload.version>
+    <dependency.javax.servlet.version>3.0.1</dependency.javax.servlet.version>
+    <dependency.jaxen.version>1.1-beta-8</dependency.jaxen.version>
+    <dependency.jdom.version>1.1</dependency.jdom.version>
+    <dependency.junit.version>4.11</dependency.junit.version>
+    <dependency.mockito.version>1.9.5</dependency.mockito.version>
+    <dependency.org.apache.velocity.version>1.7</dependency.org.apache.velocity.version>
+    <dependency.slf4j.version>1.7.3</dependency.slf4j.version>
+    <dependency.slf4j-log4j12.version>1.7.9</dependency.slf4j-log4j12.version>
+    <dependency.spring.framework.version>3.2.11.RELEASE</dependency.spring.framework.version>
+    <dependency.spring.security.version>3.1.4.RELEASE</dependency.spring.security.version>
+    <dependency.xercesImpl.version>2.11.0</dependency.xercesImpl.version>
+    <dependency.xmlsec.version>2.0.5</dependency.xmlsec.version>
+
+    <maven-bundle-plugin.version>3.0.1</maven-bundle-plugin.version>
+
+  </properties>
+
+  <build>
+
+    <finalName>${project.artifactId}</finalName>
+    <pluginManagement>
+      <plugins>
+
+        <plugin>
+          <groupId>org.apache.felix</groupId>
+          <artifactId>maven-bundle-plugin</artifactId>
+          <version>${maven-bundle-plugin.version}</version>
+          <extensions>true</extensions>
+          <configuration>
+            <instructions>
+              <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+              <Bundle-Version>${project.version}</Bundle-Version>
+            </instructions>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.karaf.tooling</groupId>
+          <artifactId>karaf-maven-plugin</artifactId>
+          <version>${dependency.karaf.version}</version>
+          <extensions>true</extensions>
+          <configuration>
+            <aggregateFeatures>true</aggregateFeatures>
+          </configuration>
+        </plugin>
+
+      </plugins>
+    </pluginManagement>
+
+  </build>
+
+  <modules>
+
+    <!-- saml bundles -->
+    <module>pentaho-saml-ss2-proxies-extension</module>
+    <module>pentaho-saml-ss4-proxies-extension</module>
+    <module>pentaho-saml</module>
+    <module>pentaho-saml-assembly</module>
+
+  </modules>
+
+</project>
