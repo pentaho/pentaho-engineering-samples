@@ -108,13 +108,31 @@ public class PentahoSamlUserDetailsService implements SAMLUserDetailsService, Us
 
     String username = credential.getNameID().getValue();
 
-    UserDetails user = loadUserByUsername( username );
+    UserDetails user = null;
+
+    // BACKLOG-6007: ensure BACKLOG-5800 remains true in a scenario of a hybrid solution where
+    // the selected Authorization provider does not hold any user information whatsoever
+
+    // Think of a scenario where a OEM has a BA-server publicly available online for demo purposes,
+    // and anyone can access it using their SalesForce.com account; In a hybrid solution
+    // ( let's think of SAML/JBDB for example ), we need to ensure the above statement still holds true
+
+    try {
+
+      user = loadUserByUsername( username );
+
+    } catch ( Throwable t ) {
+      if( !( t instanceof UsernameNotFoundException || t.getCause() instanceof UsernameNotFoundException ) ) {
+        throw t;
+      }
+    }
 
     //If the loadUserByUsername method returns null
     if ( user == null ) {
-      throw new UsernameNotFoundException( "No user found for Username '" + username + "' in UserDetailsService '"
-          + getSelectedAuthorizationProvider()
+      logger.warn( "No user found for Username '" + username + "' in UserDetailsService '" + getSelectedAuthorizationProvider()
           + "'. Please verify that the user exists in the used service and confirm that your configurations are correct." );
+
+      user = new User( username , "ignored", true, true, true, true, new ArrayList<GrantedAuthority>() );
     }
 
     //Ensure that any authenticated user gets the DefaultRole, usually "Authenticated"
