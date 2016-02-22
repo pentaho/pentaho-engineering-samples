@@ -97,6 +97,15 @@ public class PentahoSamlUserDetailsService implements SAMLUserDetailsService, Us
     if( getUserDetailsService() instanceof SAMLUserDetailsService ) {
       // inner UserDetailsService is also an implementation of SAMLUserDetailsService ? Great!
       // In that case we can also delegate any incoming loadUserBySAML() calls
+      Object userDetails = ( ( SAMLUserDetailsService ) getUserDetailsService() ).loadUserBySAML( credential );
+      if( userDetails == null ) {
+        logger.warn(
+            "Got a null from calling the method loadUserBySAML( SAMLCredential credential ) of UserDetailsService: "
+                + getUserDetailsService()
+                + ". This is an interface violation beacuse it is specified that loadUserByUsername method should never return null. Throwing a UsernameNotFoundException." );
+        throw new UsernameNotFoundException( credential.getRemoteEntityID());
+      }
+      
       return ( ( SAMLUserDetailsService ) getUserDetailsService() ).loadUserBySAML( credential );
     }
 
@@ -108,42 +117,53 @@ public class PentahoSamlUserDetailsService implements SAMLUserDetailsService, Us
 
     String username = credential.getNameID().getValue();
 
-    UserDetails user = null;
+    return loadUserByUsername( username );
+  }
 
+  @Override public UserDetails loadUserByUsername( String username ) {
+    UserDetails user;
+    
     // BACKLOG-6007: ensure BACKLOG-5800 remains true in a scenario of a hybrid solution where
     // the selected Authorization provider does not hold any user information whatsoever
 
     // Think of a scenario where a OEM has a BA-server publicly available online for demo purposes,
     // and anyone can access it using their SalesForce.com account; In a hybrid solution
     // ( let's think of SAML/JBDB for example ), we need to ensure the above statement still holds true
-
     try {
+      user = getUserDetailsService().loadUserByUsername( username );
 
-      user = loadUserByUsername( username );
-
-    } catch ( Throwable t ) {
-      if( !( t instanceof UsernameNotFoundException || t.getCause() instanceof UsernameNotFoundException ) ) {
-        throw t;
+      if( user == null) {
+        logger.warn( "Got a null from calling the method loadUserByUsername( String username ) of UserDetailsService: "
+            + getUserDetailsService()
+            + ". This is an interface violation beacuse it is specified that loadUserByUsername method should never return null. Throwing a UsernameNotFoundException." );
+        throw new UsernameNotFoundException( username );
       }
-    }
+      
+      // If the loadUserByUsername method throws UsernameNotFoundException, it means there is no user in the used
+      // UserDetailsService.
+    } catch ( UsernameNotFoundException usernameNotFoundException ) {
+      logger.warn( "No user found for Username '" + username + "' in UserDetailsService '"
+          + getSelectedAuthorizationProvider() + "'. Creating an UserDetails with Username '" + username
+          + "' and the DefaultRole. Please verify that the user exists in the used service and confirm that your configurations are correct.",
+          usernameNotFoundException );
 
-    //If the loadUserByUsername method returns null
-    if ( user == null ) {
-      logger.warn( "No user found for Username '" + username + "' in UserDetailsService '" + getSelectedAuthorizationProvider()
-          + "'. Please verify that the user exists in the used service and confirm that your configurations are correct." );
-
+      //Create the UserDetails object
       user = new User( username , "ignored", true, true, true, true, new ArrayList<GrantedAuthority>() );
     }
 
+    Collection<? extends GrantedAuthority> oldAuthorities = user.getAuthorities();
+    if( oldAuthorities == null) {
+      logger.warn( "Got a null from calling the method getAuthorities() of UserDetails: " + user
+          + ". This is an interface violation beacuse it is specified that getAuthorities() method should never return null. Considered no GrantedAuthorities for username "
+          + username );
+      oldAuthorities = new ArrayList<GrantedAuthority>();
+    }
+    
     //Ensure that any authenticated user gets the DefaultRole, usually "Authenticated"
-    Collection<? extends GrantedAuthority> authorities = ensureDefaultRole(user.getAuthorities());
+    Collection<? extends GrantedAuthority> newAuthorities = ensureDefaultRole( oldAuthorities );
 
     return new User( user.getUsername(), user.getPassword(), user.isEnabled(), user.isAccountNonExpired(),
-        user.isCredentialsNonExpired(), user.isAccountNonExpired(), authorities );
-  }
-
-  @Override public UserDetails loadUserByUsername( String s ) throws UsernameNotFoundException {
-    return getUserDetailsService().loadUserByUsername( s );
+        user.isCredentialsNonExpired(), user.isAccountNonExpired(), newAuthorities );
   }
 
   private Collection<? extends GrantedAuthority> ensureDefaultRole(

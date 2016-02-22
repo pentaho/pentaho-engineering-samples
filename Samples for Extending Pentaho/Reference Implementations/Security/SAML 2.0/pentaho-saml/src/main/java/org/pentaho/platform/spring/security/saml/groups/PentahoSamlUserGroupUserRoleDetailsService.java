@@ -4,16 +4,22 @@ import org.pentaho.platform.api.engine.IUserRoleListService;
 import org.pentaho.platform.api.mt.ITenant;
 import org.pentaho.platform.engine.core.system.PentahoSystem;
 import org.pentaho.platform.spring.security.saml.Utils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.util.Assert;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
 public class PentahoSamlUserGroupUserRoleDetailsService implements IUserRoleListService {
 
+  private static final Logger logger = LoggerFactory.getLogger( PentahoSamlUserGroupUserRoleDetailsService.class );
+  
   private List<String> systemRoles;
 
   private PentahoSamlUserGroupsDetailsService userDetailsService;
@@ -69,21 +75,37 @@ public class PentahoSamlUserGroupUserRoleDetailsService implements IUserRoleList
     return usersInRole;
   }
 
-  @Override public List<String> getRolesForUser( ITenant iTenant, String user ) {
+  @Override public List<String> getRolesForUser( ITenant iTenant, String user ) throws UsernameNotFoundException {
 
     /* iTenant is not supported */
 
     List<String> roles = new ArrayList<String>();
 
-    UserDetails userDetails = null;
+    try {
+      UserDetails userDetails = getUserDetailsService().loadUserByUsername( user );
 
-    if( ( userDetails = getUserDetailsService().loadUserByUsername( user ) ) != null  ){
-
-      for( GrantedAuthority authority : userDetails.getAuthorities() ) {
-        roles.add( authority.getAuthority() );
+      if ( userDetails == null ) {
+        logger.warn( "Got a null from calling the method loadUserByUsername( String username ) of UserDetailsService: "
+            + getUserDetailsService()
+            + ". This is an interface violation beacuse it is specified that loadUserByUsername method should never return null. Throwing a UsernameNotFoundException." );
+        throw new UsernameNotFoundException( user );
       }
-    }
 
+      Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+
+      if ( authorities != null ) {
+        for ( GrantedAuthority authority : authorities ) {
+          roles.add( authority.getAuthority() );
+        }
+      } else {
+        logger.warn( "Got a null from calling the method getAuthorities() of UserDetails: " + userDetails
+            + ". This is an interface violation beacuse it is specified that getAuthorities() method should never return null. Considered no GrantedAuthorities for username "
+            + user );
+      }
+
+    } catch ( UsernameNotFoundException usernameNotFoundException ) {
+      // The user does not exist in the UserDetailsService. Do nothing and return an empty list of roles
+    }
     return roles;
   }
 

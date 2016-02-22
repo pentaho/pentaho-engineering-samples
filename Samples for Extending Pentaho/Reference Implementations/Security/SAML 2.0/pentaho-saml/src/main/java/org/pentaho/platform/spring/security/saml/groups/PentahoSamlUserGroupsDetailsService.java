@@ -60,10 +60,10 @@ public class PentahoSamlUserGroupsDetailsService implements SAMLUserDetailsServi
 
     String username = credential.getNameID().getValue();
 
-    // check the userDetailsMap for a UserDetails stored for this username. If we have one already, use it
-    UserDetails userDetails = loadUserByUsername( username );
-
-    if( userDetails == null ){
+    try {
+      // check the userDetailsMap for a UserDetails stored for this username. If we have one already, use it
+      return loadUserByUsername( username );
+    } catch ( UsernameNotFoundException usernameNotFoundException ) {
 
       // no UserDetails found = new user coming in, create a UserDetails for it and store it in the userDetailsMap
 
@@ -72,7 +72,7 @@ public class PentahoSamlUserGroupsDetailsService implements SAMLUserDetailsServi
       // Add the defaultRole. default role is usually "Authenticated"
       authorities.add( Utils.getDefaultRole() );
 
-      // iterate the users attributes: if there's an atribute with the name 'getRoleRelatedUserAttributeName()',
+      // iterate the users attributes: if there's an attribute with the name 'getRoleRelatedUserAttributeName()',
       // iterate through its values' list and add those to the granted authorities list
       if( getRoleRelatedUserAttributeName() != null
           && !getRoleRelatedUserAttributeName().isEmpty()
@@ -83,7 +83,7 @@ public class PentahoSamlUserGroupsDetailsService implements SAMLUserDetailsServi
 
       // create the UserDetails object
 
-      userDetails = new User(
+      UserDetails userDetails = new User(
           username,
           "ignored" /* password */,
           true /* isEnabled */,
@@ -94,25 +94,25 @@ public class PentahoSamlUserGroupsDetailsService implements SAMLUserDetailsServi
 
       Utils.getUserMap().put( username, userDetails );
 
+      return userDetails;
     }
-
-    return userDetails;
   }
 
   @Override
   public UserDetails loadUserByUsername( String user ) throws UsernameNotFoundException {
 
-    if( user != null ){
+    if ( user != null ) {
 
-      if( getTenantedPrincipleNameResolver() != null ){
+      if ( getTenantedPrincipleNameResolver() != null ) {
         user = getTenantedPrincipleNameResolver().getPrincipleName( user );
       }
 
-      return Utils.getUserMap().containsKey( user ) ? Utils.getUserMap().get( user ) : null;
-
+      UserDetails userDetails = Utils.getUserMap().get( user );
+      if ( userDetails != null ) {
+        return userDetails;
+      }
     }
-
-    return null;
+    throw new UsernameNotFoundException( user );
   }
 
   public String getRoleRelatedUserAttributeName() {
