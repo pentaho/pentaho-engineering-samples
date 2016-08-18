@@ -1,7 +1,5 @@
 package org.pentaho.platform.spring.security.saml.responsewrapper;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
 import org.springframework.security.core.Authentication;
@@ -14,6 +12,9 @@ import javax.servlet.http.HttpServletResponseWrapper;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Wrapper that is applied to every request to update the <code>HttpSession<code> with
  * the <code>SecurityContext</code> when a <code>sendError()</code> or <code>sendRedirect</code>
@@ -22,7 +23,7 @@ import java.io.IOException;
  */
 public class SamlOnRedirectUpdateSessionResponseWrapper extends HttpServletResponseWrapper {
 
-    private static final Log logger = LogFactory.getLog( SamlOnRedirectUpdateSessionResponseWrapper.class );
+    private static Logger logger = LoggerFactory.getLogger( SamlOnRedirectUpdateSessionResponseWrapper.class );
 
     public static final String SPRING_SECURITY_CONTEXT_KEY = "SPRING_SECURITY_CONTEXT";
 
