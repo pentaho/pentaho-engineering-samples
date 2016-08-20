@@ -1,7 +1,5 @@
 package org.pentaho.platform.spring.security.saml.logout;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.pentaho.platform.api.engine.IPentahoSession;
 import org.pentaho.platform.engine.core.system.PentahoSessionHolder;
 import org.springframework.security.core.Authentication;
@@ -10,9 +8,12 @@ import org.springframework.security.web.authentication.logout.LogoutHandler;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class PentahoSamlSingleLogoutHandler implements LogoutHandler {
 
-  private static final Log logger = LogFactory.getLog( PentahoSamlSingleLogoutHandler.class );
+  private static Logger logger = LoggerFactory.getLogger( PentahoSamlSingleLogoutHandler.class );
 
   public static final String SPRING_SECURITY_CONTEXT_KEY = "SPRING_SECURITY_CONTEXT";
 

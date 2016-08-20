@@ -1,7 +1,5 @@
 package org.pentaho.platform.spring.security.saml;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.pentaho.platform.api.engine.IPentahoSession;
 import org.pentaho.platform.api.engine.ISecurityHelper;
 import org.pentaho.platform.api.mt.ITenant;
@@ -13,6 +11,8 @@ import org.pentaho.platform.proxy.api.IProxyFactory;
 import org.pentaho.platform.proxy.impl.ProxyException;
 import org.pentaho.platform.repository2.unified.jcr.JcrTenantUtils;
 import org.pentaho.platform.spring.security.saml.responsewrapper.SamlOnRedirectUpdateSessionResponseWrapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.Authentication;
@@ -33,7 +33,7 @@ import java.util.concurrent.Callable;
 
 public class PentahoSamlAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
-  private static final Log logger = LogFactory.getLog( PentahoSamlAuthenticationSuccessHandler.class );
+  private static Logger logger = LoggerFactory.getLogger( PentahoSamlAuthenticationSuccessHandler.class );
 
   public static final String SPRING_SECURITY_CONTEXT_KEY = "SPRING_SECURITY_CONTEXT";
 

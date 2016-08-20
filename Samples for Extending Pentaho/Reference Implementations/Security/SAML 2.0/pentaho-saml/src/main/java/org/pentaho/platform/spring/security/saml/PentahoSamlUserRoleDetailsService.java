@@ -1,7 +1,6 @@
 package org.pentaho.platform.spring.security.saml;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
 import org.pentaho.platform.api.engine.IUserRoleListService;
 import org.pentaho.platform.api.mt.ITenant;
 import org.pentaho.platform.engine.core.system.PentahoSystem;
@@ -11,9 +10,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class PentahoSamlUserRoleDetailsService implements IUserRoleListService {
 
-  private static final Log logger = LogFactory.getLog( PentahoSamlUserRoleDetailsService.class );
+  private static Logger logger = LoggerFactory.getLogger( PentahoSamlUserRoleDetailsService.class );
 
   private static final String PROVIDER_NAME = "providerName";
 
