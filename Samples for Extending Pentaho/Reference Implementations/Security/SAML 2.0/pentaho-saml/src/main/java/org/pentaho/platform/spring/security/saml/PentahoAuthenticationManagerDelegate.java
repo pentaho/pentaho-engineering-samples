@@ -1,7 +1,5 @@
 package org.pentaho.platform.spring.security.saml;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.pentaho.platform.engine.core.system.PentahoSystem;
 import org.pentaho.platform.proxy.api.IProxyFactory;
 import org.pentaho.platform.proxy.impl.ProxyException;
@@ -9,9 +7,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 public class PentahoAuthenticationManagerDelegate implements AuthenticationManager {
 
-  private static final Log logger = LogFactory.getLog( PentahoAuthenticationManagerDelegate.class );
+  private static Logger logger = LoggerFactory.getLogger( PentahoAuthenticationManagerDelegate.class );
 
   AuthenticationManager delegate;
 
