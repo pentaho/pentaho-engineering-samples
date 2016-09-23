@@ -12,47 +12,55 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.util.Assert;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-public class PentahoSamlUserGroupUserRoleDetailsService implements IUserRoleListService {
+public class PentahoSamlNativeUserRoleListService implements IUserRoleListService {
 
-  private static final Logger logger = LoggerFactory.getLogger( PentahoSamlUserGroupUserRoleDetailsService.class );
-  
+  private static final Logger logger = LoggerFactory.getLogger( PentahoSamlNativeUserRoleListService.class );
+
   private List<String> systemRoles;
 
-  private PentahoSamlUserGroupsDetailsService userDetailsService;
+  private PentahoSamlNativeUserDetailsService userDetailsService;
 
-  public PentahoSamlUserGroupUserRoleDetailsService( PentahoSamlUserGroupsDetailsService userDetailsService ){
+  public PentahoSamlNativeUserRoleListService( PentahoSamlNativeUserDetailsService userDetailsService ) {
     Assert.notNull( userDetailsService );
     setUserDetailsService( userDetailsService );
   }
 
-  @Override public List<String> getAllRoles() {
-    return null; /* not supported */
+  @Override
+  public List<String> getAllRoles() {
+    return Arrays.asList( Utils.getDefaultRole().getAuthority() );
   }
 
-  @Override public List<String> getSystemRoles() {
+  @Override
+  public List<String> getSystemRoles() {
     if ( systemRoles == null ) {
       systemRoles = PentahoSystem.get( ArrayList.class, "singleTenantSystemAuthorities", null );
     }
     return systemRoles;
   }
 
-  @Override public List<String> getAllRoles( ITenant iTenant ) {
+  @Override
+  public List<String> getAllRoles( ITenant iTenant ) {
+    // Return the default role as the only possible role from SAML
+    return getAllRoles();
+  }
+
+  @Override
+  public List<String> getAllUsers() {
     return null; /* not supported */
   }
 
-  @Override public List<String> getAllUsers() {
+  @Override
+  public List<String> getAllUsers( ITenant iTenant ) {
     return null; /* not supported */
   }
 
-  @Override public List<String> getAllUsers( ITenant iTenant ) {
-    return null; /* not supported */
-  }
-
-  @Override public List<String> getUsersInRole( ITenant iTenant, String role ) {
+  @Override
+  public List<String> getUsersInRole( ITenant iTenant, String role ) {
 
     /* iTenant is not supported */
 
@@ -60,13 +68,13 @@ public class PentahoSamlUserGroupUserRoleDetailsService implements IUserRoleList
 
     Set<String> usernameSet = Utils.getUserMap().keySet();
 
-    for( String username : usernameSet ){
+    for ( String username : usernameSet ) {
 
       List<String> userRoles = null;
 
-      if( ( userRoles = getRolesForUser( null, username ) ) != null ) {
+      if ( ( userRoles = getRolesForUser( null, username ) ) != null ) {
 
-        if( userRoles.contains( role ) ) {
+        if ( userRoles.contains( role ) ) {
           usersInRole.add( username );
         }
       }
@@ -75,7 +83,8 @@ public class PentahoSamlUserGroupUserRoleDetailsService implements IUserRoleList
     return usersInRole;
   }
 
-  @Override public List<String> getRolesForUser( ITenant iTenant, String user ) throws UsernameNotFoundException {
+  @Override
+  public List<String> getRolesForUser( ITenant iTenant, String user ) throws UsernameNotFoundException {
 
     /* iTenant is not supported */
 
@@ -109,11 +118,11 @@ public class PentahoSamlUserGroupUserRoleDetailsService implements IUserRoleList
     return roles;
   }
 
-  public PentahoSamlUserGroupsDetailsService getUserDetailsService() {
+  public PentahoSamlNativeUserDetailsService getUserDetailsService() {
     return userDetailsService;
   }
 
-  public void setUserDetailsService( PentahoSamlUserGroupsDetailsService userDetailsService ) {
+  public void setUserDetailsService( PentahoSamlNativeUserDetailsService userDetailsService ) {
     this.userDetailsService = userDetailsService;
   }
 }

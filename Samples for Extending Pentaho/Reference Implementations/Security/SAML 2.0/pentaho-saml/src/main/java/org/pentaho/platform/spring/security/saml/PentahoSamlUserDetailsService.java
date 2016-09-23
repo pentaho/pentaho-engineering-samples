@@ -2,6 +2,7 @@ package org.pentaho.platform.spring.security.saml;
 
 import org.pentaho.platform.engine.core.system.PentahoSystem;
 import org.pentaho.platform.proxy.api.IProxyFactory;
+import org.pentaho.platform.spring.security.saml.groups.PentahoSamlNativeUserDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,6 +18,7 @@ import java.util.*;
 
 /**
  * Pentaho's implementation of SAMLUserDetailsService interface
+ * This delegates to a user details service 
  * @ see https://github.com/spring-projects/spring-security-saml/blob/1.0.1.RELEASE/core/src/main/java/org/springframework/security/saml/userdetails/SAMLUserDetailsService.java
  */
 public class PentahoSamlUserDetailsService implements SAMLUserDetailsService, UserDetailsService {
@@ -25,13 +27,14 @@ public class PentahoSamlUserDetailsService implements SAMLUserDetailsService, Us
 
   private static final String PROVIDER_NAME = "providerName";
 
-  UserDetailsService userDetailsService;
-  String selectedAuthorizationProvider;
+  private UserDetailsService userDetailsService;
+  private String selectedAuthorizationProvider;
 
   // if the selectedAuthorizationProvider is our own ( i.e. samlId ), we'll directly use our own
-  UserDetailsService samlUserDetailsService;
-  String samlId;
-
+  private PentahoSamlNativeUserDetailsService samlUserDetailsService;
+  private String samlId;
+  private boolean createDetailsOnUsernameNotFoundException = false;
+  
   public PentahoSamlUserDetailsService( UserDetailsService userDetailsService ){
     setUserDetailsService( userDetailsService );
     Assert.notNull( userDetailsService );
@@ -120,7 +123,8 @@ public class PentahoSamlUserDetailsService implements SAMLUserDetailsService, Us
     return loadUserByUsername( username );
   }
 
-  @Override public UserDetails loadUserByUsername( String username ) {
+  @Override 
+  public UserDetails loadUserByUsername( String username ) throws UsernameNotFoundException {
     UserDetails user;
     
     // BACKLOG-6007: ensure BACKLOG-5800 remains true in a scenario of a hybrid solution where
@@ -142,13 +146,18 @@ public class PentahoSamlUserDetailsService implements SAMLUserDetailsService, Us
       // If the loadUserByUsername method throws UsernameNotFoundException, it means there is no user in the used
       // UserDetailsService.
     } catch ( UsernameNotFoundException usernameNotFoundException ) {
-      logger.warn( "No user found for Username '" + username + "' in UserDetailsService '"
-          + getSelectedAuthorizationProvider() + "'. Creating an UserDetails with Username '" + username
-          + "' and the DefaultRole. Please verify that the user exists in the used service and confirm that your configurations are correct.",
-          usernameNotFoundException );
-
-      //Create the UserDetails object
-      user = new User( username , "ignored", true, true, true, true, new ArrayList<GrantedAuthority>() );
+      
+      if(isCreateDetailsOnUsernameNotFoundException()) {
+        logger.warn( "No user found for Username '" + username + "' in UserDetailsService '"
+            + getSelectedAuthorizationProvider() + "'. Creating an UserDetails with Username '" + username
+            + "' and the DefaultRole. Please verify that the user exists in the used service and confirm that your configurations are correct.",
+            usernameNotFoundException );
+    
+        //Create the UserDetails object
+        user = new User( username , "ignored", true, true, true, true, new ArrayList<GrantedAuthority>() );
+      } else {
+        throw usernameNotFoundException;
+      }
     }
 
     Collection<? extends GrantedAuthority> oldAuthorities = user.getAuthorities();
@@ -206,11 +215,11 @@ public class PentahoSamlUserDetailsService implements SAMLUserDetailsService, Us
     this.selectedAuthorizationProvider = selectedAuthorizationProvider;
   }
 
-  public UserDetailsService getSamlUserDetailsService() {
+  public PentahoSamlNativeUserDetailsService getSamlUserDetailsService() {
     return samlUserDetailsService;
   }
 
-  public void setSamlUserDetailsService( UserDetailsService samlUserDetailsService ) {
+  public void setSamlUserDetailsService( PentahoSamlNativeUserDetailsService samlUserDetailsService ) {
     this.samlUserDetailsService = samlUserDetailsService;
   }
 
@@ -220,6 +229,14 @@ public class PentahoSamlUserDetailsService implements SAMLUserDetailsService, Us
 
   public void setSamlId( String samlId ) {
     this.samlId = samlId;
+  }
+
+  public boolean isCreateDetailsOnUsernameNotFoundException() {
+    return createDetailsOnUsernameNotFoundException;
+  }
+
+  public void setCreateDetailsOnUsernameNotFoundException( boolean createDetailsOnUsernameNotFoundException ) {
+    this.createDetailsOnUsernameNotFoundException = createDetailsOnUsernameNotFoundException;
   }
 
   private Class getSS2UserDetailsServiceClass( Object ss2UserDetailsServiceImpl ) {

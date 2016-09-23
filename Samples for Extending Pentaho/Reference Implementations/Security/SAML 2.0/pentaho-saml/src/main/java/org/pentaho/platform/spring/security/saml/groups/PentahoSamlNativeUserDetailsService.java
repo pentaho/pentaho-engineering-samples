@@ -9,7 +9,6 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.schema.impl.XSAnyImpl;
 import org.opensaml.xml.schema.impl.XSStringImpl;
 import org.pentaho.platform.api.mt.ITenantedPrincipleNameResolver;
-import org.pentaho.platform.engine.core.system.PentahoSystem;
 import org.pentaho.platform.spring.security.saml.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,9 +25,9 @@ import org.springframework.security.saml.userdetails.SAMLUserDetailsService;
  * Checks the users attributes list, to try and fetch the roles from there
  * The user credentials are those sent within the SAML Authentication Response
  */
-public class PentahoSamlUserGroupsDetailsService implements SAMLUserDetailsService, UserDetailsService {
+public class PentahoSamlNativeUserDetailsService implements SAMLUserDetailsService, UserDetailsService {
 
-  private static final Logger logger = LoggerFactory.getLogger( PentahoSamlUserGroupsDetailsService.class );
+  private static final Logger logger = LoggerFactory.getLogger( PentahoSamlNativeUserDetailsService.class );
 
 
   /**
