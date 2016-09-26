@@ -25,16 +25,9 @@ public class PentahoSamlUserRoleListService implements IUserRoleListService {
   private PentahoSamlNativeUserRoleListService samlUserRoleListService;
   private String samlId;
 
-  /*
-  public PentahoSamlUserRoleListService( IUserRoleListService service ) {
-    this.service = service;
-  }
-  */
-
   public PentahoSamlUserRoleListService( String selectedAuthorizationProvider ) {
-
-    setSelectedAuthorizationProvider( selectedAuthorizationProvider );
     Assert.notNull( selectedAuthorizationProvider );
+    setSelectedAuthorizationProvider( selectedAuthorizationProvider );
   }
 
   protected void initUserRoleListService() {
