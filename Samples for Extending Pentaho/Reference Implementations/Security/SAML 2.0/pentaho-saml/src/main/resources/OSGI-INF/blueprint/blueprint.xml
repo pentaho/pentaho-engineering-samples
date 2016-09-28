@@ -20,7 +20,7 @@
 
       <!--
         IMPORTANT NOTE: we are *not* enabling IDP discovery, as that would add an extra layer of complexity to an
-        already complex system of auth served via osgi bridge into a spring security 2 environment
+        already complex POC of having SMAL auth served via osgi bridge into a spring security 2 environment
        -->
       <cm:property name="saml.discovery.idp.enabled" value="false" />
       <cm:property name="saml.idp.selection.jsp" value="N/A" /> <!-- idp-discovery jsp not implemented -->
@@ -125,13 +125,6 @@
       <!-- for authorization.providers other than 'saml', we'll look for published
           UserDetailsService/IUserRoleListService ones ( even if these are non-osgi ones )  -->
       <cm:property name="authorization.provider" value="saml" />
-      
-      <!-- When a username is not found in the authorization provider, should a user details
-          object be created with the default role? Enabling this option can cause problems 
-          with user details chained for the system admin role. It is better to have all users
-          that can authenticate to the system be available in the authorization provider -->
-      <cm:property name="create.user.details.not.found.in.authorization.provider" value="false" />
-      
     </cm:default-properties>
   </cm:property-placeholder>
 
@@ -220,11 +213,11 @@
     <service-properties><entry key="providerName" value="${saml.id}" /></service-properties>
   </service>
 
-  <service ref="userDetails" interface="org.springframework.security.core.userdetails.UserDetailsService">
+  <service ref="samlUserDetailsService" interface="org.springframework.security.core.userdetails.UserDetailsService">
     <service-properties><entry key="providerName" value="${saml.id}" /></service-properties>
   </service>
 
-  <service ref="userRoleList" interface="org.pentaho.platform.api.engine.IUserRoleListService">
+  <service ref="samlUserRoleListService" interface="org.pentaho.platform.api.engine.IUserRoleListService">
     <service-properties><entry key="providerName" value="${saml.id}" /></service-properties>
   </service>
 
@@ -232,7 +225,7 @@
   <!-- SAML AUTHORIZATION                                                   -->
   <!-- ==================================================================== -->
 
-  <bean id="samlUserDetailsService" class="org.pentaho.platform.spring.security.saml.groups.PentahoSamlNativeUserDetailsService" activation="eager">
+  <bean id="samlUserDetailsService" class="org.pentaho.platform.spring.security.saml.groups.PentahoSamlUserGroupsDetailsService" activation="eager">
     <property name="roleRelatedUserAttributeName" value="${saml.role.related.user.attribute.name}" />
     <property name="roleRelatedAttributePrefix" value="${saml.role.related.user.attribute.prefix}" />
     <property name="tenantedPrincipleNameResolver">
@@ -240,7 +233,7 @@
     </property>
   </bean>
 
-  <bean id="samlUserRoleListService" class="org.pentaho.platform.spring.security.saml.groups.PentahoSamlNativeUserRoleListService" activation="eager">
+  <bean id="samlUserRoleListService" class="org.pentaho.platform.spring.security.saml.groups.PentahoSamlUserGroupUserRoleDetailsService" activation="eager">
     <argument ref="samlUserDetailsService" />
   </bean>
 
@@ -271,13 +264,10 @@
     <argument value="${authorization.provider}" /> <!-- use the UserDetailsService published with this providerName -->
     <property name="samlUserDetailsService" ref="samlUserDetailsService" />
     <property name="samlId" value="${saml.id}" />
-    <property name="createDetailsOnUsernameNotFoundException" value="${create.user.details.not.found.in.authorization.provider}" />
   </bean>
 
-  <bean id="userRoleList" class="org.pentaho.platform.spring.security.saml.PentahoSamlUserRoleListService" activation="eager">
+  <bean id="userRoleList" class="org.pentaho.platform.spring.security.saml.PentahoSamlUserRoleDetailsService" activation="eager">
     <argument value="${authorization.provider}" /> <!-- use the UserRoleListService published with this providerName -->
-    <property name="samlUserRoleListService" ref="samlUserRoleListService" />
-    <property name="samlId" value="${saml.id}" />
   </bean>
 
   <!-- ================================================================================================== -->
