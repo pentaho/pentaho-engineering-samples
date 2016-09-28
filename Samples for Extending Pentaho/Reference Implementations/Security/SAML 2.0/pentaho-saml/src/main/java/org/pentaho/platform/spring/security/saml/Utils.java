@@ -46,15 +46,12 @@ public class Utils {
         // step 3 - get spring 2 Authentication object
         Object s2AuthenticationObj = getAuthenticationMethod.invoke( s2SecurityContextObj );
 
-        if(s2AuthenticationObj != null) {
-        
-          // step 4 - proxy wrap spring 2 Authentication object into a spring 4 one
-          IProxyFactory factory = PentahoSystem.get( IProxyFactory.class );
-          Object s4AuthenticationProxy = factory.createProxy( s2AuthenticationObj );
+        // step 4 - proxy wrap spring 2 Authentication object into a spring 4 one
+        IProxyFactory factory = PentahoSystem.get( IProxyFactory.class );
+        Object s4AuthenticationProxy = factory.createProxy( s2AuthenticationObj );
 
-          if ( s4AuthenticationProxy != null && s4AuthenticationProxy instanceof Authentication ) {
-            return (Authentication) s4AuthenticationProxy;
-          }
+        if ( s4AuthenticationProxy != null && s4AuthenticationProxy instanceof Authentication ) {
+          return (Authentication) s4AuthenticationProxy;
         }
       }
     }
