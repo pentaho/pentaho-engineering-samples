@@ -20,6 +20,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.providers.ExpiringUsernameAuthenticationToken;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.util.Assert;
+import org.springframework.beans.factory.InitializingBean;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -31,11 +32,13 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-public class PentahoSamlAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
+public class PentahoSamlAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler implements InitializingBean{
 
   private static Logger logger = LoggerFactory.getLogger( PentahoSamlAuthenticationSuccessHandler.class );
 
   public static final String SPRING_SECURITY_CONTEXT_KEY = "SPRING_SECURITY_CONTEXT";
+  //Initializing it to "true" so the code 6.1 or earlier works without any chanegs
+  public boolean requireProxyWrapping =true;
 
   @Override
   public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -58,12 +61,15 @@ public class PentahoSamlAuthenticationSuccessHandler extends SavedRequestAwareAu
 
 
       // legacy spring ( i.e. non-osgi spring.framework ) SecurityContext storing
-
       IProxyFactory factory = PentahoSystem.get( IProxyFactory.class );
-
-      Object securityContextProxy = factory.createProxy( SecurityContextHolder.getContext() );
-
-      request.setAttribute( SPRING_SECURITY_CONTEXT_KEY, securityContextProxy );
+      Object securityContextProxy = null ;
+   
+      if ( requireProxyWrapping ) {
+        securityContextProxy = factory.createProxy( SecurityContextHolder.getContext() );
+        request.setAttribute( SPRING_SECURITY_CONTEXT_KEY, securityContextProxy );
+      } else {
+        request.setAttribute( SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext() );
+      }
 
       // pentaho auth storing
 
@@ -75,13 +81,15 @@ public class PentahoSamlAuthenticationSuccessHandler extends SavedRequestAwareAu
 
       // Note: spring-security 2 expects an *array* of GrantedAuthorities ( ss4 uses a list )
       pentahoSession.setAttribute( IPentahoSession.SESSION_ROLES,
-          proxyGrantedAuthorities( factory, authentication.getAuthorities() ) );
+           requireProxyWrapping ? proxyGrantedAuthorities( factory, authentication.getAuthorities() ) :  authentication.getAuthorities());
 
       // time to create this user's home folder
       createUserHomeFolder( authentication.getName() );
 
       super.onAuthenticationSuccess( request, new SamlOnRedirectUpdateSessionResponseWrapper( response, request, true,
-          0, securityContextProxy, authentication ), authentication );
+          0,
+          requireProxyWrapping ? securityContextProxy : SecurityContextHolder.getContext(),
+          authentication ), authentication );
 
     } catch ( Exception e ) {
       logger.error( e.getLocalizedMessage(), e );
@@ -178,5 +186,16 @@ public class PentahoSamlAuthenticationSuccessHandler extends SavedRequestAwareAu
     } catch ( Exception e ) {
       logger.error( e.getLocalizedMessage(), e );
     }
+  }
+
+  public void setRequireProxyWrapping(boolean requireWrapping){
+    requireProxyWrapping = requireWrapping;
+  }
+
+  /**
+   * @see InitializingBean interface
+   */
+  public void afterPropertiesSet() throws ServletException {
+    logger.info( "Property requireProxyWrapping set to: " + requireProxyWrapping);
   }
 }

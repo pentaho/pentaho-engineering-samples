@@ -5,9 +5,10 @@
     <configfile finalname="/etc/pentaho.saml.cfg">mvn:pentaho/pentaho-saml/${project.version}/cfg/pentaho-saml-config</configfile>
 
     <!-- pentaho proxy bridge extensions to handle SAMLAuthenticationToken--> 
+    <!--
 	<bundle>mvn:pentaho/pentaho-saml-ss2-proxies-extension/${project.version}</bundle>
     <bundle>mvn:pentaho/pentaho-saml-ss4-proxies-extension/${project.version}</bundle>
-    
+    -->
     <!-- saml authentication provider-->
     <bundle>mvn:pentaho/pentaho-saml/${project.version}</bundle>
     
