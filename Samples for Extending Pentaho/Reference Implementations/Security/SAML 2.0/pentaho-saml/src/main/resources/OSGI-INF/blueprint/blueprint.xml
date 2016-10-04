@@ -140,7 +140,7 @@
   <!-- ================================================================================================== -->
   <!-- SPRING 4 PROXY WRAPPING REQUESTS                                                                   -->
   <!-- ================================================================================================== -->
-
+<!--
   <service auto-export="interfaces">
     <bean class="org.pentaho.platform.proxy.impl.ProxyRequestRegistration">
       <argument value="org.springframework.security.core.GrantedAuthority" />
@@ -170,7 +170,7 @@
       <argument value="org.springframework.security.web.AuthenticationEntryPoint" />
     </bean>
   </service>
-
+-->
   <!-- ================================================================================================== -->
   <!-- SPRING 4 PROXY GENERAL INTERFACE EXPORTS                                                           -->
   <!-- ================================================================================================== -->
@@ -255,7 +255,7 @@
 
   <!-- AuthenticationManager defined in applicationContext-spring-security-saml.xml -->
   <bean id="samlAuthenticationManager" class="org.pentaho.platform.spring.security.saml.PentahoAuthenticationManagerDelegate" activation="eager">
-    <argument value="true" />
+    <argument value="false" />
   </bean>
 
   <!-- SAML Authentication Provider responsible for validating received SAML messages -->
@@ -359,6 +359,7 @@
     <property name="profile" ref="logoutprofile" />
     <property name="contextProvider" ref="contextProvider" />
     <property name="filterProcessesUrl" value="/Logout" />
+    <property name="requireProxyWrapping" value="false" />
   </bean>
 
   <!-- Filter processing incoming logout messages -->
@@ -407,8 +408,10 @@
 
 
   <!-- Handler deciding where to redirect user after successful login -->
-  <bean id="successRedirectHandler" class="org.pentaho.platform.spring.security.saml.PentahoSamlAuthenticationSuccessHandler">
+  <bean id="successRedirectHandler" class="org.pentaho.platform.spring.security.saml.PentahoSamlAuthenticationSuccessHandler" 
+  						init-method="afterPropertiesSet">
     <property name="defaultTargetUrl" value="/index.jsp"/>
+    <property name="requireProxyWrapping" value="false"/>
   </bean>
 
   <!-- Handler deciding where to redirect user after failed login -->

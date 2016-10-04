@@ -23,9 +23,15 @@ public class Utils {
    * roles considered to be the basic ones and that should be immediately assigned to any SAML authenticated user;
    */
   static GrantedAuthority defaultRole;
-  
+
   public static Authentication getAuthenticationFromRequest( ServletRequest request ) throws NoSuchMethodException,
+  InvocationTargetException, IllegalAccessException, ProxyException {
+    return getAuthenticationFromRequest( request, true );
+  }
+
+  public static Authentication getAuthenticationFromRequest( ServletRequest request, boolean requireProxyWrapping) throws NoSuchMethodException,
       InvocationTargetException, IllegalAccessException, ProxyException {
+    Authentication authentication = null;
 
     if ( request != null && request instanceof HttpServletRequest
         && ( (HttpServletRequest) request ).getSession( false ) != null
@@ -45,21 +51,25 @@ public class Utils {
 
         // step 3 - get spring 2 Authentication object
         Object s2AuthenticationObj = getAuthenticationMethod.invoke( s2SecurityContextObj );
-
-        if(s2AuthenticationObj != null) {
         
-          // step 4 - proxy wrap spring 2 Authentication object into a spring 4 one
-          IProxyFactory factory = PentahoSystem.get( IProxyFactory.class );
-          Object s4AuthenticationProxy = factory.createProxy( s2AuthenticationObj );
+        if(s2AuthenticationObj != null) {
+          if (requireProxyWrapping ) {
+            // step 4 - proxy wrap spring 2 Authentication object into a spring 4 one
+            IProxyFactory factory = PentahoSystem.get( IProxyFactory.class );
+            Object s4AuthenticationProxy = factory.createProxy( s2AuthenticationObj );
 
-          if ( s4AuthenticationProxy != null && s4AuthenticationProxy instanceof Authentication ) {
-            return (Authentication) s4AuthenticationProxy;
+            if ( s4AuthenticationProxy != null && s4AuthenticationProxy instanceof Authentication ) {
+              authentication =  (Authentication) s4AuthenticationProxy;
+            }
+          } else {
+             authentication = (Authentication)s2AuthenticationObj;
           }
+
         }
       }
     }
 
-    return null;
+    return authentication;
   }
 
   public static Map<String, UserDetails> getUserMap() {

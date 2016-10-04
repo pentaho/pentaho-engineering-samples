@@ -39,6 +39,8 @@ public class PentahoSamlLogoutFilter extends SAMLLogoutFilter {
    * Examples: SSOCircle.com supports Single Logout; Okta.com does not (http://developer.okta.com/docs/guides/oan_guidance.html)
    */
   private boolean useGlobalLogoutStrategy; /* defaults to 'false' */
+  //Initializing requiringProxyWrapping to "true" so the code 6.1 or earlier works without any changes
+  private boolean requireProxyWrapping = true;
 
   public PentahoSamlLogoutFilter( String successUrl, LogoutHandler[] localHandler, LogoutHandler[] globalHandlers ) {
     super( successUrl, localHandler, globalHandlers );
@@ -62,7 +64,7 @@ public class PentahoSamlLogoutFilter extends SAMLLogoutFilter {
 
       try {
 
-        Authentication auth = Utils.getAuthenticationFromRequest( request );
+        Authentication auth = Utils.getAuthenticationFromRequest( request, requireProxyWrapping );
 
         if( auth != null ) {
           SecurityContextHolder.getContext().setAuthentication( auth );
@@ -109,5 +111,9 @@ public class PentahoSamlLogoutFilter extends SAMLLogoutFilter {
     }
 
     return false;
+  }
+
+  public void setRequireProxyWrapping(boolean requireWrapping){
+    requireProxyWrapping = requireWrapping;
   }
 }
