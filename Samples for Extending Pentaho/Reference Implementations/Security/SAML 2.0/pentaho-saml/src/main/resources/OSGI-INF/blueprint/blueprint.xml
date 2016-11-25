@@ -285,7 +285,7 @@
   <!-- ================================================================================================== -->
 
 
-  <!-- Initialization of of OpenSAML library via SAMLBootstrap, with a ESAPI sys-prop initializer  -->
+  <!-- Initialization of of OpenSAML library via SAMLBootstrap  -->
   <bean id="pentahoSamlBootstrap" class="org.pentaho.platform.spring.security.saml.PentahoSamlBootstrap" init-method="bootstrap" />
 
   <!-- Provider of default SAML Context -->
