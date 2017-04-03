@@ -21,169 +21,155 @@ confidentiality and non-disclosure agreements or other agreements with Pentaho,
 explicitly covering such access.
 ============================================================================-->
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:sec="http://www.springframework.org/schema/security"
        xmlns:pen="http://www.pentaho.com/schema/pentaho-system"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd
+                           http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.1.xsd
        http://www.pentaho.com/schema/pentaho-system http://www.pentaho.com/schema/pentaho-system.xsd" default-lazy-init="true">
 
 	<!-- ======================== FILTER CHAIN ======================= -->
 
-	<!-- overridden from applicationContext-spring-security.xml to enable SAML -->
-	<bean id="filterChainProxy" class="org.springframework.security.util.FilterChainProxy">
-	    <property name="filterInvocationDefinitionSource">
-	      <!--
+	<bean id="filterChainProxy" class="org.springframework.security.web.FilterChainProxy">
+	    <constructor-arg>
+	      <util:list>
+	        <!--
 	           You can safely remove the first pattern starting with /content/dashboards/print, if you're not using
 	           Enterprise Dashboards or not allowing printing of Dashboards,
-	       -->
-	    	<value>
-	        <![CDATA[CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
-	        PATTERN_TYPE_APACHE_ANT
-	        /api/repos/dashboards/print=securityContextHolderAwareRequestFilter,httpSessionPentahoSessionContextIntegrationFilter,httpSessionContextIntegrationFilter,preAuthenticatedSecurityFilter,httpSessionReuseDetectionFilter,logoutFilter,samlLogoutFilter,samlSingleLogoutFilter,samlMetadataGeneratorFilter,samlWebSSOProcessingFilter,authenticationProcessingFilter,basicProcessingFilter,requestParameterProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor
-	        /webservices/**=securityContextHolderAwareRequestFilterForWS,httpSessionPentahoSessionContextIntegrationFilter,httpSessionContextIntegrationFilter,samlMetadataGeneratorFilter,samlWebSSOProcessingFilter,basicProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilterForWS,filterInvocationInterceptorForWS
-	        /api/**=securityContextHolderAwareRequestFilterForWS,httpSessionPentahoSessionContextIntegrationFilter,httpSessionContextIntegrationFilter,samlMetadataGeneratorFilter,samlWebSSOProcessingFilter,basicProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilterForWS,filterInvocationInterceptorForWS
-	        /plugin/**=securityContextHolderAwareRequestFilterForWS,httpSessionPentahoSessionContextIntegrationFilter,httpSessionContextIntegrationFilter,samlMetadataGeneratorFilter,samlWebSSOProcessingFilter,basicProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilterForWS,filterInvocationInterceptorForWS
-	        /**=securityContextHolderAwareRequestFilter,httpSessionPentahoSessionContextIntegrationFilter,httpSessionContextIntegrationFilter,httpSessionReuseDetectionFilter,logoutFilter,samlLogoutFilter,samlSingleLogoutFilter,samlMetadataGeneratorFilter,samlWebSSOProcessingFilter,authenticationProcessingFilter,basicProcessingFilter,requestParameterProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor]]>
-	    	</value>
-	    </property>
+	        -->
+	        <sec:filter-chain pattern="/api/repos/dashboards/print" filters="securityContextHolderAwareRequestFilter,httpSessionPentahoSessionContextIntegrationFilter,httpSessionContextIntegrationFilter,preAuthenticatedSecurityFilter,httpSessionReuseDetectionFilter,logoutFilter,samlLogoutFilter,samlSingleLogoutFilter,samlMetadataGeneratorFilter,samlWebSSOProcessingFilter,authenticationProcessingFilter,basicProcessingFilter,requestParameterProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor" />
+	        <sec:filter-chain pattern="/webservices/**" filters="securityContextHolderAwareRequestFilterForWS,httpSessionPentahoSessionContextIntegrationFilter,httpSessionContextIntegrationFilter,samlMetadataGeneratorFilter,samlWebSSOProcessingFilter,basicProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilterForWS,filterInvocationInterceptorForWS" />
+	        <sec:filter-chain pattern="/api/**" filters="securityContextHolderAwareRequestFilterForWS,httpSessionPentahoSessionContextIntegrationFilter,httpSessionContextIntegrationFilter,samlMetadataGeneratorFilter,samlWebSSOProcessingFilter,basicProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilterForWS,filterInvocationInterceptorForWS" />
+	        <sec:filter-chain pattern="/plugin/**" filters="securityContextHolderAwareRequestFilterForWS,httpSessionPentahoSessionContextIntegrationFilter,httpSessionContextIntegrationFilter,samlMetadataGeneratorFilter,samlWebSSOProcessingFilter,basicProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilterForWS,filterInvocationInterceptorForWS" />
+	        <sec:filter-chain pattern="/**" filters="securityContextHolderAwareRequestFilter,httpSessionPentahoSessionContextIntegrationFilter,httpSessionContextIntegrationFilter,httpSessionReuseDetectionFilter,logoutFilter,samlLogoutFilter,samlSingleLogoutFilter,samlMetadataGeneratorFilter,samlWebSSOProcessingFilter,authenticationProcessingFilter,basicProcessingFilter,requestParameterProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor" />
+	      </util:list>
+	    </constructor-arg>
 	</bean>
 
-
-	<!-- 
-		We override the filterInvocationInterceptor from applicationContext-spring-security.xml
-		*only* to set the /Login url endpoint as requiring an authenticated user;
-
-		Original: \A/login.*\Z=Anonymous,Authenticated
-		Overriden: \A/login.*\Z=Authenticated
-	-->
-	<bean id="filterInvocationInterceptor"
-        class="org.springframework.security.intercept.web.FilterSecurityInterceptor">
-    <property name="authenticationManager">
-      <ref bean="authenticationManager" />
-    </property>
-    <property name="accessDecisionManager">
-      <ref local="httpRequestAccessDecisionManager" />
-    </property>
-    <property name="objectDefinitionSource">
-      <value>
-        <!--
-            Note - the "=Nobody" below is saying that resource URLs with those
-            patterns not be available through a web call.
-        -->
-        <![CDATA[
-CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
-\A/content/common-ui/resources/web/(.+/)*.+\.js.*\Z=Anonymous,Authenticated
-\A/.*require-cfg.js.*\Z=Anonymous,Authenticated
-\A/.*require-js-cfg.js.*\Z=Anonymous,Authenticated
-\A/content/common-ui/resources/web/require.js.*\Z=Anonymous,Authenticated
-\A/content/common-ui/resources/web/require-cfg.js.*\Z=Anonymous,Authenticated
-\A/content/data-access/resources/gwt/.*css\Z=Anonymous,Authenticated
-\A/webcontext.js.*\Z=Anonymous,Authenticated
-\A/content/common-ui/resources/web/cache/cache-service.js.*\Z=Anonymous,Authenticated
-\A/cacheexpirationservice.*\Z=Anonymous,Authenticated
-\A/js/theme.*\Z=Anonymous,Authenticated
-\A/content/common-ui/resources/themes/.*\Z=Anonymous,Authenticated
-\A/content/common-ui/resources/web/dojo/djconfig.js.*\Z=Anonymous,Authenticated
-\A/content/common-ui/resources/web/angular-directives/angular-directives.css\Z=Anonymous,Authenticated
-\A/content/pentaho-mobile/resources/.*\Z=Anonymous,Authenticated
-\A/docs/.*\Z=Anonymous,Authenticated
-\A/mantlelogin/.*\Z=Anonymous,Authenticated
-\A/mantle/mantleloginservice/*\Z=Anonymous,Authenticated
-\A/mantle/.*\Z=Authenticated
-\A/welcome/.*\Z=Anonymous,Authenticated
-\A/public/.*\Z=Anonymous,Authenticated
-\A/login.*\Z=Authenticated
-\A/ping/alive.gif.*\Z=Anonymous,Authenticated
-\A/j_spring_security_check.*\Z=Anonymous,Authenticated
-\A/getimage.*\Z=Anonymous,Authenticated
-\A/getresource.*\Z=Anonymous,Authenticated
-\A/admin.*\Z=Admin
-\A/auditreport.*\Z=Admin
-\A/auditreportlist.*\Z=Admin
-\A/versioncontrol.*\Z=Admin
-\A/propertieseditor.*\Z=Admin
-\A/propertiespanel.*\Z=Admin
-\A/subscriptionadmin.*\Z=Admin
-\A/resetrepository.*\Z=Admin
-\A/viewaction.*solution.admin.*\Z=Admin
-\A/scheduleradmin.*\Z=Admin
-\A/publish.*\Z=Admin
-\A/logout.*\Z=Anonymous
-\A/solutionrepositoryservice.*component=delete.*solution=system.*\Z=Nobody
-\A/solutionrepositoryservice.*solution=system.*component=delete.*\Z=Nobody
-.*system.*pentaho.xml.*=Nobody
-.*system.*applicationcontext.*.xml.*=Nobody
-.*system.*pentahoobjects.spring.xml.*=Nobody
-.*system.*pentahosystemconfig.xml.*=Nobody
-.*system.*adminplugins.xml.*=Nobody
-.*system.*plugin.properties.*=Nobody
-.*system.*sessionstartupactions.xml.*=Nobody
-.*system.*systemlisteners.xml.*=Nobody
-.*system.*hibernate.*=Nobody
-.*system.*birt/.*=Nobody
-.*system.*dialects/.*=Nobody
-.*system.*google/.*=Nobody
-.*system.*jasperreports/.*=Nobody
-.*system.*kettle/.*=Nobody
-.*system.*logs/.*=Nobody
-.*system.*mondrian/.*=Nobody
-.*system.*quartz/.*=Nobody
-.*system.*simple-jndi/.*=Nobody
-.*system.*smtp-email/.*=Nobody
-.*system.*ui/.*=Nobody
-.*system.*\.\./.*=Nobody
-\A/.*\Z=Authenticated
-        ]]>
-      </value>
-    </property>
+ <bean id="filterInvocationInterceptor"
+         class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+     <property name="authenticationManager" ref="authenticationManager" />
+     <property name="accessDecisionManager" ref="httpRequestAccessDecisionManager" />
+     <!--
+         Note - the "=Nobody" below is saying that resource URLs with those
+         patterns not be available through a web call.
+     -->
+     <property name="securityMetadataSource">
+		<sec:filter-security-metadata-source request-matcher="ciRegex" use-expressions="false">
+			<sec:intercept-url pattern="\A/content/common-ui/resources/web/(.+/)*.+\.js.*\Z" access="Anonymous,Authenticated" />
+			<sec:intercept-url pattern="\A/.*require-cfg.js.*\Z" access="Anonymous,Authenticated" />
+			<sec:intercept-url pattern="\A/.*require-js-cfg.js.*\Z" access="Anonymous,Authenticated" />
+			<sec:intercept-url pattern="\A/content/common-ui/resources/web/require.js.*\Z" access="Anonymous,Authenticated" />
+			<sec:intercept-url pattern="\A/content/common-ui/resources/web/require-cfg.js.*\Z" access="Anonymous,Authenticated" />
+			<sec:intercept-url pattern="\A/content/data-access/resources/gwt/.*css\Z" access="Anonymous,Authenticated" />
+			<sec:intercept-url pattern="\A/webcontext.js.*\Z" access="Anonymous,Authenticated" />
+			<sec:intercept-url pattern="\A/content/common-ui/resources/web/cache/cache-service.js.*\Z" access="Anonymous,Authenticated" />
+			<sec:intercept-url pattern="\A/cacheexpirationservice.*\Z" access="Anonymous,Authenticated" />
+			<sec:intercept-url pattern="\A/js/theme.*\Z" access="Anonymous,Authenticated" />
+			<sec:intercept-url pattern="\A/content/common-ui/resources/themes/.*\Z" access="Anonymous,Authenticated" />
+			<sec:intercept-url pattern="\A/content/common-ui/resources/web/dojo/djconfig.js.*\Z" access="Anonymous,Authenticated" />
+			<sec:intercept-url pattern="\A/content/common-ui/resources/web/angular-directives/angular-directives.css\Z" access="Anonymous,Authenticated" />
+			<sec:intercept-url pattern="\A/content/pentaho-mobile/resources/.*\Z" access="Anonymous,Authenticated" />
+			<sec:intercept-url pattern="\A/docs/.*\Z" access="Anonymous,Authenticated" />
+			<sec:intercept-url pattern="\A/mantlelogin/.*\Z" access="Anonymous,Authenticated" />
+			<sec:intercept-url pattern="\A/mantle/mantleloginservice/*\Z" access="Anonymous,Authenticated" />
+			<sec:intercept-url pattern="\A/mantle/.*\Z" access="Authenticated" />
+			<sec:intercept-url pattern="\A/welcome/.*\Z" access="Anonymous,Authenticated" />
+			<sec:intercept-url pattern="\A/public/.*\Z" access="Anonymous,Authenticated" />
+			<sec:intercept-url pattern="\A/login.*\Z" access="Authenticated" />
+			<sec:intercept-url pattern="\A/ping/alive.gif.*\Z" access="Anonymous,Authenticated" />
+			<sec:intercept-url pattern="\A/j_spring_security_check.*\Z" access="Anonymous,Authenticated" />
+			<sec:intercept-url pattern="\A/getimage.*\Z" access="Anonymous,Authenticated" />
+			<sec:intercept-url pattern="\A/getresource.*\Z" access="Anonymous,Authenticated" />
+			<sec:intercept-url pattern="\A/admin.*\Z" access="Admin" />
+			<sec:intercept-url pattern="\A/auditreport.*\Z" access="Admin" />
+			<sec:intercept-url pattern="\A/auditreportlist.*\Z" access="Admin" />
+			<sec:intercept-url pattern="\A/versioncontrol.*\Z" access="Admin" />
+			<sec:intercept-url pattern="\A/propertieseditor.*\Z" access="Admin" />
+			<sec:intercept-url pattern="\A/propertiespanel.*\Z" access="Admin" />
+			<sec:intercept-url pattern="\A/subscriptionadmin.*\Z" access="Admin" />
+			<sec:intercept-url pattern="\A/resetrepository.*\Z" access="Admin" />
+			<sec:intercept-url pattern="\A/viewaction.*solution.admin.*\Z" access="Admin" />
+			<sec:intercept-url pattern="\A/scheduleradmin.*\Z" access="Admin" />
+			<sec:intercept-url pattern="\A/publish.*\Z" access="Admin" />
+			<sec:intercept-url pattern="\A/logout.*\Z" access="Anonymous" />
+			<sec:intercept-url pattern="\A/solutionrepositoryservice.*component=delete.*solution=system.*\Z" access="Nobody" />
+			<sec:intercept-url pattern="\A/solutionrepositoryservice.*solution=system.*component=delete.*\Z" access="Nobody" />
+			<sec:intercept-url pattern=".*system.*pentaho.xml.*" access="Nobody" />
+			<sec:intercept-url pattern=".*system.*applicationcontext.*.xml.*" access="Nobody" />
+			<sec:intercept-url pattern=".*system.*pentahoobjects.spring.xml.*" access="Nobody" />
+			<sec:intercept-url pattern=".*system.*pentahosystemconfig.xml.*" access="Nobody" />
+			<sec:intercept-url pattern=".*system.*adminplugins.xml.*" access="Nobody" />
+			<sec:intercept-url pattern=".*system.*plugin.properties.*" access="Nobody" />
+			<sec:intercept-url pattern=".*system.*sessionstartupactions.xml.*" access="Nobody" />
+			<sec:intercept-url pattern=".*system.*systemlisteners.xml.*" access="Nobody" />
+			<sec:intercept-url pattern=".*system.*hibernate.*" access="Nobody" />
+			<sec:intercept-url pattern=".*system.*birt/.*" access="Nobody" />
+			<sec:intercept-url pattern=".*system.*dialects/.*" access="Nobody" />
+			<sec:intercept-url pattern=".*system.*google/.*" access="Nobody" />
+			<sec:intercept-url pattern=".*system.*jasperreports/.*" access="Nobody" />
+			<sec:intercept-url pattern=".*system.*kettle/.*" access="Nobody" />
+			<sec:intercept-url pattern=".*system.*logs/.*" access="Nobody" />
+			<sec:intercept-url pattern=".*system.*mondrian/.*" access="Nobody" />
+			<sec:intercept-url pattern=".*system.*quartz/.*" access="Nobody" />
+			<sec:intercept-url pattern=".*system.*simple-jndi/.*" access="Nobody" />
+			<sec:intercept-url pattern=".*system.*smtp-email/.*" access="Nobody" />
+			<sec:intercept-url pattern=".*system.*ui/.*" access="Nobody" />
+			<sec:intercept-url pattern=".*system.*\.\./.*" access="Nobody" />
+			<sec:intercept-url pattern="\A/.*\Z" access="Authenticated" />
+         </sec:filter-security-metadata-source>
+       </property>
   </bean>
 
-  <bean id="httpRequestAccessDecisionManager" class="org.springframework.security.vote.AffirmativeBased">
+
+  <bean id="httpRequestAccessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
     <property name="allowIfAllAbstainDecisions" value="false" />
-    <property name="decisionVoters">
-      <list>
+    <constructor-arg>
+      <util:list>
         <ref bean="roleVoter" />
-      </list>
-    </property>
+      </util:list>
+     </constructor-arg>
   </bean>
 
 	<!-- ===================== HTTP REQUEST SECURITY ==================== -->
 
 	<!-- overridden from applicationContext-spring-security.xml -->
-	<bean id="exceptionTranslationFilter" class="org.springframework.security.ui.ExceptionTranslationFilter">
-		<property name="authenticationEntryPoint">
-			<ref bean="samlAuthenticationFilterEntryPoint" />
-		</property>
-		<property name="accessDeniedHandler">
-			<bean class="org.springframework.security.ui.AccessDeniedHandlerImpl" />
-		</property>
-	</bean>
+  <bean id="exceptionTranslationFilter" class="org.springframework.security.web.access.ExceptionTranslationFilter">
+    <constructor-arg ref="samlAuthenticationFilterEntryPoint"/>
+    <property name="accessDeniedHandler">
+      <bean class="org.springframework.security.web.access.AccessDeniedHandlerImpl" />
+    </property>
+  </bean>
+
 
 	<!-- overridden from applicationContext-spring-security.xml -->
-	<bean id="logoutFilter" class="org.springframework.security.ui.logout.LogoutFilter">
+	<bean id="logoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter">
 		<constructor-arg value="/logout.jsp" /> <!-- URL redirected to after logout -->
 		<constructor-arg>
-			<list>
+			<util:list>
 				<bean class="org.pentaho.platform.web.http.security.PentahoLogoutHandler" />
-				<bean class="org.springframework.security.ui.logout.SecurityContextLogoutHandler" />
-			</list>
+				<bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler" />
+			</util:list>
 		</constructor-arg>
 		<property name="filterProcessesUrl" value="/platform/logout" />
 	</bean>
 
-	<bean id="authenticationManager" class="org.springframework.security.providers.ProviderManager">
-	    <property name="providers">
-	      <list>
-	        <pen:bean class="org.springframework.security.providers.AuthenticationProvider"/>
-	        <ref bean="anonymousAuthenticationProvider" />
-	      </list>
-	    </property>
-	    <pen:publish as-type="INTERFACES" />
-	</bean>
+  <bean id="authenticationManager" class="org.springframework.security.authentication.ProviderManager">
+    <constructor-arg>
+      <util:list>
+        <pen:bean class="org.springframework.security.authentication.AuthenticationProvider"/>
+        <ref bean="anonymousAuthenticationProvider" />
+      </util:list>
+    </constructor-arg>
+  </bean>
+
 
 	<!-- ================================= -->
 	<!--   SPRING-SECURITY-SAML FILTERS    -->
 	<!-- ================================= -->
 
-	<pen:bean id="samlAuthenticationFilterEntryPoint" class="org.springframework.security.ui.AuthenticationEntryPoint">
+	<pen:bean id="samlAuthenticationFilterEntryPoint" class="org.springframework.security.web.AuthenticationEntryPoint">
 		<pen:attributes><pen:attr key="providerName" value="saml.authentication.entry.point"/></pen:attributes>
 	</pen:bean>
 
