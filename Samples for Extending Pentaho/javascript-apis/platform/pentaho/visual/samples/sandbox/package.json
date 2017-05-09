@@ -6,6 +6,6 @@
   "license": "MIT",
   "author": "Nelson Antunes <nantunes@pentaho.com>",
   "dependencies": {
-    "@nantunes/viz-api": "^3.0.2"
+    "@nantunes/viz-api": "https://github.com/nantunes/pentaho-viz-sandbox/releases/download/3.0.4/nantunes-viz-api-3.0.4.tgz"
   }
 }

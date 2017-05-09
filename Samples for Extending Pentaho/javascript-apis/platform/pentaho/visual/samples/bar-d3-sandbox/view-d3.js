@@ -162,13 +162,11 @@ define([
 
           view.act(action);
         });
-        /*
-        TODO: uncomment me when the `filterRow` method actually exists.
+
         bar.classed("selected", function(d) {
           var sf = view.selectionFilter;
-          return !!sf && dataTable.filterRow(sf, d.rowIndex);
+          return !!sf && dataTable.filterMatchesRow(sf, d.rowIndex);
         });
-        */
       },
 
       /**
