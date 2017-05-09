@@ -1,0 +1,11 @@
+{
+  "name": "pentaho-visual-samples-bar-d3",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Pentaho Visual Samples D3-Bar",
+  "license": "MIT",
+  "dependencies": {
+    "@nantunes/viz-api": "^3.0.2",
+    "d3": "^4.8.0"
+  }
+}

@@ -1,4 +1,4 @@
-# Reference Implementations
+# Samples for Extending Pentaho
 
-This is the location where Pentaho's Reference Implementations can be found. These are 
-source code samples to demonstrate the sample extensions of Pentaho capabilities.
+This is the location for samples and source code that can be used and reviewed
+(or serve as a template) for extending Pentaho. 
