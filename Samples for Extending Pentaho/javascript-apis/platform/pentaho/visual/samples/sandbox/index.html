@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+  <style>
+    .pentaho-visual-base {
+      border: solid 1px #005da6;
+    }
+  </style>
+
+  <!-- load requirejs -->
+  <script type="text/javascript" src="node_modules/requirejs/require.js"></script>
+
+  <!-- load the VizAPI dev bootstrap helper -->
+  <script type="text/javascript" src="node_modules/@nantunes/viz-api/dev-bootstrap.js"></script>
+
+  <script>
+    require([
+      "pentaho/type/Context",
+      "pentaho/data/Table",
+      "pentaho/visual/base/view",
+      "pentaho/visual/samples/calc",
+      "json!./sales-by-product-family.json"
+    ], function(Context, Table, baseViewFactory, calcFactory, dataSpec) {
+
+      // Setup up a VizAPI context.
+      var context = new Context({application: "viz-api-sandbox"});
+
+      // Create the visualization model.
+      var modelSpec = {
+        "data": new Table(dataSpec),
+        "levels": {attributes: ["productFamily"]},
+        "measure": {attributes: ["sales"]},
+        "operation": "avg"
+      };
+
+      var CalcModel = context.get(calcFactory);
+      var model = new CalcModel(modelSpec);
+
+      // Create the visualization view.
+      var viewSpec = {
+        width: 400,
+        height: 200,
+        domContainer: document.getElementById("viz_div"),
+        model: model
+      };
+
+      // Mark the container with the model's CSS classes, for styling purposes.
+      viewSpec.domContainer.className = model.type.inheritedStyleClasses.join(" ");
+
+      // Set the container dimensions.
+      viewSpec.domContainer.style.width = viewSpec.width + "px";
+      viewSpec.domContainer.style.height = viewSpec.height + "px";
+
+      var BaseView = context.get(baseViewFactory);
+      BaseView.createAsync(viewSpec).then(function(view) {
+        // Render the visualization.
+        view.update();
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <!-- div that will contain the visualization -->
+  <div id="viz_div"></div>
+</body>
+</html>

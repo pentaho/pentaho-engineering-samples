@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+  <style>
+    .pentaho-visual-base {
+      border: solid 1px #005da6;
+    }
+  </style>
+
+  <!-- load requirejs -->
+  <script type="text/javascript" src="node_modules/requirejs/require.js"></script>
+
+  <!-- load the VizAPI dev bootstrap helper -->
+  <script type="text/javascript" src="node_modules/@nantunes/viz-api/dev-bootstrap.js"></script>
+
+  <!-- configure AMD for the sample visualization -->
+  <script>
+    require.config({
+      packages: [
+        {
+          "name": "pentaho/visual/samples/bar",
+          "main": "model",
+          "location": "."
+        }
+      ],
+      paths: {
+        "d3": "./node_modules/d3/build/d3"
+      }
+    });
+  </script>
+
+  <script>
+    require([
+      "pentaho/type/Context",
+      "pentaho/data/Table",
+      "pentaho/visual/base/view",
+      "pentaho/visual/samples/bar",
+      "json!./sales-by-product-family.json"
+    ], function(Context, Table, baseViewFactory, barModelFactory, dataSpec) {
+
+      // Setup up a VizAPI context.
+      var context = new Context({application: "viz-api-sandbox"});
+
+      // Create the visualization model.
+      var modelSpec = {
+        "data": new Table(dataSpec),
+        "category": {attributes: ["productFamily"]},
+        "measure": {attributes: ["sales"]},
+        "barSize": 20
+      };
+
+      var BarModel = context.get(barModelFactory);
+      var model = new BarModel(modelSpec);
+
+      // Create the visualization view
+      var viewSpec = {
+        width: 700,
+        height: 300,
+        domContainer: document.getElementById("viz_div"),
+        model: model
+      };
+
+      // Mark the container with the model's CSS classes, for styling purposes.
+      viewSpec.domContainer.className = model.type.inheritedStyleClasses.join(" ");
+
+      // Set the container dimensions.
+      viewSpec.domContainer.style.width = viewSpec.width + "px";
+      viewSpec.domContainer.style.height = viewSpec.height + "px";
+
+      // Create the visualization view.
+      var BaseView = context.get(baseViewFactory);
+      BaseView.createAsync(viewSpec).then(function(view) {
+
+        // Handle the execute action.
+        view.on("pentaho/visual/action/execute", {
+          "do": function(action) {
+            var filter = action.dataFilter.toDnf();
+            if(filter.kind === "or") {
+              // By DNF conversion,
+              // it is an "or" of (at least one) "and" of (possibly negated) "isEqual" property filters.
+              var terminalFilter = filter.operands.at(0).operands.at(0);
+              alert("Executed " + terminalFilter.contentKey);
+            }
+          }
+        });
+
+        // Handle the select action.
+        view.on("pentaho/visual/action/select", {
+          "finally": function(action) {
+            document.getElementById("messages_div").innerText = "Selected: " + action.dataFilter.contentKey;
+          }
+        });
+
+        // Render the visualization.
+        view.update();
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <!-- div that will contain the visualization -->
+  <div id="viz_div"></div>
+
+  <!-- div that will display messages -->
+  <div id="messages_div"></div>
+</body>
+</html>
