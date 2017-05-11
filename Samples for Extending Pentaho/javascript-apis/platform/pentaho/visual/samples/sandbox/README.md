@@ -7,4 +7,4 @@ the only visualization that comes bundled with the Visualization API.
 To quickly view the sandbox in operation, execute `npm install` in this folder and open `index.html` through 
 a local web-server (such as Python's, `python -m SimpleHTTPServer 8000`).
 
-For more information, see `http://javascript-apis.pentaho.com/platform/pentaho/visual/samples/bar-d3-sandbox/`.
+For more information, see http://javascript-apis.pentaho.com/platform/pentaho/visual/samples/bar-d3-sandbox/.
