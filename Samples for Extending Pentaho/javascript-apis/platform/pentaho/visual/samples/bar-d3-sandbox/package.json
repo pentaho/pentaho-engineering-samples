@@ -5,7 +5,9 @@
   "description": "Pentaho Visual Samples D3-Bar",
   "license": "MIT",
   "dependencies": {
-    "@nantunes/viz-api": "https://github.com/nantunes/pentaho-viz-sandbox/releases/download/3.0.4/nantunes-viz-api-3.0.4.tgz",
     "d3": "^4.8.0"
-  }
+  },
+  "devDependencies": {
+    "@nantunes/viz-api": "https://github.com/nantunes/pentaho-viz-sandbox/releases/download/3.0.4/nantunes-viz-api-3.0.4.tgz"
+  }  
 }
