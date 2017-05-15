@@ -35,6 +35,9 @@ define([
         // The AMD/RequireJS module id of the visualization.
         sourceId: module.id,
 
+        // The label may show up in menus.
+        label: "D3 Bar Chart",
+
         // The default view to use to render this visualization is
         // a sibling module named `view-d3.js`.
         defaultView: "./view-d3",

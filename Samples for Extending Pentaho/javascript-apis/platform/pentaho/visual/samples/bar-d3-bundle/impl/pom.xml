@@ -12,6 +12,8 @@
   <artifactId>bar-d3-sample</artifactId>
   <version>0.0.1</version>
 
+  <packaging>bundle</packaging>
+
   <dependencies>
     <dependency>
       <groupId>org.ops4j.pax.web</groupId>

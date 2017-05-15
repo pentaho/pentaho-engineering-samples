@@ -7,15 +7,14 @@
 
   "packages": [
     {
-      "name": "pentaho-visual-samples-bar-d3",
-      "main": "model",
-      "location": "/${project.artifactId}/${project.version}"
+      "name": "bar-d3",
+      "main": "model"
     }
   ],
 
   "config": {
     "pentaho/service": {
-      "${project.artifactId}_${project.version}/pentaho-visual-samples-bar-d3": "pentaho/visual/base"
+      "${project.artifactId}_${project.version}/bar-d3": "pentaho/visual/base"
     }
   },
 
