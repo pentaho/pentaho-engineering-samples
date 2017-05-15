@@ -1,0 +1,25 @@
+{
+  "name": "${project.artifactId}",
+  "version": "${project.version}",
+  "private": true,
+  "description": "Pentaho Visual Samples D3-Bar",
+  "license": "MIT",
+
+  "packages": [
+    {
+      "name": "pentaho-visual-samples-bar-d3",
+      "main": "model",
+      "location": "/${project.artifactId}/${project.version}"
+    }
+  ],
+
+  "config": {
+    "pentaho/service": {
+      "${project.artifactId}_${project.version}/pentaho-visual-samples-bar-d3": "pentaho/visual/base"
+    }
+  },
+
+  "dependencies": {
+    "d3": "^${d3.version}"
+  }
+}
