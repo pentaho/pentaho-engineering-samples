@@ -25,6 +25,11 @@
       ],
       paths: {
         "d3": "./node_modules/d3/build/d3"
+      },
+      config: {
+        "pentaho/service": {
+          "pentaho/visual/samples/bar/config": "pentaho.config.spec.IRuleSet"
+        }
       }
     });
   </script>
@@ -45,8 +50,7 @@
       var modelSpec = {
         "data": new Table(dataSpec),
         "category": {attributes: ["productFamily"]},
-        "measure": {attributes: ["sales"]},
-        "barSize": 20
+        "measure": {attributes: ["sales"]}
       };
 
       var BarModel = context.get(barModelFactory);

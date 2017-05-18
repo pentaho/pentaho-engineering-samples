@@ -7,14 +7,15 @@
 
   "packages": [
     {
-      "name": "bar-d3",
+      "name": "viz",
       "main": "model"
     }
   ],
 
   "config": {
     "pentaho/service": {
-      "${project.artifactId}_${project.version}/bar-d3": "pentaho/visual/base"
+      "${project.artifactId}_${project.version}/viz": "pentaho/visual/base",
+      "${project.artifactId}_${project.version}/viz/config": "pentaho.config.spec.IRuleSet"
     }
   },
 
