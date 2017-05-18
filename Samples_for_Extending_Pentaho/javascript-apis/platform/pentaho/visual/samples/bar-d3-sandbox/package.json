@@ -8,6 +8,6 @@
     "d3": "^4.8.0"
   },
   "devDependencies": {
-    "@nantunes/viz-api": "https://github.com/nantunes/pentaho-viz-sandbox/releases/download/3.0.4/nantunes-viz-api-3.0.4.tgz"
-  }  
+    "@pentaho/viz-api": "https://github.com/pentaho/pentaho-platform-plugin-common-ui/releases/download/v3.0.0-beta/pentaho-viz-api-v3.0.0.tgz"
+  }
 }
