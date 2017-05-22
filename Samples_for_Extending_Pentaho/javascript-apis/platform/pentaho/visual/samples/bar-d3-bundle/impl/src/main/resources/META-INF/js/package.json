@@ -1,0 +1,25 @@
+{
+  "name": "${project.artifactId}",
+  "version": "${project.version}",
+  "private": true,
+  "description": "Pentaho Visual Samples D3-Bar",
+  "license": "MIT",
+
+  "packages": [
+    {
+      "name": "viz",
+      "main": "model"
+    }
+  ],
+
+  "config": {
+    "pentaho/service": {
+      "${project.artifactId}_${project.version}/viz": "pentaho/visual/base",
+      "${project.artifactId}_${project.version}/viz/config": "pentaho.config.spec.IRuleSet"
+    }
+  },
+
+  "dependencies": {
+    "d3": "^${d3.version}"
+  }
+}

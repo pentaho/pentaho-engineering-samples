@@ -11,7 +11,7 @@
   <script type="text/javascript" src="node_modules/requirejs/require.js"></script>
 
   <!-- load the VizAPI dev bootstrap helper -->
-  <script type="text/javascript" src="node_modules/@nantunes/viz-api/dev-bootstrap.js"></script>
+  <script type="text/javascript" src="node_modules/@pentaho/viz-api/dev-bootstrap.js"></script>
 
   <script>
     require([
@@ -44,13 +44,15 @@
         model: model
       };
 
-      // Mark the container with the model's CSS classes, for styling purposes.
+      // These are responsibilities of the visualization container application:
+      // 1. Mark the container with the model's CSS classes, for styling purposes.
       viewSpec.domContainer.className = model.type.inheritedStyleClasses.join(" ");
 
-      // Set the container dimensions.
+      // 2. Set the DOM container dimensions.
       viewSpec.domContainer.style.width = viewSpec.width + "px";
       viewSpec.domContainer.style.height = viewSpec.height + "px";
 
+      // Create the visualization view.
       var BaseView = context.get(baseViewFactory);
       BaseView.createAsync(viewSpec).then(function(view) {
         // Render the visualization.
