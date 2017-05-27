@@ -29,11 +29,10 @@ define([
     // Create the Bar Model subclass
     var BarModel = BaseModel.extend({
       type: {
-        // This is the id of the model (and of the visualization).
-        id: "pentaho/visual/samples/bar",
+        id: module.id,
 
-        // The AMD/RequireJS module id of the visualization.
-        sourceId: module.id,
+        // CSS class.
+        styleClass: "pentaho-visual-samples-bar",
 
         // The label may show up in menus.
         label: "D3 Bar Chart",

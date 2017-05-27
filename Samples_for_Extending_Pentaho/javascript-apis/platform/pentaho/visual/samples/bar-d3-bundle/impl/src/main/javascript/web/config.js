@@ -13,14 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-define(function() {
+define(["module"], function(module) {
+
+  var vizId = module.id.replace(/(\w+)$/, "model");
+
   return {
     rules: [
       // Sample rule
       {
         priority: -1,
         select: {
-          type: "pentaho/visual/samples/bar"
+          type: vizId
         },
         apply: {
           props: {
@@ -33,7 +36,7 @@ define(function() {
       {
         priority: -1,
         select: {
-          type: "pentaho/visual/samples/bar",
+          type: vizId,
           application: "pentaho-det"
         },
         apply: {
@@ -45,7 +48,7 @@ define(function() {
       {
         priority: -1,
         select: {
-          type: "pentaho/visual/samples/bar",
+          type: vizId,
           application: "pentaho-analyzer"
         },
         apply: {

@@ -16,14 +16,8 @@
   <!-- configure AMD for the sample visualization -->
   <script>
     require.config({
-      packages: [
-        {
-          "name": "pentaho/visual/samples/bar",
-          "main": "model",
-          "location": "."
-        }
-      ],
       paths: {
+        "pentaho/visual/samples/bar": ".",
         "d3": "./node_modules/d3/build/d3"
       },
       config: {
@@ -39,7 +33,7 @@
       "pentaho/type/Context",
       "pentaho/data/Table",
       "pentaho/visual/base/view",
-      "pentaho/visual/samples/bar",
+      "pentaho/visual/samples/bar/model",
       "json!./sales-by-product-family.json"
     ], function(Context, Table, baseViewFactory, barModelFactory, dataSpec) {
 
@@ -79,13 +73,7 @@
         // Handle the execute action.
         view.on("pentaho/visual/action/execute", {
           "do": function(action) {
-            var filter = action.dataFilter.toDnf();
-            if(filter.kind === "or") {
-              // By DNF conversion,
-              // it is an "or" of (at least one) "and" of (possibly negated) "isEqual" property filters.
-              var terminalFilter = filter.operands.at(0).operands.at(0);
-              alert("Executed " + terminalFilter.contentKey);
-            }
+            alert("Executed " + action.dataFilter.contentKey);
           }
         });
 

@@ -5,17 +5,10 @@
   "description": "Pentaho Visual Samples D3-Bar",
   "license": "MIT",
 
-  "packages": [
-    {
-      "name": "viz",
-      "main": "model"
-    }
-  ],
-
   "config": {
     "pentaho/service": {
-      "${project.artifactId}_${project.version}/viz": "pentaho/visual/base",
-      "${project.artifactId}_${project.version}/viz/config": "pentaho.config.spec.IRuleSet"
+      "${project.artifactId}_${project.version}/model": "pentaho/visual/base",
+      "${project.artifactId}_${project.version}/config": "pentaho.config.spec.IRuleSet"
     }
   },
 
