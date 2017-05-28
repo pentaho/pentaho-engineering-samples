@@ -9,8 +9,8 @@
     <version>7.1.0.0-12</version>
   </parent>
 
-  <groupId>org.pentaho</groupId>
-  <artifactId>bar-d3-sample-modules</artifactId>
+  <groupId>myGroupId</groupId>
+  <artifactId>myArtifactId-modules</artifactId>
   <version>0.0.1</version>
   <packaging>pom</packaging>
 
@@ -21,7 +21,6 @@
 
   <properties>
     <pax-web-extender-whiteboard.version>3.1.4</pax-web-extender-whiteboard.version>
-    <d3.version>4.8.0</d3.version>
   </properties>
 
   <dependencyManagement>
@@ -34,7 +33,6 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-
 
 
 </project>
