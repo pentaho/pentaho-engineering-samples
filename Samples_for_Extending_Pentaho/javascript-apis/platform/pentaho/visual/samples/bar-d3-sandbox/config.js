@@ -15,7 +15,7 @@
  */
 define(["module"], function(module) {
 
-  var vizId = module.id.replace(/(\w+)^/, "model");
+  var vizId = module.id.replace(/(\w+)$/, "model");
 
   return {
     rules: [
