@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cdf><title>sample</title><description>This dashboard demonstrates how to use the VisualizationAPIComponent with the sample D3 Bar Chart VizAPI 3.0 visualization.</description><author></author><style>CleanRequire</style><rendererType>bootstrap</rendererType><require>true</require><widget>false</widget><widgetName></widgetName><widgetParameters></widgetParameters></cdf>
