@@ -5,11 +5,11 @@
 
   <parent>
     <groupId>org.pentaho</groupId>
-    <artifactId>bar-d3-sample-modules</artifactId>
+    <artifactId>pentaho-visual-samples-bar-modules</artifactId>
     <version>0.0.1</version>
   </parent>
 
-  <artifactId>bar-d3-sample</artifactId>
+  <artifactId>pentaho-visual-samples-bar</artifactId>
   <version>0.0.1</version>
 
   <packaging>bundle</packaging>
