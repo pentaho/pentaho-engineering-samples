@@ -39,7 +39,7 @@ define([
           // Specialize the inherited model property to the Bar model type
           {
             name: "model",
-            type: barModelFactory
+            valueType: barModelFactory
           }
         ]
       },
