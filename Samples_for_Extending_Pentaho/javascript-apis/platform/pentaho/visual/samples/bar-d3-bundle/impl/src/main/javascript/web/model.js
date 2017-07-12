@@ -28,7 +28,7 @@ define([
 
     // Create the Bar Model subclass
     var BarModel = BaseModel.extend({
-      type: {
+      $type: {
         id: module.id,
 
         // CSS class.

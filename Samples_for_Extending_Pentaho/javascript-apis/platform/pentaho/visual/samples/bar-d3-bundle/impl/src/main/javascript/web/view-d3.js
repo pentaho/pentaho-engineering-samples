@@ -33,7 +33,7 @@ define([
 
     // Create the Bar View subclass
     var BarView = BaseView.extend({
-      type: {
+      $type: {
         id: module.id,
         props: [
           // Specialize the inherited model property to the Bar model type
@@ -139,7 +139,7 @@ define([
             .attr("height", function(d) { return height - y(d.measure); });
 
         var view = this;
-        var context = this.type.context;
+        var context = this.$type.context;
 
         bar.on("dblclick", function(d) {
           // A filter that would select the data that the bar visually represents.
