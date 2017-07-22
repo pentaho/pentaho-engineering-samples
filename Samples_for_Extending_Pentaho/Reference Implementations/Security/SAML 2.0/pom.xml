@@ -10,7 +10,7 @@
 
   <groupId>pentaho</groupId>
   <artifactId>pentaho-authentication-provider-samples</artifactId>
-  <version>7.0-SNAPSHOT</version>
+  <version>8.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>Pentaho Authentication Provider Samples Base</name>
@@ -82,8 +82,6 @@
   <modules>
 
     <!-- saml bundles -->
-    <module>pentaho-saml-ss2-proxies-extension</module>
-    <module>pentaho-saml-ss4-proxies-extension</module>
     <module>pentaho-saml</module>
     <module>pentaho-saml-assembly</module>
 
