@@ -5,7 +5,7 @@
   <parent>
     <groupId>pentaho</groupId>
     <artifactId>pentaho-authentication-provider-samples</artifactId>
-    <version>7.0-SNAPSHOT</version>
+    <version>8.0-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
@@ -57,32 +57,36 @@
           <groupId>xml-apis</groupId>
           <artifactId>xml-apis</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+        </exclusion>
 
       </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>org.opensaml</groupId>
-      <artifactId>opensaml</artifactId>
-      <version>${dependency.opensaml.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.velocity</groupId>
-      <artifactId>velocity</artifactId>
-      <version>${dependency.org.apache.velocity.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.beanshell</groupId>
       <artifactId>bsh</artifactId>
       <version>${dependency.bsh.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>*</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
       <groupId>org.jdom</groupId>
       <artifactId>jdom</artifactId>
       <version>${dependency.jdom.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>*</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -97,20 +101,8 @@
       <version>${dependency.spring.framework.version}</version>
       <exclusions>
         <exclusion>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-beans</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-context</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-core</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-tx</artifactId>
+          <groupId>*</groupId>
+          <artifactId>*</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -122,6 +114,64 @@
       <artifactId>spring-security-core</artifactId>
       <version>${dependency.spring.security.version}</version>
       <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>*</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>${dependency.spring.framework.version}</version>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>*</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+      <version>${dependency.spring.framework.version}</version>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>*</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>${dependency.spring.framework.version}</version>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>*</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${dependency.spring.framework.version}</version>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>*</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -129,6 +179,12 @@
       <artifactId>spring-security-web</artifactId>
       <version>${dependency.spring.security.version}</version>
       <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>*</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -138,20 +194,8 @@
       <scope>provided</scope>
       <exclusions>
         <exclusion>
-          <groupId>dom4j</groupId>
-          <artifactId>dom4j</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>pentaho</groupId>
-          <artifactId>pentaho-actionsequence-dom</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>pentaho</groupId>
-          <artifactId>pentaho-xul-core</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>commons-logging</groupId>
-          <artifactId>commons-logging</artifactId>
+          <groupId>*</groupId>
+          <artifactId>*</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -163,28 +207,8 @@
       <scope>provided</scope>
       <exclusions>
         <exclusion>
-          <groupId>pentaho</groupId>
-          <artifactId>pentaho-metadata</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>pentaho</groupId>
-          <artifactId>pentaho-cwm</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.apache.xmlgraphics</groupId>
-          <artifactId>batik-dom</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.apache.xmlgraphics</groupId>
-          <artifactId>batik-svggen</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>jaxen</groupId>
-          <artifactId>jaxen</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>dom4j</groupId>
-          <artifactId>dom4j</artifactId>
+          <groupId>*</groupId>
+          <artifactId>*</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -194,6 +218,12 @@
       <artifactId>pentaho-platform-repository</artifactId>
       <version>${dependency.pentaho.platform.version}</version>
       <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>*</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -201,6 +231,12 @@
       <artifactId>pentaho-proxy-factory</artifactId>
       <version>${dependency.pentaho.platform.version}</version>
       <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>*</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -208,6 +244,12 @@
       <artifactId>javax.servlet-api</artifactId>
       <version>${dependency.javax.servlet.version}</version>
       <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>*</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
      <dependency>
@@ -215,6 +257,12 @@
       <artifactId>slf4j-api</artifactId>
       <version>${dependency.slf4j.version}</version>
       <scope>provided</scope>
+       <exclusions>
+         <exclusion>
+           <groupId>*</groupId>
+           <artifactId>*</artifactId>
+         </exclusion>
+       </exclusions>
     </dependency>
 
     <!-- test dependencies -->
@@ -238,6 +286,12 @@
       <artifactId>slf4j-log4j12</artifactId>
       <version>${dependency.slf4j-log4j12.version}</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
   </dependencies>
