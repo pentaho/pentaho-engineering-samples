@@ -6,8 +6,10 @@
   "license": "MIT",
 
   "config": {
+    "pentaho/typeInfo": {
+      "${project.artifactId}_${project.version}/model": {"base": "pentaho/visual/base/model"}
+    },
     "pentaho/service": {
-      "${project.artifactId}_${project.version}/model": "pentaho/visual/base",
       "${project.artifactId}_${project.version}/config": "pentaho.config.spec.IRuleSet"
     }
   },
