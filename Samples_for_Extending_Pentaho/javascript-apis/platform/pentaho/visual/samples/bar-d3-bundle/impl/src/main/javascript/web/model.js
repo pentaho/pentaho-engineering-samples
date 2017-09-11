@@ -28,7 +28,7 @@ define([
 
     // Create the Bar Model subclass
     var BarModel = BaseModel.extend({
-      type: {
+      $type: {
         id: module.id,
 
         // CSS class.
@@ -46,26 +46,24 @@ define([
           // General properties
           {
             name: "barSize",
-            type: "number",
-            value: 30,
+            valueType: "number",
+            defaultValue: 30,
             isRequired: true
           },
 
           // Visual role properties
           {
             name: "category",
-            type: {
-              base: "pentaho/visual/role/ordinal",
-              props: {attributes: {isRequired: true, countMax: 1}}
-            }
+            base: "pentaho/visual/role/property",
+            levels: "ordinal",
+            attributes: {isRequired: true, countMax: 1}
           },
           {
             name: "measure",
-            type: {
-              base: "pentaho/visual/role/quantitative",
-              dataType: "number",
-              props: {attributes: {isRequired: true, countMax: 1}}
-            }
+            base: "pentaho/visual/role/property",
+            levels: "quantitative",
+            dataType: "number",
+            attributes: {isRequired: true, countMax: 1}
           }
         ]
       }
