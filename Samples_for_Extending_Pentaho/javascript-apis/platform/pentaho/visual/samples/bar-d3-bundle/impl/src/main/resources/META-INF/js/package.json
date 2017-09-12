@@ -9,8 +9,8 @@
     "pentaho/typeInfo": {
       "${project.artifactId}_${project.version}/model": {"base": "pentaho/visual/base/model"}
     },
-    "pentaho/service": {
-      "${project.artifactId}_${project.version}/config": "pentaho.config.spec.IRuleSet"
+    "pentaho/instanceInfo": {
+      "${project.artifactId}_${project.version}/config": {"type": "pentaho.config.spec.IRuleSet"}
     }
   },
 
