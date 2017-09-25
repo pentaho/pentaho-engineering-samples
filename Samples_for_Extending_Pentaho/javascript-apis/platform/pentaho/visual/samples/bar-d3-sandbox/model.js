@@ -14,17 +14,12 @@
  * limitations under the License.
  */
 define([
-  "module",
-  "pentaho/visual/base"
-], function(module, baseModelFactory) {
+  "module"
+], function(module) {
 
   "use strict";
 
-  // Return the Model factory function.
-  return function(context) {
-
-    // Obtain the base Model class from the context, given the base Model's factory function.
-    var BaseModel = context.get(baseModelFactory);
+  return ["pentaho/visual/base/model", function(BaseModel) {
 
     // Create the Bar Model subclass
     var BarModel = BaseModel.extend({
@@ -70,5 +65,5 @@ define([
     });
 
     return BarModel;
-  };
+  }];
 });
