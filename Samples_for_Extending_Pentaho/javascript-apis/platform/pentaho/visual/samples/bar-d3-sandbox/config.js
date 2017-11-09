@@ -32,7 +32,7 @@ define(["module"], function(module) {
         }
       },
 
-      // Analyzer integration
+      // Optional Analyzer integration
       {
         priority: -1,
         select: {

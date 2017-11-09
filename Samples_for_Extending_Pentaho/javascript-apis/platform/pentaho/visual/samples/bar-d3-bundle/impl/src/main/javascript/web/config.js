@@ -32,19 +32,7 @@ define(["module"], function(module) {
         }
       },
 
-      // DET integration
-      {
-        priority: -1,
-        select: {
-          type: vizId,
-          application: "pentaho-det"
-        },
-        apply: {
-          supportedModes: ["STREAM", "MODEL"]
-        }
-      },
-
-      // Analyzer integration
+      // Optional Analyzer integration
       {
         priority: -1,
         select: {
