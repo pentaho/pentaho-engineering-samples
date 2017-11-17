@@ -32,6 +32,20 @@ define(["module"], function(module) {
             barSize: { defaultValue: 50 }
           }
         }
+      },
+
+      // Analyzer integration
+      {
+        priority: -1,
+        select: {
+          type: vizId,
+          application: "pentaho-analyzer"
+        },
+        apply: {
+          application: {
+            keepLevelOnDrilldown: false
+          }
+        }
       }
     ]
   };
