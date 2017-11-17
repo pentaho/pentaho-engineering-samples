@@ -15,7 +15,8 @@
  * Copyright 2016 - 2017 Hitachi Vantara. All rights reserved.
  */
 define([
-  "module"
+  "module",
+  "css!./css/model"
 ], function(module) {
   "use strict";
 
