@@ -17,8 +17,9 @@
 define([
   "module",
   "d3",
+  "./click-d3",
   "css!./css/view-d3"
-], function(module, d3) {
+], function(module, d3, d3ClickController) {
   "use strict";
 
   return [
@@ -142,7 +143,10 @@ define([
           // Part 3
           var view = this;
 
-          bar.on("dblclick", function(d) {
+          var cc = d3ClickController();
+          bar.call(cc);
+
+          cc.on("dblclick", function(event, d) {
             // A filter that would select the data that the bar visually represents
             var filterSpec = { _: "=", property: categoryAttribute, value: d.category };
 
@@ -154,7 +158,7 @@ define([
           });
 
           // Part 4
-          bar.on("click", function(d) {
+          cc.on("click", function(event, d) {
             // A filter that would select the data that the bar visually represents
             var filterSpec = { _: "=", property: categoryAttribute, value: d.category };
 
@@ -162,7 +166,6 @@ define([
             var action = new SelectAction({dataFilter: filterSpec, selectionMode: event.ctrlKey || event.metaKey ? "toggle" : "replace"});
 
             // Dispatch the action through the view.
-            console.log(action);
             view.act(action);
           });
 

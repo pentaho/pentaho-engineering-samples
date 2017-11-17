@@ -84,7 +84,6 @@
             // Handle the select action.
             view.on("pentaho/visual/action/select", {
               "finally": function (action) {
-                console.log(action.dataFilter);
                 document.getElementById("messages_div").innerText = "Selected: " + view.selectionFilter.contentKey;
               }
             });
