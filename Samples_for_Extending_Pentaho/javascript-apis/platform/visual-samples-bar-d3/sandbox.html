@@ -76,14 +76,14 @@
           .then(function (view) {
             // Handle the execute action.
             view.on("pentaho/visual/action/execute", {
-              "do": function (action) {
-                alert("Executed " + action.dataFilter.contentKey);
+              "do": function (event) {
+                alert("Executed " + event.action.dataFilter.contentKey);
               }
             });
 
             // Handle the select action.
             view.on("pentaho/visual/action/select", {
-              "finally": function (action) {
+              "finally": function (event) {
                 document.getElementById("messages_div").innerText = "Selected: " + view.selectionFilter.contentKey;
               }
             });
