@@ -172,8 +172,8 @@ public class PentahoSamlUserDetailsService implements SAMLUserDetailsService, Us
     // Ensure that any authenticated user gets the DefaultRole, usually "Authenticated"
     Collection<? extends GrantedAuthority> newAuthorities = ensureDefaultRole( oldAuthorities );
 
-    return new User( user.getUsername(), user.getPassword(), user.isEnabled(), user.isAccountNonExpired(), user
-        .isCredentialsNonExpired(), user.isAccountNonExpired(), newAuthorities );
+      return new User( user.getUsername(), ( (user.getPassword() != null) ? user.getPassword() : "N/A"), user.isEnabled(),
+        user.isAccountNonExpired(), user.isCredentialsNonExpired(), user.isAccountNonExpired(), newAuthorities );
   }
 
   private Collection<? extends GrantedAuthority> ensureDefaultRole(
