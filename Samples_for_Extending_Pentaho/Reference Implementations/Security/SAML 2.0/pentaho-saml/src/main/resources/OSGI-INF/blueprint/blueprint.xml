@@ -132,6 +132,26 @@
           that can authenticate to the system be available in the authorization provider -->
       <cm:property name="create.user.details.not.found.in.authorization.provider" value="false" />
       
+      <!-- LOAD BALANCER CONFIGURATION -->
+      <!-- If the server will be behind a load balancer, server addressing properties must be
+           specified so that any host can produce and validate messages -->
+      <cm:property name="saml.lb.enabled" value="false" />
+      
+      <!-- When the load balancer is enabled, provide server access url scheme (ex. http | https) -->
+      <cm:property name="saml.lb.scheme" value="http" />
+        
+      <!-- When the load balancer is enabled, provide a value with the host address of the load balancer (ex. www.myserver.com) -->
+      <cm:property name="saml.lb.server.name" value="localhost" />
+        
+      <!-- When the load balancer is enabled, provide a value of with the context path of the load balancer (ex. /) -->
+      <cm:property name="saml.lb.context.path" value="/pentaho" />
+        
+      <!-- When the load balancer is enabled, provide the port of the load balancer -->
+      <cm:property name="saml.lb.server.port" value="8080" />
+        
+      <!-- when the load balancer is enabled, set if the port must be included in the address (ex. true | false) -->
+      <cm:property name="saml.lb.include.port.in.request.url" value="true" />
+      
     </cm:default-properties>
   </cm:property-placeholder>
 
@@ -288,10 +308,28 @@
   <!-- Initialization of of OpenSAML library via SAMLBootstrap  -->
   <bean id="pentahoSamlBootstrap" class="org.pentaho.platform.spring.security.saml.PentahoSamlBootstrap" init-method="bootstrap" />
 
+  <!-- Delegate to provider of SAML Context -->
+  <bean id="contextProvider" class="org.pentaho.platform.spring.security.saml.PentahoSamlContextProviderDelegate" init-method="afterPropertiesSet">
+    <property name="useLoadBalanceProvider" value="${saml.lb.enabled}" />
+    <property name="implProvider"           ref="implContextProvider" />
+    <property name="lbProvider"             ref="lbContextProvider" />
+  </bean>
+
   <!-- Provider of default SAML Context -->
-  <bean id="contextProvider" class="org.springframework.security.saml.context.SAMLContextProviderImpl" init-method="afterPropertiesSet">
+  <bean id="implContextProvider" class="org.springframework.security.saml.context.SAMLContextProviderImpl" init-method="afterPropertiesSet">
     <property name="metadata"    ref="metadata" />
     <property name="keyManager"  ref="keyManager" />
+  </bean>
+  
+  <!-- Provider of a load balancing SAML Context -->
+  <bean id="lbContextProvider" class="org.springframework.security.saml.context.SAMLContextProviderLB" init-method="afterPropertiesSet">
+    <property name="metadata"    ref="metadata" />
+    <property name="keyManager"  ref="keyManager" />
+    <property name="scheme"      value="${saml.lb.scheme}" />
+    <property name="serverName"  value="${saml.lb.server.name}" />
+    <property name="contextPath" value="${saml.lb.context.path}" />
+    <property name="serverPort"  value="${saml.lb.server.port}" />
+    <property name="includeServerPortInRequestURL" value="${saml.lb.include.port.in.request.url}" />
   </bean>
 
 
