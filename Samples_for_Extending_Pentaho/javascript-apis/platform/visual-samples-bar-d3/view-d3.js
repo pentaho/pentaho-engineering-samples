@@ -18,8 +18,9 @@ define([
   "module",
   "d3",
   "./click-d3",
+  "pentaho/visual/scene/Base",
   "css!./css/view-d3"
-], function(module, d3, d3ClickController) {
+], function(module, d3, d3ClickController, Scene) {
   "use strict";
 
   return [
@@ -60,16 +61,8 @@ define([
 
           var dataTable = model.data;
 
-          // The name of the data attributes that are mapped to the visual roles
-          var categoryAttribute = model.category.attributes.at(0).name;
-          var measureAttribute = model.measure.attributes.at(0).name;
-
-          // Their column indexes in the data table.
-          var categoryColumn = dataTable.getColumnIndexByAttribute(categoryAttribute);
-          var measureColumn = dataTable.getColumnIndexByAttribute(measureAttribute);
-
           // Build a list of scenes, one per category
-          var scenes = this.__buildScenes(dataTable, categoryColumn, measureColumn);
+          var scenes = Scene.buildScenesFlat(this).children;
 
           // The div where rendering takes place
           var container = d3.select(this.domContainer);
@@ -77,7 +70,7 @@ define([
           // Part 2
           container.selectAll("*").remove();
 
-          var margin = { top: 50, right: 30, bottom: 30, left: 75 };
+          var margin = {top: 50, right: 30, bottom: 30, left: 75};
 
           // Note use of the view's width and height properties
           var width = this.width - margin.left - margin.right;
@@ -86,17 +79,15 @@ define([
           var x = d3.scaleBand().rangeRound([0, width]).padding(0.1);
           var y = d3.scaleLinear().rangeRound([height, 0]);
 
-          x.domain(scenes.map(function (d) { return d.categoryLabel; }));
-          y.domain([0, d3.max(scenes, function (d) { return d.measure; })]);
+          x.domain(scenes.map(function(scene) { return scene.vars.category.formatted; }));
+          y.domain([0, d3.max(scenes, function(scene) { return scene.vars.measure.value; })]);
 
           var svg = container.append("svg")
             .attr("width", this.width)
             .attr("height", this.height);
 
           // Title
-          var title = dataTable.getColumnLabel(measureColumn) +
-            " per " +
-            dataTable.getColumnLabel(categoryColumn);
+          var title = model.measure.mapper.label + " per " + model.category.mapper.label;
 
           svg.append("text")
             .attr("class", "title")
@@ -125,8 +116,8 @@ define([
           var barWidth = Math.min(model.barSize, bandWidth);
           var barOffset = bandWidth / 2 - barWidth / 2 + 0.5;
 
-          var selectColor = function(d) {
-            return model.palette.colors.at(d.rowIndex % model.palette.colors.count).value;
+          var selectColor = function(scene) {
+            return model.palette.colors.at(scene.index % model.palette.colors.count).value;
           };
 
           var bar = g.selectAll(".bar")
@@ -135,10 +126,10 @@ define([
             .attr("class", "bar")
             .attr("fill", selectColor)
             .attr("stroke", selectColor)
-            .attr("x", function (d) { return x(d.categoryLabel) + barOffset; })
-            .attr("y", function (d) { return y(d.measure); })
+            .attr("x", function(scene) { return x(scene.vars.category.formatted) + barOffset; })
+            .attr("y", function(scene) { return y(scene.vars.measure.value); })
             .attr("width", barWidth)
-            .attr("height", function (d) { return height - y(d.measure); });
+            .attr("height", function(scene) { return height - y(scene.vars.measure.value); });
 
           // Part 3
           var view = this;
@@ -146,59 +137,37 @@ define([
           var cc = d3ClickController();
           bar.call(cc);
 
-          cc.on("dblclick", function(event, d) {
-            // A filter that would select the data that the bar visually represents
-            var filterSpec = { _: "=", property: categoryAttribute, value: d.category };
+          cc.on("dblclick", function(event, scene) {
+            // A filter that selects the data that the bar visually represents.
+            var filter = scene.createFilter();
 
             // Create the action.
-            var action = new ExecuteAction({ dataFilter: filterSpec });
+            var action = new ExecuteAction({dataFilter: filter});
 
             // Dispatch the action through the view.
             view.act(action);
           });
 
           // Part 4
-          cc.on("click", function(event, d) {
-            // A filter that would select the data that the bar visually represents
-            var filterSpec = { _: "=", property: categoryAttribute, value: d.category };
+          cc.on("click", function(event, scene) {
+            // A filter that selects the data that the bar visually represents.
+            var filter = scene.createFilter();
 
             // Create the action.
-            var action = new SelectAction({dataFilter: filterSpec, selectionMode: event.ctrlKey || event.metaKey ? "toggle" : "replace"});
+            var action = new SelectAction({
+              dataFilter: filter,
+              selectionMode: event.ctrlKey || event.metaKey ? "toggle" : "replace"
+            });
 
             // Dispatch the action through the view.
             view.act(action);
           });
 
           // Part 5
-          bar.classed("selected", function(d) {
+          bar.classed("selected", function(scene) {
             var sf = view.selectionFilter;
-            return !!sf && dataTable.filterMatchesRow(sf, d.rowIndex);
+            return !!sf && dataTable.filterMatchesRow(sf, scene.index);
           });
-        },
-
-        /**
-         * Builds the data array that feeds D3 given a DataTable and
-         * the indexes of the columns mapped to the `category` and `measure` visual roles.
-         *
-         * @param {pentaho.data.ITable} dataTable - The data table.
-         * @param {number} categoryColumn - The index of the column of the attribute mapped to the `category` visual role.
-         * @param {number} measureColumn - The index of the column of the attribute mapped to the `measure` visual role.
-         * @return {Array.<{category: string, measure: number}>} The scenes array.
-         * @private
-         */
-        __buildScenes: function(dataTable, categoryColumn, measureColumn) {
-          var scenes = [];
-
-          for (var i = 0, R = dataTable.getNumberOfRows(); i < R; i++) {
-            scenes.push({
-              category: dataTable.getValue(i, categoryColumn),
-              categoryLabel: dataTable.getFormattedValue(i, categoryColumn),
-              measure: dataTable.getValue(i, measureColumn),
-              rowIndex: i
-            });
-          }
-
-          return scenes;
         }
       });
 
