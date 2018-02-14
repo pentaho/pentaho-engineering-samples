@@ -13,13 +13,14 @@
 
   <!-- load the VizAPI dev bootstrap helper -->
   <script type="text/javascript" src="node_modules/@pentaho/viz-api/dev-bootstrap.js"></script>
-
+  
   <!-- configure AMD for the sample visualization -->
   <script>
     require([
       "vizapi-dev-init",
       "json!./package.json"
-    ], function (devInit, package) {
+    ], function(devInit, package) {
+
       devInit(package);
 
       require.config({
@@ -32,31 +33,31 @@
         "pentaho/type/Context",
         "pentaho/data/Table",
         "json!./sandbox-data.json"
-      ], function (Context, Table, dataSpec) {
+      ], function(Context, Table, dataSpec) {
 
         // Setup up a VizAPI context.
         Context.createAsync({ application: "viz-api-sandbox" })
-          .then(function (context) {
+          .then(function(context) {
             // Get the model and base view types
             return context.getDependencyAsync({
               BarModel: "pentaho-visual-samples-bar-d3/model",
               BaseView: "pentaho/visual/base/view"
             });
           })
-          .then(function (types) {
+          .then(function(types) {
 
             // Create the visualization model.
             var modelSpec = {
               "data": new Table(dataSpec),
-              "category": { attributes: ["productFamily"] },
-              "measure": { attributes: ["sales"] }
+              "category": {attributes: ["productFamily", "year"]},
+              "measure": {attributes: ["sales"]}
             };
 
             var model = new types.BarModel(modelSpec);
 
-            // Create the visualization view
+            // Create the visualization view.
             var viewSpec = {
-              width: 700,
+              width: 1400,
               height: 300,
               domContainer: document.getElementById("viz_div"),
               model: model
@@ -76,14 +77,14 @@
           .then(function (view) {
             // Handle the execute action.
             view.on("pentaho/visual/action/execute", {
-              "do": function (event, action) {
+              "do": function(event, action) {
                 alert("Executed " + action.dataFilter.contentKey);
               }
             });
 
             // Handle the select action.
             view.on("pentaho/visual/action/select", {
-              "finally": function (event, action) {
+              "finally": function(event, action) {
                 document.getElementById("messages_div").innerText = "Selected: " + view.selectionFilter.contentKey;
               }
             });
