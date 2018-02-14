@@ -87,7 +87,7 @@ define([
             .attr("height", this.height);
 
           // Title
-          var title = model.measure.mapper.label + " per " + model.category.mapper.label;
+          var title = this.__getRoleLabel(model.measure) + " per " + this.__getRoleLabel(model.category);
 
           svg.append("text")
             .attr("class", "title")
@@ -168,6 +168,29 @@ define([
             var sf = view.selectionFilter;
             return !!sf && dataTable.filterMatchesRow(sf, scene.index);
           });
+        },
+
+        /**
+         * Gets a label that describes a visual role given its mapping.
+         *
+         * @param {!pentaho.visual.role.Mapping} vrMapping - The visual role mapping.
+         * @return {string} The visual role label.
+         * @private
+         */
+        __getRoleLabel: function(vrMapping) {
+
+          var labels = [];
+          var mapper = vrMapping.mapper;
+          if(mapper !== null) {
+            var inputData = mapper.inputData;
+            var columnIndex = -1;
+            var columnCount = inputData.getNumberOfColumns();
+            while(++columnIndex < columnCount) {
+              labels.push(inputData.getColumnLabel(columnIndex));
+            }
+          }
+
+          return labels.join(", ");
         }
       });
 
