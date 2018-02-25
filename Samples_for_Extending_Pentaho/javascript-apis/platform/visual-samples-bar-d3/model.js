@@ -50,13 +50,13 @@ define([
           {
             name: "category",
             base: "pentaho/visual/role/property",
-            attributes: {isRequired: true}
+            fields: {isRequired: true}
           },
           {
             name: "measure",
             base: "pentaho/visual/role/property",
             modes: [{dataType: "number"}],
-            attributes: {isRequired: true, countMax: 1}
+            fields: {isRequired: true}
           },
 
           // Palette property

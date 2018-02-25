@@ -1,22 +1,15 @@
 {
   "model": [
-    {"name": "productFamily", "type": "string", "label": "Product Family", "isKey": true},
-    {"name": "year",          "type": "number", "label": "Year", "isKey": true},
+    {"name": "productFamily", "type": "string", "label": "Product Family"},
     {"name": "sales",         "type": "number", "label": "Sales"}
   ],
   "rows": [
-    {"c": [{"v": "cars-classic", "f": "Classic Cars"}, 2015, 2746782]},
-    {"c": [{"v": "cars-classic", "f": "Classic Cars"}, 2017, 2700000]},
-    {"c": [{"v": "motorcycles", "f": "Motorcycles"}, 2015, 753753]},
-    {"c": [{"v": "motorcycles", "f": "Motorcycles"}, 2017, 20000]},
-
-    {"c": [{"v": "ships", "f": "Ships"}, 2015, 538982]},
-    {"c": [{"v": "ships", "f": "Ships"}, 2017, 32890]},
-    {"c": [{"v": "trains", "f": "Trains"}, 2015, 165215]},
-    {"c": [{"v": "trains", "f": "Trains"}, 2017, 10000]},
-    {"c": [{"v": "trucks-and-buses", "f": "Trucks"}, 2015, 756438]},
-    {"c": [{"v": "trucks-and-buses", "f": "Trucks"}, 2017, 1000000]},
-    {"c": [{"v": "cars-vintage", "f": "Vintage Cars"}, 2015, 18470]},
-    {"c": [{"v": "cars-vintage", "f": "Vintage Cars"}, 2017, 1308470]}
+    {"c": [{"v": "cars-classic", "f": "Classic Cars"}, 2746782]},
+    {"c": [{"v": "motorcycles", "f": "Motorcycles"}, 753753]},
+    {"c": [{"v": "planes", "f": "Planes"}, 748324]},
+    {"c": [{"v": "ships", "f": "Ships"}, 538982]},
+    {"c": [{"v": "trains", "f": "Trains"}, 165215]},
+    {"c": [{"v": "trucks-and-buses", "f": "Trucks and Buses"}, 756438]},
+    {"c": [{"v": "cars-vintage", "f": "Vintage Cars"}, 1308470]}
   ]
 }
