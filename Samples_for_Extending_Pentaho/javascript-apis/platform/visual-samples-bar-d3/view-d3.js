@@ -29,6 +29,7 @@ define([
     "pentaho/visual/action/execute",
     "pentaho/visual/action/select",
     function(BaseView, BarModel, ExecuteAction, SelectAction) {
+
       // Create the Bar View subclass
       var BarView = BaseView.extend({
         $type: {
@@ -79,7 +80,7 @@ define([
           var x = d3.scaleBand().rangeRound([0, width]).padding(0.1);
           var y = d3.scaleLinear().rangeRound([height, 0]);
 
-          x.domain(scenes.map(function(scene) { return scene.vars.category.formatted; }));
+          x.domain(scenes.map(function(scene) { return scene.vars.category.toString(); }));
           y.domain([0, d3.max(scenes, function(scene) { return scene.vars.measure.value; })]);
 
           var svg = container.append("svg")
@@ -87,7 +88,7 @@ define([
             .attr("height", this.height);
 
           // Title
-          var title = model.measure.mapper.label + " per " + model.category.mapper.label;
+          var title = this.__getRoleLabel(model.measure) + " per " + this.__getRoleLabel(model.category);
 
           svg.append("text")
             .attr("class", "title")
@@ -126,7 +127,7 @@ define([
             .attr("class", "bar")
             .attr("fill", selectColor)
             .attr("stroke", selectColor)
-            .attr("x", function(scene) { return x(scene.vars.category.formatted) + barOffset; })
+            .attr("x", function(scene) { return x(scene.vars.category.toString()) + barOffset; })
             .attr("y", function(scene) { return y(scene.vars.measure.value); })
             .attr("width", barWidth)
             .attr("height", function(scene) { return height - y(scene.vars.measure.value); });
@@ -168,6 +169,28 @@ define([
             var sf = view.selectionFilter;
             return !!sf && dataTable.filterMatchesRow(sf, scene.index);
           });
+        },
+
+        /**
+         * Gets a label that describes a visual role given its mapping.
+         *
+         * @param {!pentaho.visual.role.Mapping} mapping - The visual role mapping.
+         * @return {string} The visual role label.
+         * @private
+         */
+        __getRoleLabel: function(mapping) {
+
+          if(!mapping.hasFields) {
+            return "";
+          }
+
+          var data = this.model.data;
+
+          var columnLabels = mapping.fieldIndexes.map(function (fieldIndex) {
+            return data.getColumnLabel(fieldIndex);
+          });
+
+          return columnLabels.join(", ");
         }
       });
 
