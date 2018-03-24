@@ -446,7 +446,7 @@
 
   <!-- Handler deciding where to redirect user after successful login -->
   <bean id="successRedirectHandler" class="org.pentaho.platform.spring.security.saml.PentahoSamlAuthenticationSuccessHandler">
-    <property name="defaultTargetUrl" value="/index.jsp"/>
+    <!--property name="defaultTargetUrl" value="/index.jsp"/-->
   </bean>
 
   <!-- Handler deciding where to redirect user after failed login -->
