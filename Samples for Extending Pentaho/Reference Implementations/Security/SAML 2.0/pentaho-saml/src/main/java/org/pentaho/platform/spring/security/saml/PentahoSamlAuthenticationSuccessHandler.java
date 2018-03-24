@@ -19,16 +19,19 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.providers.ExpiringUsernameAuthenticationToken;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.util.Assert;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Callable;
 
 public class PentahoSamlAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
@@ -56,7 +59,6 @@ public class PentahoSamlAuthenticationSuccessHandler extends SavedRequestAwareAu
         SecurityContextHolder.getContext().setAuthentication( authentication );
       }
 
-
       // legacy spring ( i.e. non-osgi spring.framework ) SecurityContext storing
 
       IProxyFactory factory = PentahoSystem.get( IProxyFactory.class );
@@ -67,7 +69,7 @@ public class PentahoSamlAuthenticationSuccessHandler extends SavedRequestAwareAu
 
       // pentaho auth storing
 
-      logger.info( "synchronizing current IPentahoSession with SecurityContext" ); //$NON-NLS-1$
+      logger.info( "Synchronizing current IPentahoSession with SecurityContext" ); //$NON-NLS-1$
 
       IPentahoSession pentahoSession = PentahoSessionHolder.getSession();
       Assert.notNull( pentahoSession, "PentahoSessionHolder doesn't have a session" );
@@ -76,10 +78,19 @@ public class PentahoSamlAuthenticationSuccessHandler extends SavedRequestAwareAu
       // Note: spring-security 2 expects an *array* of GrantedAuthorities ( ss4 uses a list )
       pentahoSession.setAttribute( IPentahoSession.SESSION_ROLES,
           proxyGrantedAuthorities( factory, authentication.getAuthorities() ) );
+      logger.info( "IPentahoSession.SESSION_ROLES :"+authentication.getAuthorities() );
 
       // time to create this user's home folder
       createUserHomeFolder( authentication.getName() );
-
+      
+      Map.Entry<String, String> savedRequestProxy = factory.createProxy( request.getSession().getAttribute("SPRING_SECURITY_SAVED_REQUEST_KEY") );
+      if( savedRequestProxy != null) {
+          String requestUrl = savedRequestProxy.getValue();
+          logger.info( "Request URL: "+requestUrl);
+          setDefaultTargetUrl(requestUrl);
+      }
+      
+      logger.info( "Calling super.onAuthenticationSuccess");
       super.onAuthenticationSuccess( request, new SamlOnRedirectUpdateSessionResponseWrapper( response, request, true,
           0, securityContextProxy, authentication ), authentication );
 
