@@ -51,8 +51,6 @@ public class S2SamlSavedRequestProxy implements Map.Entry<String,String> {
 	public String getValue() {
 		int index = getRequestUrl().indexOf(getServletPath());
 		String value = getRequestUrl().substring(index);
-		if (getQueryString()!=null)
-			value += "?"+getQueryString();
 		return value;
 	}
 	
