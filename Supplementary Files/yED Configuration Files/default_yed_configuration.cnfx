@@ -257,7 +257,7 @@
           <y:Geometry height="48.0" width="48.0" x="-24.0" y="-24.0"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="22.0" y="52.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="22.0" y="52.0"/>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
@@ -528,6 +528,42 @@
           </result>
         </discrete>
         <discrete>
+          <value>Splunk Column</value>
+          <result>
+            <graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
+  <!--Created by yEd 3.14.1-->
+  <key for="port" id="d0" yfiles.type="portgraphics"/>
+  <key for="port" id="d1" yfiles.type="portgeometry"/>
+  <key for="port" id="d2" yfiles.type="portuserdata"/>
+  <key for="node" id="d3" yfiles.type="nodegraphics"/>
+  <key for="graphml" id="d4" yfiles.type="resources"/>
+  <key for="edge" id="d5" yfiles.type="edgegraphics"/>
+  <graph edgedefault="directed" id="G">
+    <node id="n0">
+      <data key="d3">
+        <y:GenericNode configuration="com.yworks.flowchart.start1">
+          <y:Geometry height="40.0" width="80.0" x="-40.0" y="-20.0"/>
+          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="custom" textColor="#000000" visible="true" width="4.0" x="38.0" y="18.0">
+            <y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+        </y:GenericNode>
+      </data>
+    </node>
+  </graph>
+  <data key="d4">
+    <y:Resources/>
+  </data>
+</graphml>
+          </result>
+        </discrete>
+        <discrete>
           <value>File Field</value>
           <result>
             <graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
@@ -622,24 +658,200 @@
       </target>
       <conversion type="discrete">
         <discrete>
+          <value>derives</value>
+          <result>#C0C0C0</result>
+        </discrete>
+        <discrete>
+          <value>uses</value>
+          <result>#FF6600</result>
+        </discrete>
+        <discrete>
           <value>contains</value>
-          <result>#339966</result>
+          <result>#000000</result>
         </discrete>
         <discrete>
           <value>populates</value>
-          <result>#ff0000</result>
+          <result>#339966</result>
         </discrete>
         <discrete>
           <value>dependencyof</value>
-          <result>#0000ff</result>
+          <result>#0000FF</result>
         </discrete>
         <discrete>
           <value>isreadby</value>
-          <result>#0000ff</result>
+          <result>#0000FF</result>
         </discrete>
         <discrete>
           <value>creates</value>
           <result>#339966</result>
+        </discrete>
+        <discrete>
+          <value>outputs</value>
+          <result>#339966</result>
+        </discrete>
+        <discrete>
+          <value>writesto</value>
+          <result>#339966</result>
+        </discrete>
+        <discrete>
+          <value>inputs</value>
+          <result>#0000FF</result>
+        </discrete>
+        <discrete>
+          <value>executes</value>
+          <result>#000000</result>
+        </discrete>
+        <discrete>
+          <value>parentconcept</value>
+          <result>#000000</result>
+        </discrete>
+        <discrete>
+          <value>istypeof</value>
+          <result>#000000</result>
+        </discrete>
+      </conversion>
+    </mapping>
+    <mapping>
+      <source name="text" origin="customProperty" type="string"/>
+      <target name="labelTextColor" type="color">
+        <hints/>
+      </target>
+      <conversion type="discrete">
+        <discrete>
+          <value>derives</value>
+          <result>#C0C0C0</result>
+        </discrete>
+        <discrete>
+          <value>uses</value>
+          <result>#FF6600</result>
+        </discrete>
+        <discrete>
+          <value>contains</value>
+          <result>#000000</result>
+        </discrete>
+        <discrete>
+          <value>populates</value>
+          <result>#339966</result>
+        </discrete>
+        <discrete>
+          <value>dependencyof</value>
+          <result>#0000FF</result>
+        </discrete>
+        <discrete>
+          <value>isreadby</value>
+          <result>#0000FF</result>
+        </discrete>
+        <discrete>
+          <value>creates</value>
+          <result>#339966</result>
+        </discrete>
+        <discrete>
+          <value>outputs</value>
+          <result>#339966</result>
+        </discrete>
+        <discrete>
+          <value>writesto</value>
+          <result>#339966</result>
+        </discrete>
+        <discrete>
+          <value>inputs</value>
+          <result>#0000FF</result>
+        </discrete>
+        <discrete>
+          <value>transient</value>
+          <result>#DDDDDD</result>
+        </discrete>
+        <discrete>
+          <value>executes</value>
+          <result>#000000</result>
+        </discrete>
+        <discrete>
+          <value>parentconcept</value>
+          <result>#000000</result>
+        </discrete>
+        <discrete>
+          <value>istypeof</value>
+          <result>#000000</result>
+        </discrete>
+      </conversion>
+    </mapping>
+    <mapping>
+      <source name="text" origin="customProperty" type="string"/>
+      <target name="labelBackgroundColor" type="color">
+        <hints/>
+      </target>
+      <conversion type="discrete">
+        <discrete>
+          <value>derives</value>
+          <result>#FFFFFF</result>
+        </discrete>
+        <discrete>
+          <value>hops_to</value>
+          <result>#FFFFFF</result>
+        </discrete>
+        <discrete>
+          <value>uses</value>
+          <result>#FFFFFF</result>
+        </discrete>
+        <discrete>
+          <value>contains</value>
+          <result>#FFFFFF</result>
+        </discrete>
+        <discrete>
+          <value>populates</value>
+          <result>#FFFFFF</result>
+        </discrete>
+        <discrete>
+          <value>dependencyof</value>
+          <result>#FFFFFF</result>
+        </discrete>
+        <discrete>
+          <value>isreadby</value>
+          <result>#FFFFFF</result>
+        </discrete>
+        <discrete>
+          <value>creates</value>
+          <result>#FFFFFF</result>
+        </discrete>
+        <discrete>
+          <value>outputs</value>
+          <result>#FFFFFF</result>
+        </discrete>
+        <discrete>
+          <value>writesto</value>
+          <result>#FFFFFF</result>
+        </discrete>
+        <discrete>
+          <value>inputs</value>
+          <result>#FFFFFF</result>
+        </discrete>
+        <discrete>
+          <value>transient</value>
+          <result>#FFFFFF</result>
+        </discrete>
+        <discrete>
+          <value>executes</value>
+          <result>#FFFFFF</result>
+        </discrete>
+        <discrete>
+          <value>parentconcept</value>
+          <result>#FFFFFF</result>
+        </discrete>
+        <discrete>
+          <value>containsconcept</value>
+          <result>#FFFFFF</result>
+        </discrete>
+        <discrete>
+          <value>typeconcept</value>
+          <result>#FFFFFF</result>
+        </discrete>
+        <discrete>
+          <value>istypeof</value>
+          <result>#FFFFFF</result>
+        </discrete>
+        <discrete>
+          <value>joins</value>
+          <result>#FFFFFF</result>
         </discrete>
       </conversion>
     </mapping>
@@ -673,6 +885,62 @@
       </conversion>
     </mapping>
     <mapping>
+      <source name="text" origin="customProperty" type="string"/>
+      <target name="lineLineType" type="lineType">
+        <hints/>
+      </target>
+      <conversion type="discrete">
+        <discrete>
+          <value>parentconcept</value>
+          <result>
+            <lineType type="dotted" width="1.0"/>
+          </result>
+        </discrete>
+        <discrete>
+          <value>containsconcept</value>
+          <result>
+            <lineType type="dotted" width="1.0"/>
+          </result>
+        </discrete>
+        <discrete>
+          <value>typeconcept</value>
+          <result>
+            <lineType type="dotted" width="1.0"/>
+          </result>
+        </discrete>
+        <discrete>
+          <value>istypeof</value>
+          <result>
+            <lineType type="dotted" width="1.0"/>
+          </result>
+        </discrete>
+        <discrete>
+          <value>contains</value>
+          <result>
+            <lineType type="dashed" width="1.0"/>
+          </result>
+        </discrete>
+        <discrete>
+          <value>executes</value>
+          <result>
+            <lineType type="dashed" width="1.0"/>
+          </result>
+        </discrete>
+        <discrete>
+          <value>undefined</value>
+          <result>
+            <lineType type="dotted" width="1.0"/>
+          </result>
+        </discrete>
+        <discrete>
+          <value>null</value>
+          <result>
+            <lineType type="dotted" width="1.0"/>
+          </result>
+        </discrete>
+      </conversion>
+    </mapping>
+    <mapping>
       <source name="type" origin="customProperty" type="string"/>
       <target name="lineColor" type="color">
         <hints/>
@@ -684,7 +952,27 @@
         </discrete>
         <discrete>
           <value>target</value>
-          <result>#000000</result>
+          <result>#00ff00</result>
+        </discrete>
+        <discrete>
+          <value>info</value>
+          <result>#000080</result>
+        </discrete>
+      </conversion>
+    </mapping>
+    <mapping>
+      <source name="type" origin="customProperty" type="string"/>
+      <target name="labelTextColor" type="color">
+        <hints/>
+      </target>
+      <conversion type="discrete">
+        <discrete>
+          <value>error</value>
+          <result>#ff0000</result>
+        </discrete>
+        <discrete>
+          <value>target</value>
+          <result>#00ff00</result>
         </discrete>
         <discrete>
           <value>info</value>
@@ -718,7 +1006,7 @@
           <y:Geometry height="32.0" width="32.0" x="-16.0" y="-16.0"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="14.0" y="36.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="14.0" y="36.0"/>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
@@ -768,6 +1056,398 @@
           </result>
         </discrete>
         <discrete>
+          <value>Splunk Input</value>
+          <result>
+            <graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
+  <!--Created by yEd 3.14.1-->
+  <key for="port" id="d0" yfiles.type="portgraphics"/>
+  <key for="port" id="d1" yfiles.type="portgeometry"/>
+  <key for="port" id="d2" yfiles.type="portuserdata"/>
+  <key for="node" id="d3" yfiles.type="nodegraphics"/>
+  <key for="graphml" id="d4" yfiles.type="resources"/>
+  <key for="edge" id="d5" yfiles.type="edgegraphics"/>
+  <graph edgedefault="directed" id="G">
+    <node id="n0">
+      <data key="d3">
+        <y:SVGNode>
+          <y:Geometry height="32.0" width="32.0" x="-16.0" y="-16.0"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="14.0" y="36.0"/>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="1"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+  </graph>
+  <data key="d4">
+    <y:Resources>
+      <y:Resource id="1">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;!-- Generator: Adobe Illustrator 18.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  --&gt;
+&lt;!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"&gt;
+&lt;svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 42 42" enable-background="new 0 0 42 42" xml:space="preserve"&gt;
+&lt;g&gt;
+	&lt;path fill="none" d="M16.8,13.4v-2c0-0.5-0.2-0.7-0.8-0.7c-0.5,0-1,0.3-1.4,0.6v2.9c0.4,0.1,1,0.2,1.3,0.2
+		C16.6,14.2,16.8,14,16.8,13.4z"/&gt;
+	&lt;polygon fill="#3D6480" points="37.5,32.6 37.5,35.6 32.2,30.4 30.9,31.8 36.1,37 33,37 33,38.9 39.4,38.9 39.4,32.6 	"/&gt;
+	&lt;path fill="#3D6480" d="M11,11.2c-1.3-0.3-1.3-0.4-1.3-1.3c0-0.8,0.2-1,1.3-1c0.5,0,1.2,0.1,1.7,0.2l0.1-0.7
+		c-0.5-0.1-1.2-0.2-1.8-0.2c-1.6,0-2.1,0.6-2.1,1.7c0,1.4,0.2,1.7,1.8,2c1.4,0.3,1.4,0.4,1.4,1.3c0,0.8-0.2,1-1.3,1
+		c-0.6,0-1.3-0.1-1.9-0.3l-0.1,0.7c0.6,0.2,1.3,0.3,2,0.3c1.8,0,2.2-0.7,2.2-1.8C12.9,11.9,12.8,11.6,11,11.2z"/&gt;
+	&lt;path fill="#3D6480" d="M14.7,14.8c0.4,0.1,1,0.1,1.4,0.1c1.1,0,1.6-0.6,1.6-1.6v-2c0-1-0.5-1.5-1.4-1.5c-0.6,0-1.2,0.2-1.6,0.5
+		L14.5,10h-0.7v7l0.8-0.1V14.8z M14.7,11.2c0.4-0.3,0.9-0.6,1.4-0.6c0.6,0,0.8,0.3,0.8,0.7v2c0,0.6-0.2,0.8-0.8,0.8
+		c-0.3,0-0.9-0.1-1.3-0.2V11.2z"/&gt;
+	&lt;polygon fill="#3D6480" points="19.4,7.9 18.5,8 18.5,14.9 19.4,14.9 	"/&gt;
+	&lt;path fill="#3D6480" d="M21.5,15c0.6,0,1.4-0.3,2-0.5l0.1,0.4h0.7V10h-0.8v3.7c-0.5,0.3-1.3,0.5-1.6,0.5c-0.3,0-0.5-0.1-0.5-0.5V10
+		h-0.8v3.7C20.4,14.5,20.7,15,21.5,15z"/&gt;
+	&lt;path fill="#3D6480" d="M26.2,11.2c0.5-0.3,1.3-0.5,1.6-0.5c0.3,0,0.5,0.1,0.5,0.5v3.7h0.8v-3.7c0-0.8-0.3-1.2-1.1-1.2
+		c-0.6,0-1.4,0.3-2,0.5L26,10h-0.7v4.9h0.8V11.2z"/&gt;
+	&lt;polygon fill="#3D6480" points="34,14.9 32.1,12.4 33.9,10 32.9,10 31.2,12.4 33,14.9 	"/&gt;
+	&lt;polygon fill="#3D6480" points="31,7.9 30.1,8 30.1,14.9 31,14.9 	"/&gt;
+	&lt;path fill="#FFECCE" d="M19.7,19.2c-1.1,0.3-2.1,0.8-2.9,1.5c0.6,0.3,1.1,0.5,1.7,0.6C18.9,20.6,19.2,19.9,19.7,19.2z"/&gt;
+	&lt;path fill="#FFECCE" d="M18.3,25.6h2.5v-3.2c-0.6,0-1.3-0.1-1.9-0.2C18.6,23.3,18.3,24.4,18.3,25.6z"/&gt;
+	&lt;path fill="#FFECCE" d="M19.2,21.5c0.5,0.1,1.1,0.2,1.6,0.2V19c0,0-0.1,0-0.1,0C20.1,19.8,19.6,20.6,19.2,21.5z"/&gt;
+	&lt;path fill="#FFECCE" d="M18.9,29.8c0.6-0.1,1.3-0.2,1.9-0.2v-3.2h-2.6C18.3,27.5,18.5,28.7,18.9,29.8z"/&gt;
+	&lt;path fill="#FFECCE" d="M17.6,26.3h-3.2c0.1,1.7,0.8,3.2,1.8,4.4c0.6-0.3,1.3-0.6,2-0.7C17.9,28.8,17.6,27.6,17.6,26.3z"/&gt;
+	&lt;path fill="#FFECCE" d="M18.3,22c-0.7-0.2-1.4-0.5-2-0.8c-1.1,1.2-1.8,2.7-1.8,4.4h3.2C17.6,24.4,17.9,23.2,18.3,22z"/&gt;
+	&lt;path fill="#FFECCE" d="M16.8,31.2c0.8,0.7,1.8,1.2,2.9,1.5c-0.5-0.7-0.9-1.4-1.2-2.1C17.9,30.8,17.3,31,16.8,31.2z"/&gt;
+	&lt;path fill="#FFECCE" d="M20.7,32.9c0,0,0.1,0,0.1,0v-2.7c-0.6,0-1.1,0.1-1.6,0.2C19.6,31.3,20.1,32.2,20.7,32.9z"/&gt;
+	&lt;path fill="#FFECCE" d="M24.5,22c0.4,1.1,0.6,2.4,0.7,3.6h3.2c-0.1-1.7-0.8-3.2-1.8-4.4C25.8,21.6,25.2,21.8,24.5,22z"/&gt;
+	&lt;path fill="#FFECCE" d="M23.1,32.7c1.1-0.3,2.1-0.8,2.9-1.5c-0.6-0.2-1.1-0.5-1.7-0.6C23.9,31.4,23.5,32.1,23.1,32.7z"/&gt;
+	&lt;path fill="#FFECCE" d="M21.9,30.3v2.7c0,0,0.1,0,0.1,0c0.6-0.7,1.1-1.6,1.5-2.4C23,30.4,22.5,30.3,21.9,30.3z"/&gt;
+	&lt;path fill="#FFECCE" d="M24.5,29.9c0.7,0.2,1.4,0.4,2,0.7c1.1-1.2,1.7-2.7,1.8-4.4h-3.2C25.1,27.6,24.9,28.8,24.5,29.9z"/&gt;
+	&lt;path fill="#FFECCE" d="M24.4,26.3h-2.6v3.2c0.7,0,1.3,0.1,1.9,0.2C24.2,28.7,24.4,27.5,24.4,26.3z"/&gt;
+	&lt;path fill="#FFECCE" d="M26,20.7c-0.8-0.7-1.8-1.2-2.9-1.5c0.5,0.7,0.9,1.4,1.2,2.1C24.8,21.2,25.4,21,26,20.7z"/&gt;
+	&lt;path fill="#FFECCE" d="M23.8,22.2c-0.6,0.1-1.3,0.2-1.9,0.2v3.2h2.5C24.4,24.4,24.2,23.3,23.8,22.2z"/&gt;
+	&lt;path fill="#FFECCE" d="M22,19.1c0,0-0.1,0-0.1,0v2.7c0.5,0,1.1-0.1,1.6-0.2C23.1,20.6,22.6,19.8,22,19.1z"/&gt;
+	&lt;path fill="#FF9C04" d="M26.4,19.8c-0.2-0.2-0.4-0.3-0.7-0.5c-1.1-0.7-2.4-1.2-3.9-1.3v0h-0.5h0h-0.5v0c-1.4,0.1-2.7,0.5-3.8,1.3
+		c-0.2,0.1-0.4,0.3-0.7,0.5c-1.8,1.5-3,3.7-3,6.2c0,0.9,0.1,1.7,0.4,2.5c0.2,0.6,0.5,1.2,0.8,1.7c1.3,2.2,3.6,3.6,6.3,3.8v0h0.5h0
+		h0.5v0c2.7-0.2,5-1.6,6.3-3.8c0.3-0.5,0.6-1.1,0.8-1.7c0.3-0.8,0.4-1.6,0.4-2.5C29.4,23.5,28.2,21.3,26.4,19.8z M19.7,19.2
+		c-0.5,0.7-0.9,1.4-1.2,2.1c-0.6-0.2-1.2-0.4-1.7-0.6C17.6,20,18.6,19.5,19.7,19.2z M16.3,21.2c0.6,0.3,1.3,0.6,2,0.8
+		c-0.4,1.1-0.6,2.4-0.7,3.6h-3.2C14.5,23.9,15.2,22.4,16.3,21.2z M14.4,26.3h3.2c0,1.3,0.3,2.5,0.6,3.6c-0.7,0.2-1.4,0.4-2,0.7
+		C15.2,29.5,14.5,28,14.4,26.3z M16.8,31.2c0.6-0.2,1.1-0.5,1.7-0.6c0.3,0.8,0.7,1.5,1.2,2.1C18.6,32.5,17.6,31.9,16.8,31.2z
+		 M20.9,32.9c0,0-0.1,0-0.1,0c-0.6-0.7-1.1-1.6-1.5-2.4c0.5-0.1,1.1-0.2,1.6-0.2V32.9z M20.9,29.6c-0.7,0-1.3,0.1-1.9,0.2
+		c-0.4-1.1-0.6-2.3-0.6-3.5h2.6V29.6z M20.9,25.6h-2.5c0-1.2,0.3-2.4,0.7-3.5c0.6,0.1,1.3,0.2,1.9,0.2V25.6z M20.9,21.7
+		c-0.5,0-1.1-0.1-1.6-0.2c0.4-0.9,0.9-1.7,1.5-2.4c0,0,0.1,0,0.1,0V21.7z M26,20.7c-0.6,0.3-1.1,0.5-1.7,0.6
+		c-0.3-0.8-0.7-1.5-1.2-2.1C24.1,19.5,25.1,20,26,20.7z M21.9,19c0,0,0.1,0,0.1,0c0.6,0.7,1.1,1.6,1.5,2.4c-0.5,0.1-1.1,0.2-1.6,0.2
+		V19z M21.9,22.4c0.6,0,1.3-0.1,1.9-0.2c0.4,1.1,0.6,2.3,0.7,3.5h-2.5V22.4z M21.9,26.3h2.6c0,1.2-0.2,2.4-0.6,3.5
+		c-0.6-0.1-1.3-0.2-1.9-0.2V26.3z M21.9,32.9v-2.7c0.6,0,1.1,0.1,1.6,0.2c-0.4,0.9-0.9,1.7-1.5,2.4C22,32.9,21.9,32.9,21.9,32.9z
+		 M23.1,32.7c0.5-0.7,0.9-1.4,1.2-2.1c0.6,0.2,1.2,0.4,1.7,0.6C25.2,31.9,24.2,32.5,23.1,32.7z M26.5,30.7c-0.6-0.3-1.3-0.6-2-0.7
+		c0.4-1.1,0.6-2.4,0.6-3.6h3.2C28.3,28,27.6,29.5,26.5,30.7z M25.1,25.6c0-1.3-0.3-2.5-0.7-3.6c0.7-0.2,1.4-0.5,2-0.8
+		c1.1,1.2,1.8,2.7,1.8,4.4H25.1z"/&gt;
+&lt;/g&gt;
+&lt;/svg&gt;</y:Resource>
+    </y:Resources>
+  </data>
+</graphml>
+          </result>
+        </discrete>
+        <discrete>
+          <value>Splunk Output</value>
+          <result>
+            <graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
+  <!--Created by yEd 3.14.1-->
+  <key for="port" id="d0" yfiles.type="portgraphics"/>
+  <key for="port" id="d1" yfiles.type="portgeometry"/>
+  <key for="port" id="d2" yfiles.type="portuserdata"/>
+  <key for="node" id="d3" yfiles.type="nodegraphics"/>
+  <key for="graphml" id="d4" yfiles.type="resources"/>
+  <key for="edge" id="d5" yfiles.type="edgegraphics"/>
+  <graph edgedefault="directed" id="G">
+    <node id="n0">
+      <data key="d3">
+        <y:SVGNode>
+          <y:Geometry height="32.0" width="32.0" x="-16.0" y="-16.0"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="14.0" y="36.0"/>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="1"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+  </graph>
+  <data key="d4">
+    <y:Resources>
+      <y:Resource id="1">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;!-- Generator: Adobe Illustrator 18.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  --&gt;
+&lt;!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"&gt;
+&lt;svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 42 42" enable-background="new 0 0 42 42" xml:space="preserve"&gt;
+&lt;g&gt;
+	&lt;path fill="#3D6480" d="M10.7,32.8c-0.6,0-1.4-0.1-2-0.3l0.1-0.7c0.6,0.2,1.2,0.3,1.9,0.3c1.1,0,1.3-0.3,1.3-1c0-0.9,0-1-1.4-1.3
+		c-1.6-0.4-1.8-0.7-1.8-2c0-1.2,0.5-1.7,2.1-1.7c0.6,0,1.3,0.1,1.8,0.2l-0.1,0.7c-0.5-0.1-1.2-0.2-1.7-0.2c-1.1,0-1.3,0.2-1.3,1
+		c0,0.9,0,1,1.3,1.3c1.8,0.4,1.9,0.7,1.9,2C12.8,32.1,12.5,32.8,10.7,32.8z"/&gt;
+	&lt;path fill="#3D6480" d="M17.6,31.2c0,1-0.4,1.6-1.6,1.6c-0.4,0-1-0.1-1.4-0.1v2l-0.8,0.1v-7h0.7l0.1,0.4c0.4-0.3,1-0.5,1.6-0.5
+		c1,0,1.4,0.5,1.4,1.5V31.2z M14.6,31.9c0.4,0.1,1,0.2,1.3,0.2c0.6,0,0.8-0.3,0.8-0.8v-2c0-0.5-0.2-0.7-0.8-0.7
+		c-0.5,0-1,0.3-1.4,0.6V31.9z"/&gt;
+	&lt;path fill="#3D6480" d="M18.5,32.7v-6.9l0.8-0.1v7H18.5z"/&gt;
+	&lt;path fill="#3D6480" d="M21.2,27.8v3.7c0,0.3,0.2,0.5,0.5,0.5c0.4,0,1.1-0.2,1.6-0.5v-3.7h0.8v4.9h-0.7l-0.1-0.4
+		c-0.5,0.3-1.4,0.5-2,0.5c-0.8,0-1.1-0.5-1.1-1.2v-3.7H21.2z"/&gt;
+	&lt;path fill="#3D6480" d="M28.2,32.7V29c0-0.3-0.2-0.5-0.5-0.5c-0.4,0-1.1,0.2-1.6,0.5v3.7h-0.8v-4.9H26l0.1,0.4
+		c0.5-0.3,1.4-0.5,2-0.5c0.8,0,1.1,0.5,1.1,1.2v3.7H28.2z"/&gt;
+	&lt;path fill="#3D6480" d="M30.1,32.7v-6.9l0.8-0.1v7H30.1z M33.8,27.8l-1.7,2.4l1.8,2.5h-1l-1.8-2.5l1.7-2.4H33.8z"/&gt;
+&lt;/g&gt;
+&lt;g&gt;
+	&lt;path fill="#FFECCE" d="M19.7,9c-1.1,0.3-2.1,0.8-2.9,1.5c0.6,0.3,1.1,0.5,1.7,0.6C18.8,10.4,19.2,9.7,19.7,9z"/&gt;
+	&lt;path fill="#FFECCE" d="M18.3,15.4h2.5v-3.2c-0.6,0-1.3-0.1-1.9-0.2C18.5,13.1,18.3,14.2,18.3,15.4z"/&gt;
+	&lt;path fill="#FFECCE" d="M19.2,11.3c0.5,0.1,1.1,0.2,1.6,0.2V8.8c0,0-0.1,0-0.1,0C20.1,9.6,19.6,10.4,19.2,11.3z"/&gt;
+	&lt;path fill="#FFECCE" d="M18.9,19.6c0.6-0.1,1.3-0.2,1.9-0.2v-3.2h-2.6C18.3,17.3,18.5,18.5,18.9,19.6z"/&gt;
+	&lt;path fill="#FFECCE" d="M17.6,16.1h-3.2c0.1,1.7,0.8,3.2,1.8,4.4c0.6-0.3,1.3-0.6,2-0.7C17.8,18.6,17.6,17.4,17.6,16.1z"/&gt;
+	&lt;path fill="#FFECCE" d="M18.2,11.8c-0.7-0.2-1.4-0.5-2-0.8c-1.1,1.2-1.8,2.7-1.8,4.4h3.2C17.6,14.2,17.8,13,18.2,11.8z"/&gt;
+	&lt;path fill="#FFECCE" d="M16.7,21c0.8,0.7,1.8,1.2,2.9,1.5c-0.5-0.7-0.9-1.4-1.2-2.1C17.9,20.6,17.3,20.8,16.7,21z"/&gt;
+	&lt;path fill="#FFECCE" d="M20.7,22.7c0,0,0.1,0,0.1,0v-2.7c-0.6,0-1.1,0.1-1.6,0.2C19.5,21.1,20.1,22,20.7,22.7z"/&gt;
+	&lt;path fill="#FFECCE" d="M24.4,11.8c0.4,1.1,0.6,2.4,0.7,3.6h3.2c-0.1-1.7-0.8-3.2-1.8-4.4C25.8,11.4,25.1,11.6,24.4,11.8z"/&gt;
+	&lt;path fill="#FFECCE" d="M23,22.5c1.1-0.3,2.1-0.8,2.9-1.5c-0.6-0.2-1.1-0.5-1.7-0.6C23.9,21.2,23.5,21.9,23,22.5z"/&gt;
+	&lt;path fill="#FFECCE" d="M21.9,20.1v2.7c0,0,0.1,0,0.1,0c0.6-0.7,1.1-1.6,1.5-2.4C23,20.2,22.4,20.1,21.9,20.1z"/&gt;
+	&lt;path fill="#FFECCE" d="M24.5,19.7c0.7,0.2,1.4,0.4,2,0.7c1.1-1.2,1.7-2.7,1.8-4.4h-3.2C25.1,17.4,24.8,18.6,24.5,19.7z"/&gt;
+	&lt;path fill="#FFECCE" d="M24.4,16.1h-2.6v3.2c0.7,0,1.3,0.1,1.9,0.2C24.2,18.5,24.4,17.3,24.4,16.1z"/&gt;
+	&lt;path fill="#FFECCE" d="M25.9,10.5C25.1,9.8,24.1,9.3,23,9c0.5,0.7,0.9,1.4,1.2,2.1C24.8,11,25.4,10.8,25.9,10.5z"/&gt;
+	&lt;path fill="#FFECCE" d="M23.7,12c-0.6,0.1-1.3,0.2-1.9,0.2v3.2h2.5C24.4,14.2,24.1,13.1,23.7,12z"/&gt;
+	&lt;path fill="#FFECCE" d="M22,8.9c0,0-0.1,0-0.1,0v2.7c0.5,0,1.1-0.1,1.6-0.2C23.1,10.4,22.6,9.6,22,8.9z"/&gt;
+	&lt;path fill="#FF9C04" d="M29.3,15.8c0-2.5-1.2-4.7-3-6.2c-0.2-0.2-0.4-0.3-0.7-0.5c-1.1-0.7-2.4-1.2-3.9-1.3v0h-0.5h0h-0.5v0
+		c-1.4,0.1-2.7,0.5-3.8,1.3c-0.2,0.1-0.4,0.3-0.7,0.5c-1.8,1.5-3,3.7-3,6.2c0,0.9,0.1,1.7,0.4,2.5c0.2,0.6,0.5,1.2,0.8,1.7
+		c1.3,2.2,3.6,3.6,6.3,3.8v0h0.5h0h0.5v0c2.7-0.2,5-1.6,6.3-3.8c0.3-0.5,0.6-1.1,0.8-1.7C29.2,17.5,29.3,16.6,29.3,15.8z M19.7,9
+		c-0.5,0.7-0.9,1.4-1.2,2.1c-0.6-0.2-1.2-0.4-1.7-0.6C17.6,9.8,18.6,9.3,19.7,9z M16.2,11.1c0.6,0.3,1.3,0.6,2,0.8
+		c-0.4,1.1-0.6,2.4-0.7,3.6h-3.2C14.5,13.7,15.1,12.2,16.2,11.1z M14.4,16.1h3.2c0,1.3,0.3,2.5,0.6,3.6c-0.7,0.2-1.4,0.4-2,0.7
+		C15.1,19.3,14.5,17.8,14.4,16.1z M16.7,21c0.6-0.2,1.1-0.5,1.7-0.6c0.3,0.8,0.7,1.5,1.2,2.1C18.5,22.3,17.5,21.7,16.7,21z
+		 M20.8,22.7c0,0-0.1,0-0.1,0c-0.6-0.7-1.1-1.6-1.5-2.4c0.5-0.1,1.1-0.2,1.6-0.2V22.7z M20.8,19.4c-0.7,0-1.3,0.1-1.9,0.2
+		c-0.4-1.1-0.6-2.3-0.6-3.5h2.6V19.4z M20.8,15.4h-2.5c0-1.2,0.3-2.4,0.7-3.5c0.6,0.1,1.3,0.2,1.9,0.2V15.4z M20.8,11.5
+		c-0.5,0-1.1-0.1-1.6-0.2c0.4-0.9,0.9-1.7,1.5-2.4c0,0,0.1,0,0.1,0V11.5z M25.9,10.5c-0.6,0.3-1.1,0.5-1.7,0.6
+		C23.9,10.4,23.5,9.7,23,9C24.1,9.3,25.1,9.8,25.9,10.5z M21.9,8.8c0,0,0.1,0,0.1,0c0.6,0.7,1.1,1.6,1.5,2.4
+		c-0.5,0.1-1.1,0.2-1.6,0.2V8.8z M21.9,12.2c0.6,0,1.3-0.1,1.9-0.2c0.4,1.1,0.6,2.3,0.7,3.5h-2.5V12.2z M21.9,16.1h2.6
+		c0,1.2-0.2,2.4-0.6,3.5c-0.6-0.1-1.3-0.2-1.9-0.2V16.1z M21.9,22.7v-2.7c0.6,0,1.1,0.1,1.6,0.2c-0.4,0.9-0.9,1.7-1.5,2.4
+		C21.9,22.7,21.9,22.7,21.9,22.7z M23,22.5c0.5-0.7,0.9-1.4,1.2-2.1c0.6,0.2,1.2,0.4,1.7,0.6C25.1,21.7,24.1,22.3,23,22.5z
+		 M26.5,20.5c-0.6-0.3-1.3-0.6-2-0.7c0.4-1.1,0.6-2.4,0.6-3.6h3.2C28.2,17.8,27.5,19.3,26.5,20.5z M25.1,15.4c0-1.3-0.3-2.5-0.7-3.6
+		c0.7-0.2,1.4-0.5,2-0.8c1.1,1.2,1.8,2.7,1.8,4.4H25.1z"/&gt;
+&lt;/g&gt;
+&lt;g&gt;
+	&lt;polygon fill="#3D6480" points="9.8,8.5 4.6,3.3 3.3,4.7 8.5,9.9 5.3,9.9 5.3,11.8 11.7,11.8 11.7,5.5 9.8,5.5 	"/&gt;
+&lt;/g&gt;
+&lt;/svg&gt;
+</y:Resource>
+    </y:Resources>
+  </data>
+</graphml>
+          </result>
+        </discrete>
+        <discrete>
+          <value>Concat Fields</value>
+          <result>
+            <graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
+  <!--Created by yEd 3.14.1-->
+  <key for="port" id="d0" yfiles.type="portgraphics"/>
+  <key for="port" id="d1" yfiles.type="portgeometry"/>
+  <key for="port" id="d2" yfiles.type="portuserdata"/>
+  <key for="node" id="d3" yfiles.type="nodegraphics"/>
+  <key for="graphml" id="d4" yfiles.type="resources"/>
+  <key for="edge" id="d5" yfiles.type="edgegraphics"/>
+  <graph edgedefault="directed" id="G">
+    <node id="n0">
+      <data key="d3">
+        <y:SVGNode>
+          <y:Geometry height="32.0" width="32.0" x="-16.0" y="-16.0"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="14.0" y="36.0"/>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="1"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+  </graph>
+  <data key="d4">
+    <y:Resources>
+      <y:Resource id="1">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  --&gt;
+&lt;!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"&gt;
+&lt;svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="42px" height="42px" viewBox="0 0 42 42" enable-background="new 0 0 42 42" xml:space="preserve"&gt;
+&lt;g&gt;
+	&lt;polygon fill="none" points="16.454,21.271 16.454,20.271 16.454,18.185 16.454,17.285 16.454,17.186 9.843,17.186 9.843,24.597 
+		16.454,24.597 16.454,24.497 16.454,23.604 	"/&gt;
+	&lt;polygon fill="none" points="16.454,25.397 9.843,25.397 9.843,32.147 16.505,32.147 16.505,25.497 16.454,25.497 	"/&gt;
+	&lt;polygon fill="none" points="20.42,16.285 21.11,16.285 23.33,16.285 24.02,16.285 24.433,16.285 24.433,9.847 17.305,9.847 
+		17.305,16.285 17.51,16.285 18.2,16.285 	"/&gt;
+	&lt;polygon fill="none" points="16.454,16.285 16.505,16.285 16.505,9.847 9.843,9.847 9.843,16.385 16.454,16.385 	"/&gt;
+	&lt;polygon fill="none" points="21.11,25.497 20.42,25.497 18.2,25.497 17.51,25.497 17.305,25.497 17.305,32.147 24.433,32.147 
+		24.433,25.497 24.02,25.497 23.33,25.497 	"/&gt;
+	&lt;polygon fill="none" points="25.233,16.285 26.239,16.285 26.93,16.285 29.149,16.285 29.84,16.285 32.091,16.285 32.091,17.285 
+		32.091,18.185 32.091,20.271 32.091,21.271 32.091,23.604 32.091,24.497 32.091,25.497 29.84,25.497 29.149,25.497 26.93,25.497 
+		26.239,25.497 25.233,25.497 25.233,32.147 32.143,32.147 32.143,9.847 25.233,9.847 	"/&gt;
+	&lt;path fill="#3D6480" d="M8.143,8.147v25.699h25.7V8.147H8.143z M9.843,9.847h6.662v6.438h-0.051v0.1H9.843V9.847z M16.505,32.147
+		H9.843v-6.75h6.611v0.1h0.051V32.147z M32.143,32.147h-6.91v-6.65h1.006v-1h-2.22v1h0.414v6.65h-7.128v-6.65h0.205v-1h-1.056v0.1
+		H9.843v-7.411h6.611v0.1h1.056v-1h-0.205V9.847h7.128v6.438H24.02v1h2.22v-1h-1.006V9.847h6.91V32.147z"/&gt;
+	&lt;polygon fill="#FDE7EA" points="26.93,24.497 29.149,24.497 29.149,25.497 29.84,25.497 29.84,24.497 32.091,24.497 32.091,23.604 
+		31.091,23.604 31.091,21.271 32.091,21.271 32.091,20.271 31.091,20.271 31.091,18.185 32.091,18.185 32.091,17.285 29.84,17.285 
+		29.84,16.285 29.149,16.285 29.149,17.285 26.93,17.285 26.93,16.285 26.239,16.285 26.239,17.285 24.02,17.285 24.02,16.285 
+		23.33,16.285 23.33,17.285 21.11,17.285 21.11,16.285 20.42,16.285 20.42,17.285 18.2,17.285 18.2,16.285 17.51,16.285 
+		17.51,17.285 16.454,17.285 16.454,18.185 17.462,18.185 17.478,20.271 16.454,20.271 16.454,21.271 17.485,21.271 17.503,23.604 
+		16.454,23.604 16.454,24.497 17.51,24.497 17.51,25.497 18.2,25.497 18.2,24.497 20.42,24.497 20.42,25.497 21.11,25.497 
+		21.11,24.497 23.33,24.497 23.33,25.497 24.02,25.497 24.02,24.497 26.239,24.497 26.239,25.497 26.93,25.497 	"/&gt;
+	&lt;polygon fill="#3D6480" points="17.478,20.271 17.462,18.185 16.454,18.185 16.454,20.271 	"/&gt;
+	&lt;polygon fill="#3D6480" points="17.503,23.604 17.485,21.271 16.454,21.271 16.454,23.604 	"/&gt;
+	&lt;rect x="26.93" y="24.497" fill="#3D6480" width="2.22" height="1"/&gt;
+	&lt;rect x="18.2" y="24.497" fill="#3D6480" width="2.22" height="1"/&gt;
+	&lt;rect x="21.11" y="24.497" fill="#3D6480" width="2.22" height="1"/&gt;
+	&lt;rect x="18.2" y="16.285" fill="#3D6480" width="2.22" height="1"/&gt;
+	&lt;rect x="31.091" y="21.271" fill="#3D6480" width="1" height="2.334"/&gt;
+	&lt;rect x="31.091" y="18.185" fill="#3D6480" width="1" height="2.086"/&gt;
+	&lt;rect x="26.93" y="16.285" fill="#3D6480" width="2.22" height="1"/&gt;
+	&lt;rect x="21.11" y="16.285" fill="#3D6480" width="2.22" height="1"/&gt;
+	&lt;rect x="29.84" y="24.497" fill="#3D6480" width="2.251" height="1"/&gt;
+	&lt;rect x="29.84" y="16.285" fill="#3D6480" width="2.251" height="1"/&gt;
+&lt;/g&gt;
+&lt;/svg&gt;</y:Resource>
+    </y:Resources>
+  </data>
+</graphml>
+          </result>
+        </discrete>
+        <discrete>
+          <value>JSON Input</value>
+          <result>
+            <graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
+  <!--Created by yEd 3.14.1-->
+  <key for="port" id="d0" yfiles.type="portgraphics"/>
+  <key for="port" id="d1" yfiles.type="portgeometry"/>
+  <key for="port" id="d2" yfiles.type="portuserdata"/>
+  <key for="node" id="d3" yfiles.type="nodegraphics"/>
+  <key for="graphml" id="d4" yfiles.type="resources"/>
+  <key for="edge" id="d5" yfiles.type="edgegraphics"/>
+  <graph edgedefault="directed" id="G">
+    <node id="n0">
+      <data key="d3">
+        <y:SVGNode>
+          <y:Geometry height="32.0" width="32.0" x="-16.0" y="-16.0"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="14.0" y="36.0"/>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="1"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+  </graph>
+  <data key="d4">
+    <y:Resources>
+      <y:Resource id="1">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  --&gt;
+&lt;!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"&gt;
+&lt;svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="42px" height="42px" viewBox="0 0 42 42" enable-background="new 0 0 42 42" xml:space="preserve"&gt;
+&lt;g&gt;
+	&lt;polygon fill="#3D6480" points="37.26,32.836 37.26,35.918 32.035,30.694 30.691,32.037 35.918,37.263 32.771,37.264 
+		32.772,39.164 39.161,39.161 39.161,32.836 	"/&gt;
+	&lt;path fill="#EFF9FE" d="M25.649,17.561c-0.565-1.486-1.727-2.779-3.628-3.396C23.92,14.781,25.082,16.074,25.649,17.561z"/&gt;
+	&lt;path fill="#EFF9FE" d="M18.218,26.861c0.686,0.727,1.6,1.274,2.75,1.529C19.832,28.137,18.916,27.59,18.218,26.861z"/&gt;
+	&lt;path fill="#EFF9FE" d="M32.295,10.051h-22.3v22.301h14.128l8.172-8.172V10.051z M21.145,28.433
+		C21.145,28.433,21.145,28.433,21.145,28.433C21.144,28.433,21.144,28.433,21.145,28.433C21.144,28.433,21.144,28.433,21.145,28.433
+		c-3.995-0.001-7.231-3.238-7.231-7.231c0-3.994,3.237-7.232,7.231-7.232c0.054,0,0.106,0.001,0.159,0.002
+		c3.921,0.085,7.072,3.29,7.072,7.23C28.376,25.195,25.139,28.432,21.145,28.433z"/&gt;
+	&lt;path fill="#EFF9FE" d="M23.296,21.182c0-2.307-1.626-3.309-2.05-3.531c-0.062-0.029-0.101-0.045-0.101-0.045
+		s-2.142,0.821-2.142,3.456c0,2.785,2.142,3.735,2.142,3.735l0.038-0.019c0.001,0,0.001,0,0.002,0
+		C21.358,24.699,23.296,23.74,23.296,21.182z"/&gt;
+	&lt;polygon fill="#3D6480" points="9.995,10.051 32.295,10.051 32.295,24.18 33.995,22.48 33.995,8.352 8.295,8.352 8.295,34.051 
+		22.424,34.051 24.123,32.352 9.995,32.352 	"/&gt;
+	&lt;path fill="#3D6480" d="M21.304,13.971c0.233,0.05,0.456,0.109,0.671,0.177c0.016,0.005,0.03,0.012,0.046,0.017
+		c1.901,0.616,3.063,1.909,3.628,3.396c0.015,0.039,0.026,0.079,0.04,0.119c0.045,0.126,0.09,0.252,0.126,0.38
+		c0.039,0.137,0.071,0.275,0.101,0.414c0.007,0.031,0.016,0.061,0.022,0.092c0.701,3.48-1.437,7.393-4.785,6.229
+		c0,0,0.024-0.012,0.032-0.016c-0.001,0-0.001,0-0.002,0l-0.038,0.019c0,0-2.142-0.95-2.142-3.735c0-2.635,2.142-3.456,2.142-3.456
+		s0.039,0.016,0.101,0.045c-0.002-0.001-0.007-0.004-0.009-0.005c-0.003-0.001-0.005-0.002-0.007-0.004
+		c-0.052-0.026-0.086-0.042-0.086-0.042c-4.543-0.916-6.035,5.966-2.926,9.261c0.698,0.729,1.613,1.276,2.75,1.529
+		c0.06,0.013,0.115,0.031,0.176,0.043c3.994,0,7.232-3.238,7.232-7.231C28.376,17.261,25.225,14.056,21.304,13.971z"/&gt;
+	&lt;path fill="#9FB2C0" d="M18.218,26.861c-3.109-3.295-1.618-10.177,2.926-9.261c0,0,0.035,0.016,0.086,0.042
+		c0.003,0.001,0.005,0.002,0.007,0.004c0.002,0.001,0.006,0.004,0.009,0.005c0.424,0.222,2.05,1.224,2.05,3.531
+		c0,2.558-1.939,3.517-2.111,3.597c-0.008,0.004-0.032,0.016-0.032,0.016c3.348,1.163,5.486-2.75,4.785-6.229
+		c-0.006-0.031-0.016-0.061-0.022-0.092c-0.03-0.139-0.061-0.277-0.101-0.414c-0.037-0.128-0.081-0.254-0.126-0.38
+		c-0.014-0.039-0.025-0.08-0.04-0.119c-0.567-1.487-1.729-2.78-3.628-3.396c-0.016-0.005-0.03-0.012-0.046-0.017
+		c-0.214-0.068-0.438-0.127-0.671-0.177c-0.053-0.001-0.105-0.002-0.159-0.002c-3.994,0-7.231,3.238-7.231,7.232
+		c0,3.994,3.237,7.231,7.23,7.231c0,0,0,0,0,0c0,0,0,0,0,0s0,0,0,0c-0.061-0.012-0.117-0.03-0.176-0.043
+		C19.818,28.135,18.904,27.588,18.218,26.861z"/&gt;
+&lt;/g&gt;
+&lt;/svg&gt;
+</y:Resource>
+    </y:Resources>
+  </data>
+</graphml>
+          </result>
+        </discrete>
+        <discrete>
+          <value>JSON Output</value>
+          <result>
+            <graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
+  <!--Created by yEd 3.14.1-->
+  <key for="port" id="d0" yfiles.type="portgraphics"/>
+  <key for="port" id="d1" yfiles.type="portgeometry"/>
+  <key for="port" id="d2" yfiles.type="portuserdata"/>
+  <key for="node" id="d3" yfiles.type="nodegraphics"/>
+  <key for="graphml" id="d4" yfiles.type="resources"/>
+  <key for="edge" id="d5" yfiles.type="edgegraphics"/>
+  <graph edgedefault="directed" id="G">
+    <node id="n0">
+      <data key="d3">
+        <y:SVGNode>
+          <y:Geometry height="32.0" width="32.0" x="-16.0" y="-16.0"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="14.0" y="36.0"/>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="1"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+  </graph>
+  <data key="d4">
+    <y:Resources>
+      <y:Resource id="1">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  --&gt;
+&lt;!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"&gt;
+&lt;svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="42px" height="42px" viewBox="0 0 42 42" enable-background="new 0 0 42 42" xml:space="preserve"&gt;
+&lt;g&gt;
+	&lt;polygon fill="#3D6480" points="5.35,11.561 11.737,11.56 11.737,5.232 9.837,5.232 9.837,8.315 4.613,3.091 3.27,4.435 
+		8.494,9.66 5.35,9.66 	"/&gt;
+	&lt;path fill="#EFF9FE" d="M21.879,13.738c2.113,0.684,3.314,2.207,3.799,3.902C25.196,15.945,23.996,14.422,21.879,13.738z"/&gt;
+	&lt;path fill="#EFF9FE" d="M21.006,28.007c-1.223-0.233-2.195-0.808-2.93-1.576C18.798,27.197,19.767,27.771,21.006,28.007z"/&gt;
+	&lt;path fill="#EFF9FE" d="M18.863,20.636c0,2.785,2.143,3.734,2.143,3.734l0.039-0.019c0.001,0,0.002,0,0.003,0.001
+		c0.18-0.084,2.109-1.044,2.109-3.596c0-2.293-1.602-3.295-2.038-3.526c-0.071-0.035-0.113-0.05-0.113-0.05S18.863,18,18.863,20.636
+		z"/&gt;
+	&lt;path fill="#EFF9FE" d="M32.156,31.925V9.624H18.103l-8.247,8.247v14.054H32.156z M21.006,13.543c0.053,0,0.107,0.001,0.16,0.002
+		c3.92,0.085,7.072,3.289,7.072,7.229c0,3.994-3.238,7.232-7.232,7.232s-7.232-3.238-7.232-7.232S17.012,13.543,21.006,13.543z"/&gt;
+	&lt;polygon fill="#3D6480" points="19.802,7.925 18.103,9.624 32.156,9.624 32.156,31.925 9.856,31.925 9.856,17.871 8.156,19.571 
+		8.156,33.624 33.856,33.624 33.856,7.925 	"/&gt;
+	&lt;path fill="#3D6480" d="M21.879,13.738c2.116,0.685,3.317,2.208,3.799,3.902c0.019,0.067,0.032,0.135,0.049,0.203
+		c0.025,0.101,0.053,0.202,0.073,0.304c0.697,3.478-1.441,7.386-4.787,6.223c0,0,0.025-0.013,0.034-0.017
+		c-0.001,0-0.002,0-0.003-0.001l-0.039,0.019c0,0-2.143-0.949-2.143-3.734c0-2.636,2.143-3.456,2.143-3.456s0.042,0.016,0.113,0.05
+		c0,0-0.002-0.001-0.002-0.001c-0.028-0.015-0.05-0.026-0.067-0.035c-0.014-0.006-0.043-0.021-0.043-0.021
+		c-4.542-0.915-6.034,5.961-2.93,9.258c0.735,0.769,1.707,1.343,2.93,1.576c3.994,0,7.232-3.238,7.232-7.232
+		c0-3.94-3.152-7.145-7.072-7.229c0.233,0.05,0.457,0.109,0.67,0.177C21.852,13.727,21.865,13.733,21.879,13.738z"/&gt;
+	&lt;path fill="#9FB2C0" d="M21.006,28.007c-1.239-0.236-2.208-0.81-2.93-1.576c-3.104-3.297-1.613-10.173,2.93-9.258
+		c0,0,0.029,0.015,0.043,0.021c0.018,0.009,0.039,0.02,0.067,0.035c0.001,0,0.002,0.001,0.002,0.001
+		c0.436,0.231,2.038,1.233,2.038,3.526c0,2.552-1.929,3.512-2.109,3.596c-0.009,0.004-0.034,0.017-0.034,0.017
+		c3.346,1.163,5.484-2.745,4.787-6.223c-0.021-0.102-0.048-0.203-0.073-0.304c-0.017-0.068-0.03-0.136-0.049-0.203
+		c-0.484-1.695-1.686-3.218-3.799-3.902c-0.015-0.005-0.028-0.011-0.043-0.016c-0.214-0.068-0.438-0.127-0.67-0.177
+		c-0.053-0.001-0.107-0.002-0.16-0.002c-3.994,0-7.232,3.237-7.232,7.231S17.012,28.007,21.006,28.007z"/&gt;
+&lt;/g&gt;
+&lt;/svg&gt;
+</y:Resource>
+    </y:Resources>
+  </data>
+</graphml>
+          </result>
+        </discrete>
+        <discrete>
           <value>Select values</value>
           <result>
             <graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
@@ -785,7 +1465,7 @@
           <y:Geometry height="32.0" width="32.0" x="-16.0" y="-16.0"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="14.0" y="36.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="14.0" y="36.0"/>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
@@ -829,6 +1509,174 @@
           </result>
         </discrete>
         <discrete>
+          <value>User Defined Java Class</value>
+          <result>
+            <graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
+  <!--Created by yEd 3.14.1-->
+  <key for="port" id="d0" yfiles.type="portgraphics"/>
+  <key for="port" id="d1" yfiles.type="portgeometry"/>
+  <key for="port" id="d2" yfiles.type="portuserdata"/>
+  <key for="node" id="d3" yfiles.type="nodegraphics"/>
+  <key for="graphml" id="d4" yfiles.type="resources"/>
+  <key for="edge" id="d5" yfiles.type="edgegraphics"/>
+  <graph edgedefault="directed" id="G">
+    <node id="n0">
+      <data key="d3">
+        <y:SVGNode>
+          <y:Geometry height="32.0" width="32.0" x="-16.0" y="-16.0"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="14.0" y="36.0"/>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="1"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+  </graph>
+  <data key="d4">
+    <y:Resources>
+      <y:Resource id="1">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;!-- Generator: Adobe Illustrator 18.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  --&gt;
+&lt;!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"&gt;
+&lt;svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 42 42" enable-background="new 0 0 42 42" xml:space="preserve"&gt;
+&lt;g&gt;
+	&lt;g&gt;
+		&lt;g&gt;
+			&lt;path fill="#EFF9FE" d="M34,10.7c0-1.1-0.9-1.9-1.9-1.9H17.5c-2.4,0-3.7,1.3-3.7,3.7v15.3h6.2v1.7h-9.4c-1.1,0-1.9,0.9-1.9,1.9
+				c0,1.1,0.9,1.9,1.9,1.9h15.1c2.4,0,3.7-1.3,3.7-3.7V11.5H31v1.1h1.1C33.2,12.6,34,11.7,34,10.7z"/&gt;
+			&lt;path fill="#3D6480" d="M32.1,7H17.5C14.1,7,12,9.1,12,12.5v15.3h-1.6c-2,0-3.6,1.6-3.6,3.6c0,2,1.6,3.6,3.6,3.6h15.1
+				c3.4,0,5.4-2.1,5.4-5.4V14.3h1.1c2,0,3.6-1.6,3.6-3.6C35.7,8.7,34.1,7,32.1,7z M31,12.6v-1.1h-1.7v18.1c0,2.4-1.3,3.7-3.7,3.7
+				H10.4c-1.1,0-1.9-0.9-1.9-1.9c0-1.1,0.9-1.9,1.9-1.9h9.4v-1.7h-6.2V12.5c0-2.4,1.3-3.7,3.7-3.7h14.7c1.1,0,1.9,0.9,1.9,1.9
+				c0,1.1-0.9,1.9-1.9,1.9H31z"/&gt;
+		&lt;/g&gt;
+	&lt;/g&gt;
+	&lt;g&gt;
+		&lt;path fill="#3D6480" d="M22.3,16.2v6.9c0,1.1-0.2,1.2-1.8,2.7L19.7,25c1.3-1.2,1.3-1.3,1.3-1.9v-6.9H22.3z"/&gt;
+	&lt;/g&gt;
+&lt;/g&gt;
+&lt;/svg&gt;
+</y:Resource>
+    </y:Resources>
+  </data>
+</graphml>
+          </result>
+        </discrete>
+        <discrete>
+          <value>User Defined Java Expression</value>
+          <result>
+            <graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
+  <!--Created by yEd 3.14.1-->
+  <key for="port" id="d0" yfiles.type="portgraphics"/>
+  <key for="port" id="d1" yfiles.type="portgeometry"/>
+  <key for="port" id="d2" yfiles.type="portuserdata"/>
+  <key for="node" id="d3" yfiles.type="nodegraphics"/>
+  <key for="graphml" id="d4" yfiles.type="resources"/>
+  <key for="edge" id="d5" yfiles.type="edgegraphics"/>
+  <graph edgedefault="directed" id="G">
+    <node id="n0">
+      <data key="d3">
+        <y:SVGNode>
+          <y:Geometry height="32.0" width="32.0" x="-16.0" y="-16.0"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="14.0" y="36.0"/>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="1"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+  </graph>
+  <data key="d4">
+    <y:Resources>
+      <y:Resource id="1">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;!-- Generator: Adobe Illustrator 18.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  --&gt;
+&lt;!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"&gt;
+&lt;svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 42 42" enable-background="new 0 0 42 42" xml:space="preserve"&gt;
+&lt;g&gt;
+	&lt;g&gt;
+		&lt;g&gt;
+			&lt;path fill="#EFF9FE" d="M34,10.7c0-1.1-0.9-1.9-1.9-1.9H17.5c-2.4,0-3.7,1.3-3.7,3.7v15.3h6.2v1.7h-9.4c-1.1,0-1.9,0.9-1.9,1.9
+				c0,1.1,0.9,1.9,1.9,1.9h15.1c2.4,0,3.7-1.3,3.7-3.7V11.5H31v1.1h1.1C33.2,12.6,34,11.7,34,10.7z"/&gt;
+			&lt;path fill="#3D6480" d="M32.1,7H17.5C14.1,7,12,9.1,12,12.5v15.3h-1.6c-2,0-3.6,1.6-3.6,3.6c0,2,1.6,3.6,3.6,3.6h15.1
+				c3.4,0,5.4-2.1,5.4-5.4V14.3h1.1c2,0,3.6-1.6,3.6-3.6C35.7,8.7,34.1,7,32.1,7z M31,12.6v-1.1h-1.7v18.1c0,2.4-1.3,3.7-3.7,3.7
+				H10.4c-1.1,0-1.9-0.9-1.9-1.9c0-1.1,0.9-1.9,1.9-1.9h9.4v-1.7h-6.2V12.5c0-2.4,1.3-3.7,3.7-3.7h14.7c1.1,0,1.9,0.9,1.9,1.9
+				c0,1.1-0.9,1.9-1.9,1.9H31z"/&gt;
+		&lt;/g&gt;
+	&lt;/g&gt;
+	&lt;g&gt;
+		&lt;path fill="#3D6480" d="M22.3,16.2v6.9c0,1.1-0.2,1.2-1.8,2.7L19.7,25c1.3-1.2,1.3-1.3,1.3-1.9v-6.9H22.3z"/&gt;
+	&lt;/g&gt;
+&lt;/g&gt;
+&lt;/svg&gt;
+</y:Resource>
+    </y:Resources>
+  </data>
+</graphml>
+          </result>
+        </discrete>
+        <discrete>
+          <value>Get System Info</value>
+          <result>
+            <graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
+  <!--Created by yEd 3.14.1-->
+  <key for="port" id="d0" yfiles.type="portgraphics"/>
+  <key for="port" id="d1" yfiles.type="portgeometry"/>
+  <key for="port" id="d2" yfiles.type="portuserdata"/>
+  <key for="node" id="d3" yfiles.type="nodegraphics"/>
+  <key for="graphml" id="d4" yfiles.type="resources"/>
+  <key for="edge" id="d5" yfiles.type="edgegraphics"/>
+  <graph edgedefault="directed" id="G">
+    <node id="n0">
+      <data key="d3">
+        <y:SVGNode>
+          <y:Geometry height="32.0" width="32.0" x="-16.0" y="-16.0"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="14.0" y="36.0"/>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="1"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+  </graph>
+  <data key="d4">
+    <y:Resources>
+      <y:Resource id="1">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;!-- Generator: Adobe Illustrator 18.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  --&gt;
+&lt;!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"&gt;
+&lt;svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 42 42" enable-background="new 0 0 42 42" xml:space="preserve"&gt;
+&lt;g&gt;
+	&lt;g&gt;
+		&lt;g&gt;
+			&lt;path fill="#EFF9FE" d="M34,10.7c0-1.1-0.9-1.9-1.9-1.9H17.5c-2.4,0-3.7,1.3-3.7,3.7v15.3h6.2v1.7h-9.4c-1.1,0-1.9,0.9-1.9,1.9
+				c0,1.1,0.9,1.9,1.9,1.9h15.1c2.4,0,3.7-1.3,3.7-3.7V11.5H31v1.1h1.1C33.2,12.6,34,11.7,34,10.7z"/&gt;
+			&lt;path fill="#3D6480" d="M32.1,7H17.5C14.1,7,12,9.1,12,12.5v15.3h-1.6c-2,0-3.6,1.6-3.6,3.6c0,2,1.6,3.6,3.6,3.6h15.1
+				c3.4,0,5.4-2.1,5.4-5.4V14.3h1.1c2,0,3.6-1.6,3.6-3.6C35.7,8.7,34.1,7,32.1,7z M31,12.6v-1.1h-1.7v18.1c0,2.4-1.3,3.7-3.7,3.7
+				H10.4c-1.1,0-1.9-0.9-1.9-1.9c0-1.1,0.9-1.9,1.9-1.9h9.4v-1.7h-6.2V12.5c0-2.4,1.3-3.7,3.7-3.7h14.7c1.1,0,1.9,0.9,1.9,1.9
+				c0,1.1-0.9,1.9-1.9,1.9H31z"/&gt;
+		&lt;/g&gt;
+	&lt;/g&gt;
+	&lt;g&gt;
+		&lt;path fill="#3D6480" d="M22.3,16.2v6.9c0,1.1-0.2,1.2-1.8,2.7L19.7,25c1.3-1.2,1.3-1.3,1.3-1.9v-6.9H22.3z"/&gt;
+	&lt;/g&gt;
+&lt;/g&gt;
+&lt;/svg&gt;
+</y:Resource>
+    </y:Resources>
+  </data>
+</graphml>
+          </result>
+        </discrete>
+        <discrete>
           <value>Table output</value>
           <result>
             <graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
@@ -846,7 +1694,7 @@
           <y:Geometry height="32.0" width="32.0" x="-16.0" y="-16.0"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="14.0" y="36.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="14.0" y="36.0"/>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
@@ -905,7 +1753,7 @@
           <y:Geometry height="32.0" width="32.0" x="-16.0" y="-16.0"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="14.0" y="36.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="14.0" y="36.0" name="Text file input"/>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
@@ -962,7 +1810,7 @@
           <y:Geometry height="32.0" width="32.0" x="-16.0" y="-16.0"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="14.0" y="36.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="14.0" y="36.0"/>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
@@ -1018,7 +1866,7 @@
           <y:Geometry height="32.0" width="32.0" x="-16.0" y="-16.0"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="14.0" y="36.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="14.0" y="36.0"/>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
@@ -1076,7 +1924,7 @@
           <y:Geometry height="32.0" width="32.0" x="-16.0" y="-16.0"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="14.0" y="36.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="14.0" y="36.0"/>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
@@ -1117,6 +1965,67 @@
           </result>
         </discrete>
         <discrete>
+          <value>Generate Rows</value>
+          <result>
+            <graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
+  <!--Created by yEd 3.14.1-->
+  <key for="port" id="d0" yfiles.type="portgraphics"/>
+  <key for="port" id="d1" yfiles.type="portgeometry"/>
+  <key for="port" id="d2" yfiles.type="portuserdata"/>
+  <key for="node" id="d3" yfiles.type="nodegraphics"/>
+  <key for="graphml" id="d4" yfiles.type="resources"/>
+  <key for="edge" id="d5" yfiles.type="edgegraphics"/>
+  <graph edgedefault="directed" id="G">
+    <node id="n0">
+      <data key="d3">
+        <y:SVGNode>
+          <y:Geometry height="32.0" width="32.0" x="-16.0" y="-16.0"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="14.0" y="36.0"/>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="1"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+  </graph>
+  <data key="d4">
+    <y:Resources>
+      <y:Resource id="1">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  --&gt;
+&lt;!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"&gt;
+&lt;svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="42px" height="42px" viewBox="0 0 42 42" enable-background="new 0 0 42 42" xml:space="preserve"&gt;
+&lt;g&gt;
+	&lt;path fill="#3D6480" d="M37.716,33.251c0.02-0.375-0.003-0.755-0.071-1.137l1.308-0.956l-0.177-0.464
+		c-0.078-0.205-0.171-0.4-0.268-0.596l-0.228-0.455l-1.552,0.355c-0.104-0.133-0.224-0.264-0.346-0.395
+		c-0.143-0.154-0.279-0.289-0.435-0.423l0.383-1.557l-0.432-0.242c-0.198-0.11-0.397-0.209-0.604-0.298l-0.469-0.203l-0.952,1.265
+		c-0.364-0.084-0.74-0.126-1.119-0.127l-0.711-1.435l-0.48,0.086c-0.22,0.039-0.441,0.085-0.656,0.148l-0.486,0.144l0.067,1.591
+		c-0.317,0.164-0.627,0.374-0.926,0.626l-1.476-0.644l-0.312,0.383c-0.142,0.175-0.271,0.356-0.393,0.542l-0.278,0.426l1.08,1.165
+		c-0.148,0.351-0.256,0.712-0.318,1.07l-1.549,0.458l0.005,0.491c0.002,0.22,0.016,0.439,0.041,0.658l0.059,0.508l1.591,0.197
+		c0.112,0.371,0.261,0.719,0.447,1.04l-0.909,1.351l0.982,1.054l1.464-0.695l0.058-0.039c0.312,0.203,0.651,0.373,1.018,0.507
+		l0.176,1.612l0.491,0.078c0.214,0.033,0.428,0.052,0.646,0.064l0.509,0.027l0.464-1.52c0.404-0.049,0.785-0.14,1.096-0.266
+		l1.179,1.121l0.425-0.26c0.188-0.114,0.37-0.244,0.549-0.379l0.409-0.309l-0.625-1.44c0.252-0.271,0.472-0.571,0.667-0.911
+		l1.602,0.1l0.162-0.466c0.074-0.211,0.138-0.426,0.19-0.643l0.12-0.502L37.716,33.251z M32.676,36.634
+		c-1.988,0-3.6-1.612-3.6-3.601s1.611-3.6,3.6-3.6s3.601,1.611,3.601,3.6S34.664,36.634,32.676,36.634z"/&gt;
+	&lt;circle fill="#FFFFFF" cx="32.676" cy="33.033" r="3.6"/&gt;
+	&lt;polygon fill="#FFFFFF" points="28.857,23.352 29.259,22.95 8.857,22.95 8.857,29.7 22.509,29.7 27.156,25.052 	"/&gt;
+	&lt;polygon fill="#FFFFFF" points="8.857,14.737 8.857,22.149 30.059,22.149 31.156,21.052 31.156,14.737 	"/&gt;
+	&lt;rect x="8.857" y="7.399" fill="#EFF9FE" width="22.3" height="6.537"/&gt;
+	&lt;path fill="#3D6480" d="M8.857,22.95h20.402l0.801-0.801H8.857v-7.412h22.3v6.315l1.7-1.7V5.7h-25.7v25.699h13.653l1.699-1.699
+		H8.857V22.95z M8.857,7.399h22.3v6.537h-22.3V7.399z"/&gt;
+&lt;/g&gt;
+&lt;/svg&gt;
+
+</y:Resource>
+    </y:Resources>
+  </data>
+</graphml>
+          </result>
+        </discrete>
+        <discrete>
           <value>Filter rows</value>
           <result>
             <graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
@@ -1134,7 +2043,7 @@
           <y:Geometry height="32.0" width="32.0" x="-16.0" y="-16.0"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="14.0" y="36.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="14.0" y="36.0"/>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
@@ -1196,7 +2105,7 @@
           <y:Geometry height="32.0" width="32.0" x="-16.0" y="-16.0"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="14.0" y="36.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="14.0" y="36.0"/>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
@@ -1265,7 +2174,7 @@
           <y:Geometry height="32.0" width="32.0" x="-16.0" y="-16.0"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="14.0" y="36.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="4.0" x="14.0" y="36.0"/>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
@@ -1324,7 +2233,7 @@
           <y:Geometry height="33.54399871826172" width="25.82699966430664" x="-12.91349983215332" y="-16.77199935913086"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="94.087890625" x="-34.13044548034668" y="37.54399871826172">MongoDB Input</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="94.087890625" x="-34.13044548034668" y="37.54399871826172">MongoDB Input</y:NodeLabel>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
@@ -1391,7 +2300,7 @@
           <y:Geometry height="26.479001998901367" width="21.018999099731445" x="-10.509499549865723" y="-13.239500999450684"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="62.857421875" x="-20.919211387634277" y="30.479001998901367">Calculator</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="62.857421875" x="-20.919211387634277" y="30.479001998901367">Calculator</y:NodeLabel>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
@@ -1450,7 +2359,7 @@
           <y:Geometry height="31.526992797851562" width="30.900997161865234" x="-15.450498580932617" y="-15.763496398925781"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="59.130859375" x="-14.114931106567383" y="35.52699279785156">Data Grid</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="59.130859375" x="-14.114931106567383" y="35.52699279785156">Data Grid</y:NodeLabel>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
@@ -1514,7 +2423,7 @@
           <y:Geometry height="31.867000579833984" width="28.562999725341797" x="-14.281499862670898" y="-15.933500289916992"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="58.8203125" x="-15.128656387329102" y="35.867000579833984">Csv Input</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="58.8203125" x="-15.128656387329102" y="35.867000579833984">Csv Input</y:NodeLabel>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
@@ -1566,7 +2475,7 @@
           <y:Geometry height="31.608003616333008" width="31.608001708984375" x="-15.804000854492188" y="-15.804001808166504"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="92.669921875" x="-30.530960083007812" y="35.60800361633301">Rows To Result</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="92.669921875" x="-30.530960083007812" y="35.60800361633301">Rows To Result</y:NodeLabel>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
@@ -1618,7 +2527,7 @@
           <y:Geometry height="30.812999725341797" width="30.871997833251953" x="-15.435998916625977" y="-15.406499862670898"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="107.62890625" x="-38.37845420837402" y="34.8129997253418">Rows From Result</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="107.62890625" x="-38.37845420837402" y="34.8129997253418">Rows From Result</y:NodeLabel>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
@@ -1666,7 +2575,7 @@
           <y:Geometry height="22.819000244140625" width="39.2140007019043" x="-19.60700035095215" y="-11.409500122070312"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="65.916015625" x="-13.351007461547852" y="26.819000244140625">Merge Join</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="65.916015625" x="-13.351007461547852" y="26.819000244140625">Merge Join</y:NodeLabel>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
@@ -1729,7 +2638,7 @@
           <y:Geometry height="31.867000579833984" width="28.56399917602539" x="-14.281999588012695" y="-15.933500289916992"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="68.353515625" x="-19.894758224487305" y="35.867000579833984">Excel Input</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="68.353515625" x="-19.894758224487305" y="35.867000579833984">Excel Input</y:NodeLabel>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
@@ -1782,7 +2691,7 @@
           <y:Geometry height="31.589000701904297" width="28.287002563476562" x="-14.143501281738281" y="-15.794500350952148"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="78.70703125" x="-25.21001434326172" y="35.5890007019043">Excel Output</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="78.70703125" x="-25.21001434326172" y="35.5890007019043">Excel Output</y:NodeLabel>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
@@ -1857,7 +2766,7 @@
           <y:Geometry height="21.875" width="32.01000213623047" x="-16.005001068115234" y="-10.9375"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="68.412109375" x="-18.201053619384766" y="25.875">Strings Cut</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="68.412109375" x="-18.201053619384766" y="25.875">Strings Cut</y:NodeLabel>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
@@ -1915,7 +2824,7 @@
           <y:Geometry height="27.073999404907227" width="26.70800018310547" x="-13.354000091552734" y="-13.536999702453613"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="91.3984375" x="-32.345218658447266" y="31.073999404907227">Trans Executor</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="91.3984375" x="-32.345218658447266" y="31.073999404907227">Trans Executor</y:NodeLabel>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
@@ -1966,7 +2875,7 @@
           <y:Geometry height="26.504993438720703" width="30.402000427246094" x="-15.201000213623047" y="-13.252496719360352"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="106.046875" x="-37.82243728637695" y="30.504993438720703">String Operations</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="106.046875" x="-37.82243728637695" y="30.504993438720703">String Operations</y:NodeLabel>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
@@ -2029,7 +2938,7 @@
           <y:Geometry height="29.89900016784668" width="33.63299560546875" x="-16.816497802734375" y="-14.94950008392334"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="92.927734375" x="-29.647369384765625" y="33.89900016784668">Replace Strings</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="92.927734375" x="-29.647369384765625" y="33.89900016784668">Replace Strings</y:NodeLabel>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
@@ -2085,7 +2994,7 @@
           <y:Geometry height="31.86699867248535" width="28.564001083374023" x="-14.282000541687012" y="-15.933499336242676"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="82.416015625" x="-26.92600727081299" y="35.86699867248535">Get XML Data</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="82.416015625" x="-26.92600727081299" y="35.86699867248535">Get XML Data</y:NodeLabel>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
@@ -2141,7 +3050,7 @@
           <y:Geometry height="31.867000579833984" width="28.562999725341797" x="-14.281499862670898" y="-15.933500289916992"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="93.54296875" x="-32.4899845123291" y="35.867000579833984">Fixed File Input</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="93.54296875" x="-32.4899845123291" y="35.867000579833984">Fixed File Input</y:NodeLabel>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
@@ -2193,7 +3102,7 @@
           <y:Geometry height="32.06199645996094" width="31.831998825073242" x="-15.915999412536621" y="-16.03099822998047"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="67.005859375" x="-17.58693027496338" y="36.06199645996094">Http Client</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="67.005859375" x="-17.58693027496338" y="36.06199645996094">Http Client</y:NodeLabel>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
@@ -2307,7 +3216,7 @@
           <y:Geometry height="36.03400421142578" width="37.41400146484375" x="-18.707000732421875" y="-18.01700210571289"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="69.80078125" x="-16.193389892578125" y="40.03400421142578">REST Client</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="69.80078125" x="-16.193389892578125" y="40.03400421142578">REST Client</y:NodeLabel>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
@@ -2415,7 +3324,7 @@
           <y:Geometry height="32.0" width="32.0" x="-16.0" y="-16.0"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="70.7265625" x="-19.36328125" y="36.0">Xml Output</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="70.7265625" x="-19.36328125" y="36.0">Xml Output</y:NodeLabel>
           <y:Image alphaImage="true" refid="1"/>
         </y:ImageNode>
       </data>
@@ -2458,7 +3367,7 @@ P42fgeKk9qXKuM8AAAAASUVORK5CYII=</y:Resource>
           <y:Geometry height="30.535001754760742" width="35.76000213623047" x="-17.880001068115234" y="-15.267500877380371"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="66.96484375" x="-15.602420806884766" y="34.53500175476074">Split Fileds</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="66.96484375" x="-15.602420806884766" y="34.53500175476074">Split Fileds</y:NodeLabel>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
@@ -2512,7 +3421,7 @@ P42fgeKk9qXKuM8AAAAASUVORK5CYII=</y:Resource>
           <y:Geometry height="26.854001998901367" width="26.85700035095215" x="-13.428500175476074" y="-13.427000999450684"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="57.75390625" x="-15.448452949523926" y="30.854001998901367">Http Post</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="57.75390625" x="-15.448452949523926" y="30.854001998901367">Http Post</y:NodeLabel>
           <y:SVGNodeProperties usingVisualBounds="true"/>
           <y:SVGModel svgBoundsPolicy="0">
             <y:SVGContent refid="1"/>
