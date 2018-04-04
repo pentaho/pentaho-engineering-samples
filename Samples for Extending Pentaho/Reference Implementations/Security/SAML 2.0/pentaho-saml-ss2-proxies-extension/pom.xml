@@ -6,12 +6,12 @@
   <parent>
     <groupId>pentaho</groupId>
     <artifactId>pentaho-authentication-provider-samples</artifactId>
-    <version>6.1-SNAPSHOT</version>
+    <version>6.1.0.9-307</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   
   <artifactId>pentaho-saml-ss2-proxies-extension</artifactId>
-  <version>6.1-SNAPSHOT</version>
+  <version>6.1.0.9-307</version>
   <packaging>bundle</packaging>
   
   <name>Pentaho SAML SS2 Proxies extension</name>
