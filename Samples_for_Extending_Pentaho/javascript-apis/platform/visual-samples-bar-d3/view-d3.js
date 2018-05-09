@@ -166,7 +166,7 @@ define([
 
           // Part 5
           bar.classed("selected", function(scene) {
-            var selectionFilter = view.selectionFilter;
+            var selectionFilter = model.selectionFilter;
             return !!selectionFilter && dataTable.filterMatchesRow(selectionFilter, scene.index);
           });
         },
