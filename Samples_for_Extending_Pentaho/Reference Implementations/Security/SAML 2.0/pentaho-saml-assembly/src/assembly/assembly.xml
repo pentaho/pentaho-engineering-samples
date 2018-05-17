@@ -13,14 +13,14 @@
       </includes>
     </fileSet>
     <fileSet>
-      <directory>../pentaho-saml/src/main/resources/appctx</directory>
+      <directory>../documentation/resources</directory>
       <outputDirectory>/</outputDirectory>
       <includes>
         <include>applicationContext-spring-security-saml.xml</include>
       </includes>
     </fileSet>
     <fileSet>
-      <directory>../pentaho-saml/src/main/resources/jsp</directory>
+      <directory>../documentation/resources</directory>
       <outputDirectory>/</outputDirectory>
       <includes>
         <include>logout.jsp</include>

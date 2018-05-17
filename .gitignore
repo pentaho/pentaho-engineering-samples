@@ -5,3 +5,8 @@ node_modules
 # IDEA files
 *.iml
 .idea
+
+target/
+.classpath
+.project
+.settings/
