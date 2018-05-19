@@ -14,8 +14,16 @@
   <!-- load the VizAPI dev bootstrap helper -->
   <script type="text/javascript" src="node_modules/@pentaho/viz-api/dev-bootstrap.js"></script>
 
-  <!-- configure AMD for the sample visualization -->
   <script>
+    // Configure AMD for the sample visualization.
+    require.config({
+      config: {
+        "pentaho/environment": {
+          application: "viz-api-sandbox"
+        }
+      }
+    });
+
     require([
       "vizapi-dev-init",
       "json!./package.json"
@@ -30,72 +38,61 @@
       });
 
       require([
-        "pentaho/type/Context",
+        "pentaho-visual-samples-bar-d3/Model",
+        "pentaho/visual/base/View",
         "pentaho/data/Table",
         "json!./sandbox-data.json"
-      ], function(Context, Table, dataSpec) {
+      ], function(BarModel, BaseView, Table, dataSpec) {
 
-        // Setup up a VizAPI context.
-        Context.createAsync({ application: "viz-api-sandbox" })
-          .then(function(context) {
-            // Get the model and base view types
-            return context.getDependencyAsync({
-              BarModel: "pentaho-visual-samples-bar-d3/model",
-              BaseView: "pentaho/visual/base/view"
+          // Create the visualization model.
+          var modelSpec = {
+            "data": new Table(dataSpec),
+            "category": {fields: ["productFamily"]},
+            "measure": {fields: ["sales"]}
+          };
+
+          var model = new BarModel(modelSpec);
+
+          // Create the visualization view.
+          var viewSpec = {
+            width: 1400,
+            height: 300,
+            domContainer: document.getElementById("viz_div"),
+            model: model
+          };
+
+          // These are responsibilities of the visualization container application:
+          // 1. Mark the container with the model's CSS classes, for styling purposes.
+          viewSpec.domContainer.className = model.$type.inheritedStyleClasses.join(" ");
+
+          // 2. Set the DOM container dimensions.
+          viewSpec.domContainer.style.width = viewSpec.width + "px";
+          viewSpec.domContainer.style.height = viewSpec.height + "px";
+
+          // Create the visualization view.
+          BaseView.createAsync(viewSpec)
+            .then(function(view) {
+              // Handle the execute action.
+              view.on("pentaho/visual/action/Execute", {
+                "do": function(event, action) {
+                  alert("Executed " + action.dataFilter.$contentKey);
+                }
+              });
+
+              // Handle the select action.
+              view.on("pentaho/visual/action/Select", {
+                "finally": function(event, action) {
+                  document.getElementById("messages_div").innerText =
+                    "Selected: " + view.model.selectionFilter.$contentKey;
+                }
+              });
+
+              // Render the visualization.
+              return view.update();
+            })
+            .catch(function(ex) {
+              alert("Error: " + ex.message);
             });
-          })
-          .then(function(types) {
-
-            // Create the visualization model.
-            var modelSpec = {
-              "data": new Table(dataSpec),
-              "category": {fields: ["productFamily"]},
-              "measure": {fields: ["sales"]}
-            };
-
-            var model = new types.BarModel(modelSpec);
-
-            // Create the visualization view.
-            var viewSpec = {
-              width: 1400,
-              height: 300,
-              domContainer: document.getElementById("viz_div"),
-              model: model
-            };
-
-            // These are responsibilities of the visualization container application:
-            // 1. Mark the container with the model's CSS classes, for styling purposes.
-            viewSpec.domContainer.className = model.$type.inheritedStyleClasses.join(" ");
-
-            // 2. Set the DOM container dimensions.
-            viewSpec.domContainer.style.width = viewSpec.width + "px";
-            viewSpec.domContainer.style.height = viewSpec.height + "px";
-
-            // Create the visualization view.
-            return types.BaseView.createAsync(viewSpec);
-          })
-          .then(function(view) {
-            // Handle the execute action.
-            view.on("pentaho/visual/action/execute", {
-              "do": function(event, action) {
-                alert("Executed " + action.dataFilter.$contentKey);
-              }
-            });
-
-            // Handle the select action.
-            view.on("pentaho/visual/action/select", {
-              "finally": function(event, action) {
-                document.getElementById("messages_div").innerText =
-                  "Selected: " + view.model.selectionFilter.$contentKey;
-              }
-            });
-
-            // Render the visualization.
-            return view.update();
-          })
-          .catch(function(ex) {
-            alert("Error: " + ex.message);
-          });
       });
     });
   </script>
