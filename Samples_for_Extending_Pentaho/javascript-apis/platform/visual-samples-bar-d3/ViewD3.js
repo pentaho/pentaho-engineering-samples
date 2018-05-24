@@ -15,7 +15,7 @@
  * Copyright 2016 - 2018 Hitachi Vantara. All rights reserved.
  */
 define([
-  "pentaho/module!",
+  "pentaho/module!_",
   "pentaho/visual/base/View",
   "./Model",
   "pentaho/visual/action/Execute",
