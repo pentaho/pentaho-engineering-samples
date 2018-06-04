@@ -122,6 +122,32 @@ explicitly covering such access.
        </property>
   </bean>
 
+  
+    <!-- Default of ssoEnabled true disables the SessionExpiredDialog, so the sample 
+         behaves as it always has when a session times out. However, it may be preferable
+         to set the ssoEnabled value to false, and add the ssoEnabled init-param in 
+         pentaho-server/tomcat/webapps/pentaho/WEB-INF/web.xml, which will enable the
+         SessionExpiredDialog and redirect users to /Home on session timeout, which
+         sends users back to the IdP, instead of /Login, which behaves erratically:
+         
+           <filter>
+            <filter-name>Pentaho Web Context Filter</filter-name>
+            <filter-class>com.pentaho.platform.web.http.filters.PentahoEnterpriseWebContextFilter</filter-class>
+            <init-param />
+            ...
+            
+            <init-param>
+                <param-name>ssoEnabled</param-name>
+                <param-value>true</param-value>
+            </init-param>
+
+          </filter>
+         
+    -->
+  <bean id="httpSessionPentahoSessionContextIntegrationFilter"
+        class="org.pentaho.platform.web.http.filters.HttpSessionPentahoSessionIntegrationFilter" >
+      <property name="ssoEnabled" value="true" />
+  </bean>
 
   <bean id="httpRequestAccessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
     <property name="allowIfAllAbstainDecisions" value="false" />
