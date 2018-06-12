@@ -166,8 +166,8 @@ define([
 
           // Part 5
           bar.classed("selected", function(scene) {
-            var sf = view.selectionFilter;
-            return !!sf && dataTable.filterMatchesRow(sf, scene.index);
+            var selectionFilter = model.selectionFilter;
+            return !!selectionFilter && dataTable.filterMatchesRow(selectionFilter, scene.index);
           });
         },
 
@@ -186,7 +186,7 @@ define([
 
           var data = this.model.data;
 
-          var columnLabels = mapping.fieldIndexes.map(function (fieldIndex) {
+          var columnLabels = mapping.fieldIndexes.map(function(fieldIndex) {
             return data.getColumnLabel(fieldIndex);
           });
 

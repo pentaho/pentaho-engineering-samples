@@ -13,7 +13,7 @@
 
   <!-- load the VizAPI dev bootstrap helper -->
   <script type="text/javascript" src="node_modules/@pentaho/viz-api/dev-bootstrap.js"></script>
-  
+
   <!-- configure AMD for the sample visualization -->
   <script>
     require([
@@ -74,18 +74,19 @@
             // Create the visualization view.
             return types.BaseView.createAsync(viewSpec);
           })
-          .then(function (view) {
+          .then(function(view) {
             // Handle the execute action.
             view.on("pentaho/visual/action/execute", {
               "do": function(event, action) {
-                alert("Executed " + action.dataFilter.contentKey);
+                alert("Executed " + action.dataFilter.$contentKey);
               }
             });
 
             // Handle the select action.
             view.on("pentaho/visual/action/select", {
               "finally": function(event, action) {
-                document.getElementById("messages_div").innerText = "Selected: " + view.model.selectionFilter.contentKey;
+                document.getElementById("messages_div").innerText =
+                  "Selected: " + view.model.selectionFilter.$contentKey;
               }
             });
 
