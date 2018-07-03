@@ -12,12 +12,13 @@
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  *
- * Copyright 2016 - 2017 Hitachi Vantara. All rights reserved.
+ * Copyright 2016 - 2018 Hitachi Vantara. All rights reserved.
  */
 define(["module"], function(module) {
-  // Replace /config by /model.
-  // e.g. "pentaho-visual-samples-bar-d3/model".
-  var vizId = module.id.replace(/(\w+)$/, "model");
+
+  // Replace /config by /Model.
+  // e.g. "pentaho-visual-samples-bar-d3/Model".
+  var vizId = module.id.replace(/(\w+)$/, "Model");
 
   return {
     rules: [
@@ -25,7 +26,7 @@ define(["module"], function(module) {
       {
         priority: -1,
         select: {
-          type: vizId
+          module: vizId
         },
         apply: {
           props: {
@@ -38,7 +39,7 @@ define(["module"], function(module) {
       {
         priority: -1,
         select: {
-          type: vizId,
+          module: vizId,
           application: "pentaho-analyzer"
         },
         apply: {
