@@ -14,11 +14,19 @@
  *
  * Copyright 2016 - 2018 Hitachi Vantara. All rights reserved.
  */
-define(["module"], function(module) {
+define([
+  "module",
+  "pentaho/module/util"
+], function(module, moduleUtil) {
 
-  // Replace /config by /Model.
-  // e.g. "pentaho-visual-samples-bar-d3/Model".
-  var vizId = module.id.replace(/(\w+)$/, "Model");
+  "use strict";
+
+  var resolveId = function(moduleId) {
+    return moduleUtil.resolveModuleId(moduleId, module.id);
+  };
+
+  // Resolve relative to this module.
+  var vizId = resolveId("./Model");
 
   return {
     rules: [
