@@ -36,8 +36,6 @@
     <dependency.org.apache.velocity.version>1.7</dependency.org.apache.velocity.version>
     <dependency.slf4j.version>1.7.3</dependency.slf4j.version>
     <dependency.slf4j-log4j12.version>1.7.9</dependency.slf4j-log4j12.version>
-    <dependency.spring.framework.version>3.2.11.RELEASE</dependency.spring.framework.version>
-    <dependency.spring.security.version>3.1.4.RELEASE</dependency.spring.security.version>
     <dependency.xercesImpl.version>2.11.0</dependency.xercesImpl.version>
     <dependency.xmlsec.version>2.0.5</dependency.xmlsec.version>
 
