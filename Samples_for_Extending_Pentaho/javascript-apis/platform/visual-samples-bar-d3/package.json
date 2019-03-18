@@ -6,7 +6,21 @@
       "pentaho-visual-samples-bar-d3/Model": {
         "base": "pentaho/visual/Model",
         "annotations": {
-          "pentaho/visual/DefaultView": {"module": "./ViewD3"}
+          "pentaho/visual/DefaultView": {
+            "module": "./ViewD3"
+          },
+          "pentaho/theme/Theme": {
+            "main": "css!./css/model"
+          }
+        }
+      },
+      "pentaho-visual-samples-bar-d3/ViewD3": {
+        "base": null,
+        "annotations": {
+          "pentaho/theme/Theme": {
+            "main": "css!./css/viewD3"
+          },
+          "pentaho/theme/LoadTheme": {}
         }
       },
       "pentaho-visual-samples-bar-d3/config": {

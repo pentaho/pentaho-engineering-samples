@@ -38,12 +38,11 @@ define(function() {
         priority: -1,
         select: {
           module: "./Model",
-          application: "pentaho-analyzer"
+          annotation: "pentaho/analyzer/visual/Options",
+          application: "pentaho/analyzer"
         },
         apply: {
-          application: {
-            keepLevelOnDrilldown: false
-          }
+          keepLevelOnDrilldown: false
         }
       }
     ]

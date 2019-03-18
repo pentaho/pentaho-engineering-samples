@@ -65,7 +65,7 @@
         });
 
         // Mark the container with the model's CSS classes, for styling purposes.
-        domContainer.className = Model.type.inheritedStyleClasses.join(" ");
+        domContainer.className = visualUtil.getCssClasses(vizTypeId, viewTypeId);
 
         var view = new View({model: model, domContainer: domContainer});
 
