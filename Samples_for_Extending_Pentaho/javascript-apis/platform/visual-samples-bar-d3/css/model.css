@@ -35,6 +35,6 @@
 }
 
 /* Canvas placeholder image */
-._pentaho-visual-samples-bar-d3-pentaho-visual-samples-bar-D3-Model .canvas.message .icon {
+._pentaho-visual-samples-bar-d3-pentaho-visual-samples-bar-D3-Model.canvas.message .icon {
   background-image: url("images/pdi-bar-d3-placeholder.svg");
 }
