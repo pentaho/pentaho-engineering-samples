@@ -12,38 +12,38 @@
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  *
- * Copyright 2016 - 2017 Hitachi Vantara. All rights reserved.
+ * Copyright 2016 - 2019 Hitachi Vantara. All rights reserved.
  */
-.pentaho-visual-samples-bar-d3-View-D3 .bar {
+._pentaho-visual-samples-bar-d3-pentaho-visual-samples-bar-D3-View .bar {
   stroke-width: 2px;
 }
 
-.pentaho-visual-samples-bar-d3-View-D3 .bar:hover {
+._pentaho-visual-samples-bar-d3-pentaho-visual-samples-bar-D3-View .bar:hover {
   fill-opacity: 0.8;
 }
 
-.pentaho-visual-samples-bar-d3-View-D3 .axis path,
-.pentaho-visual-samples-bar-d3-View-D3 .tick line {
+._pentaho-visual-samples-bar-d3-pentaho-visual-samples-bar-D3-View .axis path,
+._pentaho-visual-samples-bar-d3-pentaho-visual-samples-bar-D3-View .tick line {
   stroke: #cbdde8;
 }
 
-.pentaho-visual-samples-bar-d3-View-D3 .tick text {
+._pentaho-visual-samples-bar-d3-pentaho-visual-samples-bar-D3-View .tick text {
   font-family: OpenSansLight, Helvetica, Arial, Sans serif;
   fill: #26363d;
 }
 
-.pentaho-visual-samples-bar-d3-View-D3 .title {
+._pentaho-visual-samples-bar-d3-pentaho-visual-samples-bar-D3-View .title {
   font-family: OpenSansLight, Helvetica, Arial, Sans serif;
   font-size: 18px;
   font-style: normal;
   fill: #005f7d;
 }
 
-.pentaho-visual-samples-bar-d3-View-D3 .bar.selected {
+._pentaho-visual-samples-bar-d3-pentaho-visual-samples-bar-D3-View .bar.selected {
   stroke-opacity: 0.4;
   fill-opacity: 0.6;
 }
 
-.pentaho-visual-samples-bar-d3-View-D3 .bar.selected:hover {
+._pentaho-visual-samples-bar-d3-pentaho-visual-samples-bar-D3-View .bar.selected:hover {
   stroke-opacity: 0.8;
 }

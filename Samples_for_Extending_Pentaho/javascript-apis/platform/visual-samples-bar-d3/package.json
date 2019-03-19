@@ -1,29 +1,32 @@
 {
-  "name": "pentaho-visual-samples-bar-d3",
+  "name": "@pentaho/visual-samples-bar-d3",
   "version": "0.0.1",
+  "paths": {
+    "pentaho/visual/samples/barD3": "/"
+  },
   "config": {
     "pentaho/modules": {
-      "pentaho-visual-samples-bar-d3/Model": {
+      "pentaho/visual/samples/barD3/Model": {
         "base": "pentaho/visual/Model",
         "annotations": {
           "pentaho/visual/DefaultView": {
-            "module": "./ViewD3"
+            "module": "./View"
           },
           "pentaho/theme/Theme": {
             "main": "css!./css/model"
           }
         }
       },
-      "pentaho-visual-samples-bar-d3/ViewD3": {
+      "pentaho/visual/samples/barD3/View": {
         "base": null,
         "annotations": {
           "pentaho/theme/Theme": {
-            "main": "css!./css/viewD3"
+            "main": "css!./css/view"
           },
           "pentaho/theme/LoadTheme": {}
         }
       },
-      "pentaho-visual-samples-bar-d3/config": {
+      "pentaho/visual/samples/barD3/config": {
         "type": "pentaho/config/spec/IRuleSet"
       }
     }
@@ -35,6 +38,6 @@
     "d3"
   ],
   "devDependencies": {
-    "@pentaho/viz-api": "https://github.com/pentaho/pentaho-platform-plugin-common-ui/releases/download/v3.0.0-beta4/pentaho-viz-api-v3.0.0.tgz"
+    "@pentaho/viz-api": "file:///Users/dualeao/work/projects/pentaho-platform-plugin-common-ui/assemblies/npmpackage/target/pentaho-viz-api-3.0.0.tgz"
   }
 }

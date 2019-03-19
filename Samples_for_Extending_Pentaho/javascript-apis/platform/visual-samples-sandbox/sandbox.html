@@ -17,14 +17,16 @@
     /* globals require */
 
     require([
+      "pentaho/module/util",
       "pentaho/visual/util",
       "pentaho/visual/action/Execute",
       "pentaho/visual/action/Select",
       "pentaho/data/Table",
       "json!./sandbox-data.json"
-    ], function(visualUtil, ExecuteAction, SelectAction, Table, dataSpec) {
+    ], function(moduleUtil, visualUtil, ExecuteAction, SelectAction, Table, dataSpec) {
 
-      var vizTypeId = "pentaho/visual/samples/calc/Model";
+      // Get the versioned module identifier.
+      var vizTypeId = moduleUtil.resolveModuleId("pentaho/visual/samples/calc/Model");
 
       visualUtil.getModelAndDefaultViewClassesAsync(vizTypeId)
         .then(function(classes) {
