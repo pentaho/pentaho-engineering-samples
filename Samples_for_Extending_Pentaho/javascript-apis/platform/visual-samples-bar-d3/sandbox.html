@@ -3,16 +3,17 @@
 
 <head>
   <style>
-    .pentaho-visual-base-model {
+    #viz_div {
       border: solid 1px #005da6;
+      width: 95vw;
+      height: 80vh;
     }
   </style>
 
-  <!-- load the VizAPI dev context -->
+  <!-- Load the Viz. API development context -->
   <script type="text/javascript" src="node_modules/@pentaho/viz-api/webcontext.js"></script>
 
   <script type="text/javascript">
-
     /* globals require */
 
     require.config({
@@ -22,70 +23,98 @@
     });
 
     require([
-      "pentaho-visual-samples-bar-d3/Model",
-      "pentaho/visual/base/View",
+      "pentaho/visual/util",
+      "pentaho/visual/action/Execute",
+      "pentaho/visual/action/Select",
       "pentaho/data/Table",
       "json!./sandbox-data.json"
-    ], function(BarModel, BaseView, Table, dataSpec) {
+    ], function(visualUtil, ExecuteAction, SelectAction, Table, dataSpec) {
 
-      // Create the visualization model.
-      var modelSpec = {
-        "data": new Table(dataSpec),
-        "category": {fields: ["productFamily"]},
-        "measure": {fields: ["sales"]}
-      };
+      var vizTypeId = "pentaho-visual-samples-bar-d3/Model";
 
-      var model = new BarModel(modelSpec);
-
-      // Create the visualization view.
-      var viewSpec = {
-        width: 1400,
-        height: 300,
-        domContainer: document.getElementById("viz_div"),
-        model: model
-      };
-
-      // These are responsibilities of the visualization container application:
-      // 1. Mark the container with the model's CSS classes, for styling purposes.
-      viewSpec.domContainer.className = model.$type.inheritedStyleClasses.join(" ");
-
-      // 2. Set the DOM container dimensions.
-      viewSpec.domContainer.style.width = viewSpec.width + "px";
-      viewSpec.domContainer.style.height = viewSpec.height + "px";
-
-      // Create the visualization view.
-      BaseView.createAsync(viewSpec)
-        .then(function(view) {
-          // Handle the execute action.
-          view.on("pentaho/visual/action/Execute", {
-            "do": function(event, action) {
-              alert("Executed " + action.dataFilter.$contentKey);
-            }
+      visualUtil.getModelAndDefaultViewClassesAsync(vizTypeId)
+          .then(function(classes) {
+            return createAndUpdateViz(classes.Model, classes.View, classes.viewTypeId);
+          }, function(error) {
+            alert(error.message);
           });
 
-          // Handle the select action.
-          view.on("pentaho/visual/action/Select", {
-            "finally": function(event, action) {
-              document.getElementById("messages_div").innerText =
-                "Selected: " + view.model.selectionFilter.$contentKey;
-            }
+      function createAndUpdateViz(Model, View, viewTypeId) {
+
+        // Get the DOM container.
+        var domContainer = document.getElementById("viz_div");
+
+        // Measure it.
+        var rect = domContainer.getBoundingClientRect();
+
+        var model = new Model({
+          "width": rect.width,
+          "height": rect.height,
+          "data": new Table(dataSpec),
+          "category": {fields: ["productFamily"]},
+          "measure": {fields: ["sales"]}
+        });
+
+        // Handle the execute action.
+        model.on(ExecuteAction.id, {
+          "do": function(event, action) {
+            showMessage("Executed " + action.dataFilter.$contentKey);
+          }
+        });
+
+        // Handle the select action.
+        model.on(SelectAction.id, {
+          "finally": function(event, action) {
+            showMessage("Selected: " + model.selectionFilter.$contentKey);
+          }
+        });
+
+        // Mark the container with the model's CSS classes, for styling purposes.
+        domContainer.className = Model.type.inheritedStyleClasses.join(" ");
+
+        var view = new View({model: model, domContainer: domContainer});
+
+        setupWindowResizeHandler(model, domContainer);
+        setupWindowUnloadHandler(view);
+
+        // Render the visualization.
+        return model.update();
+      }
+
+      function setupWindowResizeHandler(model, domContainer) {
+        window.onresize = function() {
+          var rect = domContainer.getBoundingClientRect();
+
+          model.configure({
+            width: rect.width,
+            height: rect.height
           });
+        };
+      }
 
-          // Render the visualization.
-          return view.update();
-        }, onError);
-    }, onError);
+      function setupWindowUnloadHandler(view) {
 
-    function onError(error) {
+        window.onunload = function() {
+          window.onunload = null;
+          window.onresize = null;
+
+          view.dispose();
+        };
+      }
+
+      function showMessage(text) {
+        document.getElementById("messages_div").innerText = text;
+      }
+
+    }, function(error) {
       alert(error.message);
-    }
+    });
   </script>
 </head>
-<body>
-  <!-- div that will contain the visualization -->
-  <div id="viz_div"></div>
 
-  <!-- div that will display messages -->
+<body>
+  <div id="viz_div"></div>
   <div id="messages_div"></div>
 </body>
+
 </html>

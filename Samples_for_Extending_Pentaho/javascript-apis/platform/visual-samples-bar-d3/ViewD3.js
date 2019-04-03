@@ -12,41 +12,29 @@
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  *
- * Copyright 2016 - 2018 Hitachi Vantara. All rights reserved.
+ * Copyright 2016 - 2019 Hitachi Vantara. All rights reserved.
  */
 define([
-  "pentaho/module!_",
-  "pentaho/visual/base/View",
-  "./Model",
+  "module",
+  "pentaho/visual/impl/View",
   "pentaho/visual/action/Execute",
   "pentaho/visual/action/Select",
   "d3",
   "./clickD3",
   "pentaho/visual/scene/Base",
   "css!./css/viewD3"
-], function(module, BaseView, BarModel, ExecuteAction, SelectAction, d3, d3ClickController, Scene) {
+], function(module, BaseView, ExecuteAction, SelectAction, d3, d3ClickController, Scene) {
 
   "use strict";
 
   // Create and return the Bar View class
-  return BaseView.extend({
-    $type: {
-      id: module.id,
-      props: [
-        // Specialize the inherited model property to the Bar model type
-        {
-          name: "model",
-          valueType: BarModel
-        }
-      ]
-    },
-
+  return BaseView.extend(module.id, {
     /**
      * Performs a full update of the visualization.
      *
      * The D3 code was adapted from https://bl.ocks.org/mbostock/3885304.
      *
-     * @return {Promise} A promise that is resolved when the update operation has completed or, _nully_,
+     * @return {?Promise} A promise that is resolved when the update operation has completed or, _nully_,
      * if it completed synchronous and with no errors.
      *
      * @protected
@@ -61,7 +49,7 @@ define([
       var dataTable = model.data;
 
       // Build a list of scenes, one per category
-      var scenes = Scene.buildScenesFlat(this).children;
+      var scenes = Scene.buildScenesFlat(model).children;
 
       // The div where rendering takes place
       var container = d3.select(this.domContainer);
@@ -72,8 +60,8 @@ define([
       var margin = {top: 50, right: 30, bottom: 30, left: 75};
 
       // Note use of the view's width and height properties
-      var width = this.width - margin.left - margin.right;
-      var height = this.height - margin.top - margin.bottom;
+      var width = model.width - margin.left - margin.right;
+      var height = model.height - margin.top - margin.bottom;
 
       var x = d3.scaleBand().rangeRound([0, width]).padding(0.1);
       var y = d3.scaleLinear().rangeRound([height, 0]);
@@ -82,8 +70,8 @@ define([
       y.domain([0, d3.max(scenes, function(scene) { return scene.vars.measure.value; })]);
 
       var svg = container.append("svg")
-        .attr("width", this.width)
-        .attr("height", this.height);
+        .attr("width", model.width)
+        .attr("height", model.height);
 
       // Title
       var title = this.__getRoleLabel(model.measure) + " per " + this.__getRoleLabel(model.category);
@@ -91,7 +79,7 @@ define([
       svg.append("text")
         .attr("class", "title")
         .attr("y", margin.top / 2)
-        .attr("x", this.width / 2)
+        .attr("x", model.width / 2)
         .attr("dy", "0.35em")
         .attr("text-anchor", "middle")
         .text(title);
@@ -131,8 +119,6 @@ define([
         .attr("height", function(scene) { return height - y(scene.vars.measure.value); });
 
       // Part 3
-      var view = this;
-
       var cc = d3ClickController();
       bar.call(cc);
 
@@ -140,11 +126,8 @@ define([
         // A filter that selects the data that the bar visually represents.
         var filter = scene.createFilter();
 
-        // Create the action.
-        var action = new ExecuteAction({dataFilter: filter});
-
-        // Dispatch the action through the view.
-        view.act(action);
+        // Dispatch an "execute" action through the model.
+        model.execute({dataFilter: filter});
       });
 
       // Part 4
@@ -152,14 +135,11 @@ define([
         // A filter that selects the data that the bar visually represents.
         var filter = scene.createFilter();
 
-        // Create the action.
-        var action = new SelectAction({
+        // Dispatch a "select" action through the model.
+        model.select({
           dataFilter: filter,
           selectionMode: event.ctrlKey || event.metaKey ? "toggle" : "replace"
         });
-
-        // Dispatch the action through the view.
-        view.act(action);
       });
 
       // Part 5
@@ -172,7 +152,7 @@ define([
     /**
      * Gets a label that describes a visual role given its mapping.
      *
-     * @param {!pentaho.visual.role.Mapping} mapping - The visual role mapping.
+     * @param {pentaho.visual.role.Mapping} mapping - The visual role mapping.
      * @return {string} The visual role label.
      * @private
      */
@@ -190,6 +170,5 @@ define([
 
       return columnLabels.join(", ");
     }
-  })
-  .configure({$type: module.config});
+  });
 });

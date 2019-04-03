@@ -12,11 +12,11 @@
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  *
- * Copyright 2016 - 2018 Hitachi Vantara. All rights reserved.
+ * Copyright 2016 - 2019 Hitachi Vantara. All rights reserved.
  */
 define([
   "pentaho/module!_",
-  "pentaho/visual/base/Model",
+  "pentaho/visual/Model",
   "css!./css/model"
 ], function(module, BaseModel) {
 
