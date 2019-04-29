@@ -38,6 +38,6 @@
     "d3"
   ],
   "devDependencies": {
-    "@pentaho/viz-api": "file:///Users/dualeao/work/projects/pentaho-platform-plugin-common-ui/assemblies/npmpackage/target/pentaho-viz-api-3.0.0.tgz"
+    "@pentaho/viz-api": "https://github.com/pentaho/pentaho-platform-plugin-common-ui/releases/download/v3.0.0-beta4/pentaho-viz-api-v3.0.0.tgz"
   }
 }
