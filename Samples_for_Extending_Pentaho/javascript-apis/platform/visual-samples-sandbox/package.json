@@ -1,10 +1,10 @@
 {
-  "name": "pentaho-viz-sandbox",
+  "name": "my-viz-sandbox",
   "version": "0.0.1",
   "private": true,
-  "description": "Pentaho Visualization API sandbox",
+  "description": "Visualization API sandbox",
   "license": "MIT",
   "devDependencies": {
-    "@pentaho/viz-api": "https://github.com/pentaho/pentaho-platform-plugin-common-ui/releases/download/v3.0.0-beta4/pentaho-viz-api-v3.0.0.tgz"
+    "@pentaho/visual-sandbox": "^3.0.0-beta.4"
   }
 }
