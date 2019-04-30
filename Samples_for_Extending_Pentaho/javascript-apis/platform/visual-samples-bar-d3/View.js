@@ -15,14 +15,13 @@
  * Copyright 2016 - 2019 Hitachi Vantara. All rights reserved.
  */
 define([
-  "module",
+  "pentaho/module!_",
   "pentaho/visual/impl/View",
   "pentaho/visual/action/Execute",
   "pentaho/visual/action/Select",
   "d3",
   "./clickD3",
-  "pentaho/visual/scene/Base",
-  "css!./css/viewD3"
+  "pentaho/visual/scene/Base"
 ], function(module, BaseView, ExecuteAction, SelectAction, d3, d3ClickController, Scene) {
 
   "use strict";

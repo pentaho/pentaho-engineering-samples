@@ -16,8 +16,7 @@
  */
 define([
   "pentaho/module!_",
-  "pentaho/visual/Model",
-  "css!./css/model"
+  "pentaho/visual/Model"
 ], function(module, BaseModel) {
 
   "use strict";
@@ -62,5 +61,5 @@ define([
       ]
     }
   })
-  .configure({$type: module.config});
+  .configure();
 });

@@ -23,14 +23,16 @@
     });
 
     require([
+      "pentaho/module/util",
       "pentaho/visual/util",
       "pentaho/visual/action/Execute",
       "pentaho/visual/action/Select",
       "pentaho/data/Table",
       "json!./sandbox-data.json"
-    ], function(visualUtil, ExecuteAction, SelectAction, Table, dataSpec) {
+    ], function(moduleUtil, visualUtil, ExecuteAction, SelectAction, Table, dataSpec) {
 
-      var vizTypeId = "pentaho-visual-samples-bar-d3/Model";
+      // Get the versioned module identifier.
+      var vizTypeId = moduleUtil.resolveModuleId("pentaho/visual/samples/barD3/Model");
 
       visualUtil.getModelAndDefaultViewClassesAsync(vizTypeId)
           .then(function(classes) {
@@ -70,7 +72,7 @@
         });
 
         // Mark the container with the model's CSS classes, for styling purposes.
-        domContainer.className = Model.type.inheritedStyleClasses.join(" ");
+        domContainer.className = visualUtil.getCssClasses(vizTypeId, viewTypeId);
 
         var view = new View({model: model, domContainer: domContainer});
 
