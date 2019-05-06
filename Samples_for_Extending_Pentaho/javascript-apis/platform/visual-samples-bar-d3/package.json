@@ -44,6 +44,6 @@
     "d3"
   ],
   "devDependencies": {
-    "@pentaho/visual-sandbox": "^3.0.0-beta.4"
+    "@pentaho/visual-sandbox": "^3.0.0"
   }
 }
