@@ -17,12 +17,10 @@
 define([
   "pentaho/module!_",
   "pentaho/visual/impl/View",
-  "pentaho/visual/action/Execute",
-  "pentaho/visual/action/Select",
   "d3",
-  "./clickD3",
-  "pentaho/visual/scene/Base"
-], function(module, BaseView, ExecuteAction, SelectAction, d3, d3ClickController, Scene) {
+  "pentaho/visual/scene/Base",
+  "./clickD3"
+], function(module, BaseView, d3, Scene, d3ClickController) {
 
   "use strict";
 
@@ -58,7 +56,7 @@ define([
 
       var margin = {top: 50, right: 30, bottom: 30, left: 75};
 
-      // Note use of the view's width and height properties
+      // Note use of the model's width and height properties
       var width = model.width - margin.left - margin.right;
       var height = model.height - margin.top - margin.bottom;
 
@@ -83,6 +81,7 @@ define([
         .attr("text-anchor", "middle")
         .text(title);
 
+      // Content
       var g = svg.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -117,31 +116,31 @@ define([
         .attr("width", barWidth)
         .attr("height", function(scene) { return height - y(scene.vars.measure.value); });
 
-      // Part 3
+      // Part 3 - Emit execute action
       var cc = d3ClickController();
       bar.call(cc);
 
       cc.on("dblclick", function(event, scene) {
-        // A filter that selects the data that the bar visually represents.
+        // A filter that selects the data that the bar visually represents
         var filter = scene.createFilter();
 
-        // Dispatch an "execute" action through the model.
+        // Dispatch an "execute" action through the model
         model.execute({dataFilter: filter});
       });
 
-      // Part 4
+      // Part 4 - Emit select action
       cc.on("click", function(event, scene) {
-        // A filter that selects the data that the bar visually represents.
+        // A filter that selects the data that the bar visually represents
         var filter = scene.createFilter();
 
-        // Dispatch a "select" action through the model.
+        // Dispatch a "select" action through the model
         model.select({
           dataFilter: filter,
           selectionMode: event.ctrlKey || event.metaKey ? "toggle" : "replace"
         });
       });
 
-      // Part 5
+      // Part 5 - Update each bars' selection state
       bar.classed("selected", function(scene) {
         var selectionFilter = model.selectionFilter;
         return !!selectionFilter && dataTable.filterMatchesRow(selectionFilter, scene.index);
