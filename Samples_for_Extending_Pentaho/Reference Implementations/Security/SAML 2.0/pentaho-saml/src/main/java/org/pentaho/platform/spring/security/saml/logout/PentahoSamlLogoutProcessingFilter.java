@@ -2,6 +2,8 @@ package org.pentaho.platform.spring.security.saml.logout;
 
 import org.pentaho.platform.proxy.impl.ProxyException;
 import org.pentaho.platform.spring.security.saml.Utils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.saml.SAMLLogoutProcessingFilter;
@@ -17,6 +19,10 @@ import java.lang.reflect.InvocationTargetException;
 
 public class PentahoSamlLogoutProcessingFilter extends SAMLLogoutProcessingFilter {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger( PentahoSamlLogoutProcessingFilter.class );
+
+  private boolean requireProxyWrapping = true;
+
   public PentahoSamlLogoutProcessingFilter( String logoutSuccessUrl, LogoutHandler... handlers ) {
     super( logoutSuccessUrl, handlers );
   }
@@ -26,26 +32,34 @@ public class PentahoSamlLogoutProcessingFilter extends SAMLLogoutProcessingFilte
   }
 
   @Override
-  public void processLogout(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws
-      IOException, ServletException {
+  public void processLogout( HttpServletRequest request, HttpServletResponse response, FilterChain chain )
+    throws IOException, ServletException {
 
-    if( requiresLogout( request, response ) ){
+    if ( requiresLogout( request, response ) ) {
 
       try {
 
-        Authentication auth = Utils.getAuthenticationFromRequest( request );
+        Authentication auth = Utils.getAuthenticationFromRequest( request, isRequireProxyWrapping() );
 
-        if( auth != null ) {
+        if ( auth != null ) {
           SecurityContextHolder.getContext().setAuthentication( auth );
         }
 
       } catch ( NoSuchMethodException | InvocationTargetException | IllegalAccessException | ProxyException e ) {
-        logger.error( e.getMessage(), e );
+        LOGGER.error( e.getMessage(), e );
       }
     }
 
     super.processLogout( request, response, chain );
 
+  }
+
+  public void setRequireProxyWrapping( boolean requireProxyWrapping ) {
+    this.requireProxyWrapping = requireProxyWrapping;
+  }
+
+  public boolean isRequireProxyWrapping() {
+    return requireProxyWrapping;
   }
 
 }
