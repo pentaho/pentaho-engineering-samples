@@ -415,6 +415,7 @@
     <property name="logoutProfile" ref="logoutprofile" />
     <property name="contextProvider" ref="contextProvider" />
     <property name="filterProcessesUrl" value="/saml/SingleLogout" />
+    <property name="requireProxyWrapping" value="false" />
   </bean>
 
   <!-- IDP Discovery Service -->
