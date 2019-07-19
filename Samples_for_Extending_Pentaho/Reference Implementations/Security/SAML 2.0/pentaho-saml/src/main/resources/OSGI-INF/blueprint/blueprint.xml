@@ -132,6 +132,9 @@
           that can authenticate to the system be available in the authorization provider -->
       <cm:property name="create.user.details.not.found.in.authorization.provider" value="false" />
       
+      <!-- Should the Pentaho session authentication strategy be used? -->
+      <cm:property name="use.pentaho.session.authentication.strategy" value="true" />
+
       <!-- LOAD BALANCER CONFIGURATION -->
       <!-- If the server will be behind a load balancer, server addressing properties must be
            specified so that any host can produce and validate messages -->
@@ -358,7 +361,7 @@
   </bean>
 
   <!-- Processing filter for WebSSO profile messages -->
-  <bean id="samlWebSSOProcessingFilter" class="org.springframework.security.saml.SAMLProcessingFilter" init-method="afterPropertiesSet">
+  <bean id="samlWebSSOProcessingFilter" class="org.pentaho.platform.spring.security.saml.PentahoSAMLProcessingFilter" init-method="afterPropertiesSet">
     <property name="authenticationManager" ref="samlAuthenticationManager"/>
     <property name="authenticationSuccessHandler" ref="successRedirectHandler"/>
     <property name="authenticationFailureHandler" ref="failureRedirectHandler"/>
@@ -366,6 +369,7 @@
     <property name="contextProvider" ref="contextProvider" />
     <!-- the platform's filterChainProxy applies CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON -->
     <property name="filterProcessesUrl" value="/saml/SSO" />
+	<property name="sessionAuthenticationStrategyFromPentaho" value="${use.pentaho.session.authentication.strategy}" />
   </bean>
 
   <!-- Processing filter for WebSSO Holder-of-Key profile -->
@@ -665,7 +669,8 @@
   </bean>
 
   <!-- SAML 2.0 Logout Profile -->
-  <bean id="logoutprofile" class="org.springframework.security.saml.websso.SingleLogoutProfileImpl">
+  <!-- org.springframework.security.saml.websso.SingleLogoutProfileImpl -->
+  <bean id="logoutprofile" class="org.pentaho.platform.spring.security.saml.logout.PentahoSingleLogoutProfileImpl">
     <property name="responseSkew" value="${saml.valid.response.interval.in.secs}" />
     <property name="metadata" ref="metadata" />
     <property name="processor" ref="processor" />
