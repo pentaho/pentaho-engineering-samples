@@ -329,7 +329,7 @@
               javax.servlet.*,
               javax.sql.*,
               javax.xml.*,
-              org.apache.xerces.*;version="${dependency.xercesImpl.version}",
+              org.apache.xerces.*;version="${xercesImpl.version}",
               org.apache.xml.security.*;version="${dependency.xmlsec.version}",
               org.pentaho.platform.api.engine.*,
               org.pentaho.platform.api.mt.*,
