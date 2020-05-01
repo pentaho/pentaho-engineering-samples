@@ -18,10 +18,10 @@
 
   <properties>
 
-    <dependency.opensaml.version>2.6.1</dependency.opensaml.version>  
-    <dependency.opensaml.openws.version>1.5.1</dependency.opensaml.openws.version>    
-    <dependency.opensaml.xmltooling.version>1.4.1</dependency.opensaml.xmltooling.version>
-    <dependency.org.spring.security.extensions.saml.version>1.0.1.RELEASE</dependency.org.spring.security.extensions.saml.version>
+    <dependency.opensaml.version>2.6.6</dependency.opensaml.version>  
+    <dependency.opensaml.openws.version>1.5.6</dependency.opensaml.openws.version>    
+    <dependency.opensaml.xmltooling.version>1.4.6</dependency.opensaml.xmltooling.version>
+    <dependency.org.spring.security.extensions.saml.version>1.0.10.RELEASE</dependency.org.spring.security.extensions.saml.version>
 
   </properties>
 
@@ -65,6 +65,15 @@
       </exclusions>
     </dependency>
 
+<!-- 
+<dependency>
+    <groupId>javax.naming</groupId>
+    <artifactId>jndi</artifactId>
+    <version>1.2.1</version>
+    <scope>compile</scope>
+</dependency>
+ -->
+ <!-- 
     <dependency>
       <groupId>org.beanshell</groupId>
       <artifactId>bsh</artifactId>
@@ -76,7 +85,8 @@
         </exclusion>
       </exclusions>
     </dependency>
-
+ -->
+ 
     <dependency>
       <groupId>org.jdom</groupId>
       <artifactId>jdom</artifactId>
@@ -95,17 +105,6 @@
       <version>${dependency.commons.fileupload.version}</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-jdbc</artifactId>
-      <version>${dependency.spring.framework.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>*</groupId>
-          <artifactId>*</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
 
     <!-- platform-provided dependencies -->
 
@@ -313,7 +312,6 @@
               org.springframework.security.providers.*;version="${project.version}",
               org.springframework.security.saml.*;version="${project.version}",
               org.pentaho.platform.spring.security.saml.*;version="${project.version}",
-              org.springframework.jdbc.*;version="${dependency.spring.framework.version}"
             </Export-Package>
             <Import-Package>
               !javax.swing.*,
@@ -323,24 +321,8 @@
               !com.sun.net.ssl.*,
               !com.werken.xpath.*,
               !org.springframework.security,
-              javax.crypto.*,
-              javax.net.*,
-              javax.security.auth.*,
-              javax.servlet.*,
-              javax.sql.*,
-              javax.xml.*,
               org.apache.xerces.*;version="${xercesImpl.version}",
               org.apache.xml.security.*;version="${dependency.xmlsec.version}",
-              org.pentaho.platform.api.engine.*,
-              org.pentaho.platform.api.mt.*,
-              org.pentaho.platform.api.repository2.unified.*,
-              org.pentaho.platform.engine.core.system.*,
-              org.pentaho.platform.engine.security.*,
-              org.pentaho.platform.proxy.*,
-              org.pentaho.platform.repository2.unified.jcr.*,
-              org.pentaho.platform.security.userroledao.*,
-              org.pentaho.proxy.spring4.security.*,
-              org.pentaho.platform.engine.core.solution.*,
               org.slf4j.*;version="${dependency.slf4j.version}",
               org.springframework.beans.*;version="${dependency.spring.framework.version}",
               org.springframework.core.*;version="${dependency.spring.framework.version}",
@@ -351,12 +333,12 @@
               org.springframework.util.*;version="${dependency.spring.framework.version}",
               org.springframework.web.*;version="${dependency.spring.framework.version}",
               org.xml.sax.*,
-              org.w3c.dom.*
+              org.w3c.dom.*,
+              *;resolution:=optional
             </Import-Package>
             <Private-Package>
               schema,
               templates,
-              bsh.*,
               java_cup.runtime.*,
               javax.xml.*,
               org.apache.*,
