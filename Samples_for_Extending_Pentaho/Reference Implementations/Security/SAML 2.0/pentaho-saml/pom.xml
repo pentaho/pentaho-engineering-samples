@@ -340,6 +340,7 @@
               org.pentaho.platform.repository2.unified.jcr.*,
               org.pentaho.platform.security.userroledao.*,
               org.pentaho.proxy.spring4.security.*,
+              org.pentaho.platform.engine.core.solution.*,
               org.slf4j.*;version="${dependency.slf4j.version}",
               org.springframework.beans.*;version="${dependency.spring.framework.version}",
               org.springframework.core.*;version="${dependency.spring.framework.version}",
