@@ -6,12 +6,12 @@
   <parent>
     <groupId>pentaho</groupId>
     <artifactId>pentaho-authentication-provider-samples</artifactId>
-    <version>9.0.0.0-SNAPSHOT</version>
+    <version>9.1.0.0-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
   <artifactId>pentaho-saml-sample</artifactId>
-  <version>9.0.0.0-SNAPSHOT</version>
+  <version>9.1.0.0-SNAPSHOT</version>
   <packaging>kar</packaging>
 
   <name>Pentaho SAML Authentication Provider .kar</name>
