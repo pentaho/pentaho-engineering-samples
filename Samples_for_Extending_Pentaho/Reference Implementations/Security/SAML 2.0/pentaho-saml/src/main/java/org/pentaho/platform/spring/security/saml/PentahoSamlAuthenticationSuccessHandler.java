@@ -1,9 +1,11 @@
 package org.pentaho.platform.spring.security.saml;
 
+import org.pentaho.platform.api.engine.IParameterProvider;
 import org.pentaho.platform.api.engine.IPentahoSession;
 import org.pentaho.platform.api.engine.ISecurityHelper;
 import org.pentaho.platform.api.mt.ITenant;
 import org.pentaho.platform.api.repository2.unified.IBackingRepositoryLifecycleManager;
+import org.pentaho.platform.engine.core.solution.PentahoSessionParameterProvider;
 import org.pentaho.platform.engine.core.system.PentahoSessionHolder;
 import org.pentaho.platform.engine.core.system.PentahoSystem;
 import org.pentaho.platform.engine.security.SecurityHelper;
@@ -32,38 +34,40 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-public class PentahoSamlAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler implements InitializingBean{
+public class PentahoSamlAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler
+    implements InitializingBean {
 
   private static Logger logger = LoggerFactory.getLogger( PentahoSamlAuthenticationSuccessHandler.class );
 
   public static final String SPRING_SECURITY_CONTEXT_KEY = "SPRING_SECURITY_CONTEXT";
-  //Initializing it to "true" so the code 6.1 or earlier works without any chanegs
-  public boolean requireProxyWrapping =true;
+  // Initializing it to "true" so the code 6.1 or earlier works without any chanegs
+  public boolean requireProxyWrapping = true;
 
   @Override
-  public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-      Authentication authentication ) throws ServletException, IOException {
+  public void onAuthenticationSuccess( HttpServletRequest request, HttpServletResponse response,
+      Authentication authentication )
+    throws ServletException, IOException {
 
     try {
 
-      if( authentication instanceof ExpiringUsernameAuthenticationToken ){
+      if ( authentication instanceof ExpiringUsernameAuthenticationToken ) {
         // since no expiration date is passed, this token's behaviour is the same as UsernamePasswordAuthenticationToken
         // also, we would have a hard time supporting a supporting a saml-specific token like this
         // ExpiringUsernameAuthenticationToken in ss2-proxies / ss4-proxies
         //
         // http://docs.spring.io/spring-security-saml/docs/current/api/org/springframework/security/providers/ExpiringUsernameAuthenticationToken.html
-        
-        authentication = new UsernamePasswordAuthenticationToken( authentication.getPrincipal(),
-            authentication.getCredentials(), authentication.getAuthorities() );
+
+        authentication =
+            new UsernamePasswordAuthenticationToken( authentication.getPrincipal(),
+                authentication.getCredentials(), authentication.getAuthorities() );
 
         SecurityContextHolder.getContext().setAuthentication( authentication );
       }
 
-
       // legacy spring ( i.e. non-osgi spring.framework ) SecurityContext storing
       IProxyFactory factory = PentahoSystem.get( IProxyFactory.class );
-      Object securityContextProxy = null ;
-   
+      Object securityContextProxy = null;
+
       if ( requireProxyWrapping ) {
         securityContextProxy = factory.createProxy( SecurityContextHolder.getContext() );
         request.setAttribute( SPRING_SECURITY_CONTEXT_KEY, securityContextProxy );
@@ -79,9 +83,13 @@ public class PentahoSamlAuthenticationSuccessHandler extends SavedRequestAwareAu
       Assert.notNull( pentahoSession, "PentahoSessionHolder doesn't have a session" );
       pentahoSession.setAuthenticated( authentication.getName() );
 
+      IParameterProvider sessionParameters = new PentahoSessionParameterProvider( pentahoSession );
+      PentahoSystem.sessionStartup( pentahoSession, sessionParameters );
+
       // Note: spring-security 2 expects an *array* of GrantedAuthorities ( ss4 uses a list )
       pentahoSession.setAttribute( IPentahoSession.SESSION_ROLES,
-           requireProxyWrapping ? proxyGrantedAuthorities( factory, authentication.getAuthorities() ) :  authentication.getAuthorities());
+        requireProxyWrapping ? proxyGrantedAuthorities( factory, authentication.getAuthorities() )
+            : authentication.getAuthorities() );
 
       // time to create this user's home folder
       createUserHomeFolder( authentication.getName() );
@@ -89,22 +97,22 @@ public class PentahoSamlAuthenticationSuccessHandler extends SavedRequestAwareAu
       super.onAuthenticationSuccess( request, new SamlOnRedirectUpdateSessionResponseWrapper( response, request, true,
           0,
           requireProxyWrapping ? securityContextProxy : SecurityContextHolder.getContext(),
-          authentication ), authentication );
+          authentication ),
+        authentication );
 
     } catch ( Exception e ) {
       logger.error( e.getLocalizedMessage(), e );
     }
   }
 
-
   private Object proxyGrantedAuthorities( IProxyFactory factory, Collection<? extends GrantedAuthority> s4Authorities )
-      throws ProxyException {
+    throws ProxyException {
 
     List s2Authorities = new ArrayList();
 
-    if( factory != null && s4Authorities != null ){
+    if ( factory != null && s4Authorities != null ) {
 
-      for( GrantedAuthority s4Authority : s4Authorities ) {
+      for ( GrantedAuthority s4Authority : s4Authorities ) {
         s2Authorities.add( factory.createProxy( s4Authority ) ); // proxying S4 GrantedAuthorities to s2 ones
       }
     }
@@ -114,9 +122,9 @@ public class PentahoSamlAuthenticationSuccessHandler extends SavedRequestAwareAu
 
   private <T> T[] proxyArray( List<T> s2Authorities ) {
 
-    T[] arr = ( T[] ) Array.newInstance( s2Authorities.get( 0 ).getClass() , s2Authorities.size() );
+    T[] arr = (T[]) Array.newInstance( s2Authorities.get( 0 ).getClass(), s2Authorities.size() );
 
-    for( int i = 0 ; i < s2Authorities.size() ; i++ ){
+    for ( int i = 0; i < s2Authorities.size(); i++ ) {
       arr[i] = s2Authorities.get( i );
     }
 
@@ -125,21 +133,24 @@ public class PentahoSamlAuthenticationSuccessHandler extends SavedRequestAwareAu
 
   private void createUserHomeFolder( final String username ) {
 
-    final ITenant tenantName =  JcrTenantUtils.getTenant( username, true );
+    final ITenant tenantName = JcrTenantUtils.getTenant( username, true );
 
-    final ISecurityHelper securityHelper = PentahoSystem.get( ISecurityHelper.class ) != null ?
-        PentahoSystem.get( ISecurityHelper.class ) : SecurityHelper.getInstance();
-    final IBackingRepositoryLifecycleManager lifecycleManager = PentahoSystem.get( IBackingRepositoryLifecycleManager.class );
+    final ISecurityHelper securityHelper =
+        PentahoSystem.get( ISecurityHelper.class ) != null ? PentahoSystem.get( ISecurityHelper.class )
+            : SecurityHelper.getInstance();
+    final IBackingRepositoryLifecycleManager lifecycleManager =
+        PentahoSystem.get( IBackingRepositoryLifecycleManager.class );
 
-    if( tenantName == null || securityHelper == null || lifecycleManager == null ) {
-      logger.error( "null " + ( tenantName == null ? "ITenant" :
-          securityHelper == null ? "ISecurityHelper" : "IBackingRepositoryLifecycleManager" ) );
+    if ( tenantName == null || securityHelper == null || lifecycleManager == null ) {
+      logger.error( "null " + ( tenantName == null ? "ITenant"
+          : securityHelper == null ? "ISecurityHelper" : "IBackingRepositoryLifecycleManager" ) );
       return;
     }
 
     try {
       securityHelper.runAsSystem( new Callable<Void>() {
-        @Override public Void call() throws Exception {
+        @Override
+        public Void call() throws Exception {
           // Execute new tenant with the tenant id from the logged in user
           lifecycleManager.newTenant( tenantName );
           return null;
@@ -151,7 +162,8 @@ public class PentahoSamlAuthenticationSuccessHandler extends SavedRequestAwareAu
 
     try {
       securityHelper.runAsSystem( new Callable<Void>() {
-        @Override public Void call() throws Exception {
+        @Override
+        public Void call() throws Exception {
           // Execute new tenant with the tenant id from the logged in user
           lifecycleManager.newUser( tenantName, username );
           return null;
@@ -164,7 +176,8 @@ public class PentahoSamlAuthenticationSuccessHandler extends SavedRequestAwareAu
     try {
       // The newTenant() call should be executed as the system (or more correctly the tenantAdmin)
       securityHelper.runAsSystem( new Callable<Void>() {
-        @Override public Void call() throws Exception {
+        @Override
+        public Void call() throws Exception {
           lifecycleManager.newTenant();
           return null;
         }
@@ -177,7 +190,8 @@ public class PentahoSamlAuthenticationSuccessHandler extends SavedRequestAwareAu
       // run as user to populate SecurityContextHolder and PentahoSessionHolder since Spring Security events are
       // fired before SecurityContextHolder is set
       securityHelper.runAsUser( username, new Callable<Void>() {
-        @Override public Void call() throws Exception {
+        @Override
+        public Void call() throws Exception {
           lifecycleManager.newUser();
           return null;
         }
@@ -188,7 +202,7 @@ public class PentahoSamlAuthenticationSuccessHandler extends SavedRequestAwareAu
     }
   }
 
-  public void setRequireProxyWrapping(boolean requireWrapping){
+  public void setRequireProxyWrapping( boolean requireWrapping ) {
     requireProxyWrapping = requireWrapping;
   }
 
@@ -196,6 +210,6 @@ public class PentahoSamlAuthenticationSuccessHandler extends SavedRequestAwareAu
    * @see InitializingBean interface
    */
   public void afterPropertiesSet() throws ServletException {
-    logger.info( "Property requireProxyWrapping set to: " + requireProxyWrapping);
+    logger.info( "Property requireProxyWrapping set to: " + requireProxyWrapping );
   }
 }
