@@ -97,6 +97,9 @@
 
       <!-- default key -->
       <cm:property name="saml.keystore.default.key" value="apollo" /> <!-- default -->
+      
+      <!-- signing key algorithm, allowed values are SHA1, SHA256, SHA384, SHA512 -->
+      <cm:property name="saml.signature.algorithm" value="SHA1" />
 
       <!-- ========================== -->
       <!-- logout settings            -->
@@ -306,8 +309,15 @@
 
 
   <!-- Initialization of of OpenSAML library via SAMLBootstrap  -->
-  <bean id="pentahoSamlBootstrap" class="org.pentaho.platform.spring.security.saml.PentahoSamlBootstrap" init-method="bootstrap" />
+  <bean id="pentahoSamlBootstrap" class="org.pentaho.platform.spring.security.saml.PentahoSamlBootstrap" init-method="bootstrap">
+  	<property name="signatureAlgorithm" value="${saml.signature.algorithm}" />
+  </bean>
 
+  <!-- Calls the method getClass() on the pentahoSamlBootstrap, which instantiates it once -->
+  <!-- 
+  <bean id="pentahoSamlBootstrapClass" factory-ref="pentahoSamlBootstrap" factory-method="getClass" />
+   -->
+   
   <!-- Delegate to provider of SAML Context -->
   <bean id="contextProvider" class="org.pentaho.platform.spring.security.saml.PentahoSamlContextProviderDelegate" init-method="afterPropertiesSet">
     <property name="useLoadBalanceProvider" value="${saml.lb.enabled}" />
@@ -509,9 +519,6 @@
     <argument value="${saml.keystore.private.username.passwords}" />
     <property name="inResourceDelimiterChar" value="${saml.username.password.delimiter.char}" />
   </bean>
-
-  <bean id="pentahoSamlBootstrapClass" factory-ref="pentahoSamlBootstrap" factory-method="getClass" />
-
 
 
   <!-- ================================================================================================== -->
