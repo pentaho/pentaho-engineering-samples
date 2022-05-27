@@ -2,7 +2,7 @@
 <!--===========================================================================
 PENTAHO CORPORATION PROPRIETARY AND CONFIDENTIAL
 
-Copyright 2002 - 2014 Pentaho Corporation (Pentaho). All rights reserved.
+Copyright 2002 - 2022 Pentaho Corporation (Pentaho). All rights reserved.
 
 NOTICE: All information including source code contained herein is, and
 remains the sole property of Pentaho and its licensors. The intellectual
@@ -46,32 +46,13 @@ explicitly covering such access.
              For embedding scenarios, requires CORS GET, withAuthentication access
              (configure cors-requests-allowed and cors-requests-allowed-domains in pentaho.xml).
               -->
-        <sec:filter-chain pattern="/api/system/csrf"
-                          filters="csrfTokenSecurityFilter,
-                                   csrfTokenResponseHeaderFilter" />
-
-        <sec:filter-chain pattern="/api/repos/dashboards/print"
-                          filters="csrfTokenSecurityFilter,
-                                   securityContextHolderAwareRequestFilter,
-                                   httpSessionPentahoSessionContextIntegrationFilter,
-                                   httpSessionContextIntegrationFilter,
-                                   preAuthenticatedSecurityFilter,
-                                   httpSessionReuseDetectionFilter,
-                                   logoutFilter,
-                                   samlMetadataGeneratorFilter,
-                                   samlLogoutFilter,
-                                   samlSingleLogoutFilter,
-                                   samlWebSSOProcessingFilter,
-                                   authenticationProcessingFilter,
-                                   basicProcessingFilter,
-                                   requestParameterProcessingFilter,
-                                   anonymousProcessingFilter,
-                                   sessionMgmtFilter,
-                                   exceptionTranslationFilter,
-                                   filterInvocationInterceptor" />
+        <sec:filter-chain pattern="/api/csrf/token"
+                          filters="csrfGateFilter,
+                                   corsFilter" />
 
         <sec:filter-chain pattern="/webservices/**"
-                          filters="csrfTokenSecurityFilter,
+                          filters="csrfGateFilter,
+                                   corsFilter,
                                    securityContextHolderAwareRequestFilterForWS,
                                    httpSessionPentahoSessionContextIntegrationFilter,
                                    httpSessionContextIntegrationFilter,
@@ -80,11 +61,13 @@ explicitly covering such access.
                                    basicProcessingFilter,
                                    anonymousProcessingFilter,
                                    sessionMgmtFilter,
+                                   mdcFilter,
                                    exceptionTranslationFilterForWS,
                                    filterInvocationInterceptorForWS" />
 
         <sec:filter-chain pattern="/api/repos/**"
-                          filters="csrfTokenSecurityFilter,
+                          filters="csrfGateFilter,
+                                   corsFilter,
                                    securityContextHolderAwareRequestFilterForWS,
                                    httpSessionPentahoSessionContextIntegrationFilter,
                                    httpSessionContextIntegrationFilter,
@@ -94,12 +77,14 @@ explicitly covering such access.
                                    requestParameterProcessingFilter,
                                    anonymousProcessingFilter,
                                    sessionMgmtFilter,
+                                   mdcFilter,
                                    exceptionTranslationFilter,
                                    filterInvocationInterceptorForWS,
                                    preFlightFilter" />
 
         <sec:filter-chain pattern="/api/**"
-                          filters="csrfTokenSecurityFilter,
+                          filters="csrfGateFilter,
+                                   corsFilter,
                                    securityContextHolderAwareRequestFilterForWS,
                                    httpSessionPentahoSessionContextIntegrationFilter,
                                    httpSessionContextIntegrationFilter,
@@ -109,11 +94,13 @@ explicitly covering such access.
                                    requestParameterProcessingFilter,
                                    anonymousProcessingFilter,
                                    sessionMgmtFilter,
+                                   mdcFilter,
                                    exceptionTranslationFilterForWS,
                                    filterInvocationInterceptorForWS" />
 
         <sec:filter-chain pattern="/plugin/reporting/api/jobs/**"
-                          filters="csrfTokenSecurityFilter,
+                          filters="csrfGateFilter,
+                                   corsFilter,
                                    securityContextHolderAwareRequestFilterForWS,
                                    httpSessionPentahoSessionContextIntegrationFilter,
                                    httpSessionContextIntegrationFilter,
@@ -123,12 +110,14 @@ explicitly covering such access.
                                    requestParameterProcessingFilter,
                                    anonymousProcessingFilter,
                                    sessionMgmtFilter,
+                                   mdcFilter,
                                    exceptionTranslationFilterForWS,
                                    filterInvocationInterceptorForWS,
                                    preFlightFilter" />
 
         <sec:filter-chain pattern="/plugin/**"
-                          filters="csrfTokenSecurityFilter,
+                          filters="csrfGateFilter,
+                                   corsFilter,
                                    securityContextHolderAwareRequestFilterForWS,
                                    httpSessionPentahoSessionContextIntegrationFilter,
                                    httpSessionContextIntegrationFilter,
@@ -138,11 +127,13 @@ explicitly covering such access.
                                    requestParameterProcessingFilter,
                                    anonymousProcessingFilter,
                                    sessionMgmtFilter,
-                                   exceptionTranslationFilterForWS,
-                                   filterInvocationInterceptorForWS" />
+                                   mdcFilter,
+                                   exceptionTranslationFilter,
+                                   filterInvocationInterceptor" />
 
         <sec:filter-chain pattern="/**"
-                          filters="csrfTokenSecurityFilter,
+                          filters="csrfGateFilter,
+                                   corsFilter,
                                    securityContextHolderAwareRequestFilter,
                                    httpSessionPentahoSessionContextIntegrationFilter,
                                    httpSessionContextIntegrationFilter,
@@ -157,6 +148,7 @@ explicitly covering such access.
                                    requestParameterProcessingFilter,
                                    anonymousProcessingFilter,
                                    sessionMgmtFilter,
+                                   mdcFilter,
                                    exceptionTranslationFilter,
                                    filterInvocationInterceptor" />
       </util:list>
@@ -185,12 +177,7 @@ explicitly covering such access.
         <sec:intercept-url pattern="\A/osgi/cxf/hadoop-cluster/runTests.*\Z" access="Authenticated" />
         <sec:intercept-url pattern="\A/osgi/cxf/hadoop-cluster/.*\Z" access="Administrator" />
         <sec:intercept-url pattern="\A/content/common-ui/resources/web/(.+/)*.+\.js.*\Z" access="Anonymous,Authenticated" />
-        <sec:intercept-url pattern="\A/kettle/executeJob.*\Z" access="Anonymous,Authenticated" />
-        <sec:intercept-url pattern="\A/kettle/executeTrans.*\Z" access="Anonymous,Authenticated" />
-        <sec:intercept-url pattern="\A/.*require-cfg.js.*\Z" access="Anonymous,Authenticated" />
-        <sec:intercept-url pattern="\A/.*require-js-cfg.js.*\Z" access="Anonymous,Authenticated" />
-        <sec:intercept-url pattern="\A/content/common-ui/resources/web/require.js.*\Z" access="Anonymous,Authenticated" />
-        <sec:intercept-url pattern="\A/content/common-ui/resources/web/require-cfg.js.*\Z" access="Anonymous,Authenticated" />
+        <sec:intercept-url pattern="\A/[^\?]*(require)(-js)?(-cfg)?.js(\?.*)?\Z" access="Anonymous,Authenticated" />
         <sec:intercept-url pattern="\A/content/data-access/resources/gwt/.*css\Z" access="Anonymous,Authenticated" />
         <sec:intercept-url pattern="\A/webcontext.js.*\Z" access="Anonymous,Authenticated" />
         <sec:intercept-url pattern="\A/content/common-ui/resources/web/cache/cache-service.js.*\Z" access="Anonymous,Authenticated" />
@@ -205,7 +192,7 @@ explicitly covering such access.
         <sec:intercept-url pattern="\A/mantle/.*\Z" access="Authenticated" />
         <sec:intercept-url pattern="\A/welcome/.*\Z" access="Anonymous,Authenticated" />
         <sec:intercept-url pattern="\A/public/.*\Z" access="Anonymous,Authenticated" />
-        <sec:intercept-url pattern="\A/login.*\Z" access="Anonymous,Authenticated" />
+        <sec:intercept-url pattern="\A/login.*\Z" access="Authenticated" />
         <sec:intercept-url pattern="\A/ping/alive.gif.*\Z" access="Anonymous,Authenticated" />
         <sec:intercept-url pattern="\A/j_spring_security_check.*\Z" access="Anonymous,Authenticated" />
         <sec:intercept-url pattern="\A/getimage.*\Z" access="Anonymous,Authenticated" />
