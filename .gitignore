@@ -6,7 +6,9 @@ node_modules
 *.iml
 .idea
 
+
 target/
 .classpath
 .project
 .settings/
+*.versionsBackup

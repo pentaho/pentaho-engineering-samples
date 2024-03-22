@@ -3,4 +3,4 @@
 .settings
 **/target
 
-*.pom.xml.versionsBackup
+*.versionsBackup
