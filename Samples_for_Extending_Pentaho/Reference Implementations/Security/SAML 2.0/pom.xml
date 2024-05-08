@@ -5,12 +5,12 @@
   <parent>
     <groupId>org.pentaho</groupId>
     <artifactId>pentaho-ce-jar-parent-pom</artifactId>
-    <version>9.5.0.0-SNAPSHOT</version>
+    <version>10.1.0.0-SNAPSHOT</version>
   </parent>
 
   <groupId>pentaho</groupId>
   <artifactId>pentaho-authentication-provider-samples</artifactId>
-  <version>9.5.0.0-240</version>
+  <version>10.1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>Pentaho Authentication Provider Samples Base</name>
@@ -24,21 +24,21 @@
 
     <!-- external dependencies -->
 
-    <dependency.batik.version>1.13</dependency.batik.version>
-    <dependency.bsh.version>2.0b4</dependency.bsh.version>
-    <dependency.commons.beanutils.version>1.7.0</dependency.commons.beanutils.version>
-    <dependency.commons.fileupload.version>1.4</dependency.commons.fileupload.version>
+    <dependency.batik.version>1.17</dependency.batik.version>
+    <dependency.bsh.version>2.1.1</dependency.bsh.version>
+    <dependency.commons.beanutils.version>1.9.4</dependency.commons.beanutils.version>
+    <dependency.commons.fileupload.version>1.5</dependency.commons.fileupload.version>
     <dependency.javax.servlet.version>3.0.1</dependency.javax.servlet.version>
-    <dependency.jaxen.version>1.1-beta-8</dependency.jaxen.version>
+    <dependency.jaxen.version>1.1.6</dependency.jaxen.version>
     <dependency.jdom.version>1.1</dependency.jdom.version>
     <dependency.junit.version>4.11</dependency.junit.version>
     <dependency.mockito.version>1.9.5</dependency.mockito.version>
     <dependency.org.apache.velocity.version>1.7</dependency.org.apache.velocity.version>
     <dependency.slf4j.version>1.7.3</dependency.slf4j.version>
     <dependency.slf4j-log4j12.version>1.7.9</dependency.slf4j-log4j12.version>
-    <dependency.spring.framework.version>5.3.3</dependency.spring.framework.version>
-    <dependency.spring.security.version>5.4.2</dependency.spring.security.version>
-    <dependency.xmlsec.version>2.0.5</dependency.xmlsec.version>
+    <dependency.spring.framework.version>5.3.27</dependency.spring.framework.version>
+    <dependency.spring.security.version>5.8.7</dependency.spring.security.version>
+    <dependency.xmlsec.version>2.3.4</dependency.xmlsec.version>
 
     <maven-bundle-plugin.version>3.0.1</maven-bundle-plugin.version>
 
