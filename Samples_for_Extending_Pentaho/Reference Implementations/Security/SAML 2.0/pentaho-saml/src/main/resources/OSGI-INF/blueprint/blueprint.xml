@@ -540,7 +540,7 @@
   <bean id="spResourceFactory" class="org.pentaho.platform.spring.security.saml.resources.MetadataResourceFactory">
     <argument>
       <map key-type="java.lang.String" value-type="java.lang.String">
-        <entry key="org.opensaml.util.resource.HttpResource" value="${saml.sp.metadata.url}" />
+        <entry key="org.pentaho.platform.spring.security.saml.resources.PentahoHttpResource" value="${saml.sp.metadata.url}" />
         <entry key="org.opensaml.util.resource.FilesystemResource" value="${saml.sp.metadata.filesystem}" />
         <entry key="org.opensaml.util.resource.ClasspathResource" value="${saml.sp.metadata.classpath}" />
       </map>
@@ -551,7 +551,7 @@
   <bean id="idpResourceFactory" class="org.pentaho.platform.spring.security.saml.resources.MetadataResourceFactory">
     <argument>
       <map key-type="java.lang.String" value-type="java.lang.String">
-        <entry key="org.opensaml.util.resource.HttpResource" value="${saml.idp.metadata.url}" />
+        <entry key="org.pentaho.platform.spring.security.saml.resources.PentahoHttpResource" value="${saml.sp.metadata.url}" />
         <entry key="org.opensaml.util.resource.FilesystemResource" value="${saml.idp.metadata.filesystem}" />
         <entry key="org.opensaml.util.resource.ClasspathResource" value="${saml.idp.metadata.classpath}" />
       </map>
