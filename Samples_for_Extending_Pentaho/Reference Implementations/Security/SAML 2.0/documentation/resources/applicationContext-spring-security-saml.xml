@@ -39,19 +39,16 @@ explicitly covering such access.
   <bean id="filterChainProxy" class="org.springframework.security.web.FilterChainProxy">
     <constructor-arg>
       <util:list>
-        <!-- Virtual endpoint that simply replies with the csrf token header and parameter names, as well as the token value,
-             in the response headers X-CSRF-HEADER, X-CSRF-PARAM and X-CSRF-TOKEN, respectively.
-             This endpoint must not require CSRF protection (not part of csrfTokenProtectedEndpoints).
-             This endpoint can be accessed anonymously.
-             For embedding scenarios, requires CORS GET, withAuthentication access
-             (configure cors-requests-allowed and cors-requests-allowed-domains in pentaho.xml).
-              -->
-        <sec:filter-chain pattern="/api/csrf/token"
-                          filters="csrfGateFilter,
+        
+        
+         <sec:filter-chain pattern="/api/csrf/token"
+                          filters="ssrfGateFilter,
+                                   csrfGateFilter,
                                    corsFilter" />
 
         <sec:filter-chain pattern="/webservices/**"
-                          filters="csrfGateFilter,
+                          filters="ssrfGateFilter,
+                                   csrfGateFilter,
                                    corsFilter,
                                    securityContextHolderAwareRequestFilterForWS,
                                    httpSessionPentahoSessionContextIntegrationFilter,
@@ -66,7 +63,8 @@ explicitly covering such access.
                                    filterInvocationInterceptorForWS" />
 
         <sec:filter-chain pattern="/api/repos/**"
-                          filters="csrfGateFilter,
+                          filters="ssrfGateFilter,
+                                   csrfGateFilter,
                                    corsFilter,
                                    securityContextHolderAwareRequestFilterForWS,
                                    httpSessionPentahoSessionContextIntegrationFilter,
@@ -83,7 +81,8 @@ explicitly covering such access.
                                    preFlightFilter" />
 
         <sec:filter-chain pattern="/api/**"
-                          filters="csrfGateFilter,
+                          filters="ssrfGateFilter,
+                                   csrfGateFilter,
                                    corsFilter,
                                    securityContextHolderAwareRequestFilterForWS,
                                    httpSessionPentahoSessionContextIntegrationFilter,
@@ -99,7 +98,8 @@ explicitly covering such access.
                                    filterInvocationInterceptorForWS" />
 
         <sec:filter-chain pattern="/plugin/reporting/api/jobs/**"
-                          filters="csrfGateFilter,
+                          filters="ssrfGateFilter,
+                                   csrfGateFilter,
                                    corsFilter,
                                    securityContextHolderAwareRequestFilterForWS,
                                    httpSessionPentahoSessionContextIntegrationFilter,
@@ -116,7 +116,8 @@ explicitly covering such access.
                                    preFlightFilter" />
 
         <sec:filter-chain pattern="/plugin/**"
-                          filters="csrfGateFilter,
+                          filters="ssrfGateFilter,
+                                   csrfGateFilter,
                                    corsFilter,
                                    securityContextHolderAwareRequestFilterForWS,
                                    httpSessionPentahoSessionContextIntegrationFilter,
@@ -128,11 +129,12 @@ explicitly covering such access.
                                    anonymousProcessingFilter,
                                    sessionMgmtFilter,
                                    mdcFilter,
-                                   exceptionTranslationFilter,
-                                   filterInvocationInterceptor" />
+                                   exceptionTranslationFilterForWS,
+                                   filterInvocationInterceptorForWS" />
 
         <sec:filter-chain pattern="/**"
-                          filters="csrfGateFilter,
+                          filters="ssrfGateFilter,
+                                   csrfGateFilter,
                                    corsFilter,
                                    securityContextHolderAwareRequestFilter,
                                    httpSessionPentahoSessionContextIntegrationFilter,
@@ -151,6 +153,7 @@ explicitly covering such access.
                                    mdcFilter,
                                    exceptionTranslationFilter,
                                    filterInvocationInterceptor" />
+                                   
       </util:list>
     </constructor-arg>
   </bean>
@@ -171,13 +174,18 @@ explicitly covering such access.
         Note - the "=Nobody" below is saying that resource URLs with those
         patterns not be available through a web call.
     -->
-     <property name="securityMetadataSource">
+         <property name="securityMetadataSource">
       <!-- http://stackoverflow.com/questions/30099851/spring-security-samples-preauth-xml-example-fails-to-run#answer-30105317 -->
       <sec:filter-security-metadata-source request-matcher="ciRegex" use-expressions="false">
         <sec:intercept-url pattern="\A/osgi/cxf/hadoop-cluster/runTests.*\Z" access="Authenticated" />
         <sec:intercept-url pattern="\A/osgi/cxf/hadoop-cluster/.*\Z" access="Administrator" />
         <sec:intercept-url pattern="\A/content/common-ui/resources/web/(.+/)*.+\.js.*\Z" access="Anonymous,Authenticated" />
-        <sec:intercept-url pattern="\A/[^\?]*(require)(-js)?(-cfg)?.js(\?.*)?\Z" access="Anonymous,Authenticated" />
+        <sec:intercept-url pattern="\A/js/require(-js)?(-cfg)?.js(\?.*)?\Z" access="Anonymous,Authenticated" />
+        <sec:intercept-url pattern="\A/content/common-ui/resources/web/require(-js)?(-cfg)?.js(\?.*)?\Z" access="Anonymous,Authenticated" />
+        <sec:intercept-url pattern="\A/content/common-ui/resources/web/dojo/require(-js)?(-cfg)?.js(\?.*)?\Z" access="Anonymous,Authenticated" />
+        <sec:intercept-url pattern="\A/content/config/deploy/client-config-enabler-require-js-cfg.js\Z" access="Anonymous,Authenticated" />
+        <sec:intercept-url pattern="\A/content/config/admin-plugin/client-config-enabler-require-js-cfg.js\Z" access="Anonymous,Authenticated" />
+        <sec:intercept-url pattern="\A/content/admin-plugin/resources/admin-plugin-require-js-cfg.js\Z" access="Anonymous,Authenticated" />
         <sec:intercept-url pattern="\A/content/data-access/resources/gwt/.*css\Z" access="Anonymous,Authenticated" />
         <sec:intercept-url pattern="\A/webcontext.js.*\Z" access="Anonymous,Authenticated" />
         <sec:intercept-url pattern="\A/content/common-ui/resources/web/cache/cache-service.js.*\Z" access="Anonymous,Authenticated" />
