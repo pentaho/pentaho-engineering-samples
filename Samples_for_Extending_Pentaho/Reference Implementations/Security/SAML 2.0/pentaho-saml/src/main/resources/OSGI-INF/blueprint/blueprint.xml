@@ -99,6 +99,9 @@
 
       <!-- default key -->
       <cm:property name="saml.keystore.default.key" value="apollo" /> <!-- default -->
+      
+      <!-- signature algorithm -->
+      <cm:property name="saml.signature.digest.algorithm" value="SHA1" /> <!-- default -->
 
       <!-- ========================== -->
       <!-- logout settings            -->
@@ -308,7 +311,9 @@
 
 
   <!-- Initialization of of OpenSAML library via SAMLBootstrap  -->
-  <bean id="pentahoSamlBootstrap" class="org.pentaho.platform.spring.security.saml.PentahoSamlBootstrap" init-method="bootstrap" />
+  <bean id="pentahoSamlBootstrap" class="org.pentaho.platform.spring.security.saml.PentahoSamlBootstrap" init-method="afterPropertiesBootstrap">
+  	<property name="signatureDigestAlgorithm" value="${saml.signature.digest.algorithm}" />
+  </bean>
 
   <!-- Delegate to provider of SAML Context -->
   <bean id="contextProvider" class="org.pentaho.platform.spring.security.saml.PentahoSamlContextProviderDelegate" init-method="afterPropertiesSet">
