@@ -1,3 +1,14 @@
+/*! ******************************************************************************
+ *
+ * Pentaho
+ *
+ * Copyright (C) 2026 by Pentaho Canada Inc. : http://www.pentaho.com
+ *
+ * Use of this software is governed by the Business Source License included
+ * in the LICENSE.TXT file.
+ *
+ * Change Date: 2030-06-15
+ ******************************************************************************/
 /* The contents of this file are based on
  * from http://bl.ocks.org/ropeladder/83915942ac42f17c087a82001418f2ee
  */
